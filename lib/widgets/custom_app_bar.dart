@@ -16,7 +16,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       centerTitle: true,
       title: Text(
-        'Title Song',
+        'Let There Be Rock',
         style: TextStyle(color: AppColors.black),
       ),
       actions: [
