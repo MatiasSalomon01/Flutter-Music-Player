@@ -34,36 +34,67 @@ class PlayScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Let There Be Rock',
-                  style: TextStyle(
-                    color: AppColors.black,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 50),
+              alignment: AlignmentDirectional.centerStart,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Let There Be Rock',
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: AppColors.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                const Text(
-                  'AC/DC',
-                  style: TextStyle(
-                    color: Colors.black54,
-                    fontSize: 16,
+                  const Text(
+                    'AC/DC',
+                    style: TextStyle(
+                      color: Colors.black54,
+                      fontSize: 16,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             Container(
               margin: const EdgeInsets.symmetric(vertical: 40),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: const [
-                  Icon(Icons.shuffle_outlined, size: 25),
-                  Icon(Icons.folder_open_outlined, size: 25),
-                  Icon(Icons.download, size: 25),
-                  Icon(Icons.repeat, size: 25),
-                  Icon(Icons.favorite_outline, size: 25),
+                children: [
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(Icons.shuffle_outlined, size: 25),
+                    padding: EdgeInsets.zero,
+                    splashRadius: 20,
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(Icons.folder_open_outlined, size: 25),
+                    padding: EdgeInsets.zero,
+                    splashRadius: 20,
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(Icons.download, size: 25),
+                    padding: EdgeInsets.zero,
+                    splashRadius: 20,
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(Icons.repeat, size: 25),
+                    padding: EdgeInsets.zero,
+                    splashRadius: 20,
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(Icons.favorite_outline, size: 25),
+                    padding: EdgeInsets.zero,
+                    splashRadius: 20,
+                  ),
                 ],
               ),
             ),
@@ -76,7 +107,7 @@ class PlayScreen extends StatelessWidget {
                     child: Slider(
                       activeColor: AppColors.barColor,
                       inactiveColor: Colors.black26,
-                      value: 0.6,
+                      value: 0.3,
                       onChanged: (value) {
                         print(value);
                       },
