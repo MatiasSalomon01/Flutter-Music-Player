@@ -1,9 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:music_player/providers/song_provider.dart';
 import 'package:music_player/screens/screens.dart';
 import 'package:music_player/theme/themedata.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(const AppState());
+}
+
+class AppState extends StatelessWidget {
+  const AppState({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => SongProvider()),
+      ],
+      child: const MainApp(),
+    );
+  }
 }
 
 class MainApp extends StatelessWidget {
