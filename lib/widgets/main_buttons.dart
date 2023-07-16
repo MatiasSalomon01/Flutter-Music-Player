@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:music_player/colors/colors.dart';
+import 'package:music_player/providers/song_provider.dart';
+import 'package:provider/provider.dart';
 
 class MainButtons extends StatelessWidget {
   const MainButtons({
@@ -8,6 +10,7 @@ class MainButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final songProvider = Provider.of<SongProvider>(context);
     return Container(
       margin: const EdgeInsets.only(top: 30),
       child: Row(
@@ -28,9 +31,9 @@ class MainButtons extends StatelessWidget {
             ),
             child: IconButton(
               padding: EdgeInsets.zero,
-              onPressed: () {},
-              icon: const Icon(
-                Icons.play_arrow,
+              onPressed: () => songProvider.start(),
+              icon: Icon(
+                songProvider.isPlaying == true ? Icons.pause : Icons.play_arrow,
                 color: Colors.white,
                 size: 35,
               ),
