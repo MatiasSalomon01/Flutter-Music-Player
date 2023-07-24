@@ -18,7 +18,7 @@ class _MainButtonsState extends State<MainButtons> {
 
   @override
   void dispose() {
-    audioProvider.dispose();
+    audioProvider.disposes();
     super.dispose();
   }
 

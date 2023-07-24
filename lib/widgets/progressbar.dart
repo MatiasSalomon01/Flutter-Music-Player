@@ -17,7 +17,7 @@ class _ProgressBarState extends State<ProgressBar> {
 
   @override
   void dispose() {
-    audioProvider.dispose();
+    audioProvider.disposes();
     super.dispose();
   }
 
@@ -25,6 +25,7 @@ class _ProgressBarState extends State<ProgressBar> {
   Widget build(BuildContext context) {
     final songProvider = Provider.of<SongProvider>(context);
     audioProvider = Provider.of<AudioProvider>(context);
+    final totalDuration = audioProvider.total.inSeconds;
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 25),
       child: Row(
@@ -37,10 +38,9 @@ class _ProgressBarState extends State<ProgressBar> {
               child: Slider(
                 activeColor: AppColors.barColor,
                 inactiveColor: Colors.black26,
-                value: songProvider.sliderValue,
-                onChanged: (value) {
-                  songProvider.sliderValue = value;
-                },
+                value:
+                    double.parse(audioProvider.sliderValue.toStringAsFixed(4)),
+                onChanged: (value) {},
               ),
             ),
           ),

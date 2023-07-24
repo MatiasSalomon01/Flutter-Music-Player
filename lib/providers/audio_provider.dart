@@ -26,6 +26,9 @@ class AudioProvider extends ChangeNotifier {
       current = position;
       buffered = oldbuffered;
       total = oldtotal;
+      sliderValue = (position.inSeconds / total.inSeconds).isNaN
+          ? sliderValue
+          : (position.inSeconds / total.inSeconds);
     });
 
     //Listener para el buffer de la cancion
@@ -47,7 +50,7 @@ class AudioProvider extends ChangeNotifier {
   }
 
   static const url =
-      'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3';
+      'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3';
 
   late AudioPlayer _audioPlayer;
 
@@ -87,6 +90,15 @@ class AudioProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  double _sliderValue = 0;
+
+  double get sliderValue => _sliderValue;
+
+  set sliderValue(double value) {
+    _sliderValue = value;
+    notifyListeners();
+  }
+
   void _init() async {
     _audioPlayer = AudioPlayer();
     await _audioPlayer.setUrl(url);
@@ -94,7 +106,7 @@ class AudioProvider extends ChangeNotifier {
 
   void play() => _audioPlayer.play();
   void pause() => _audioPlayer.pause();
-  void dispose() => _audioPlayer.dispose();
+  void disposes() => _audioPlayer.dispose();
 }
 
 enum SongState { isPlaying, isPaused, isLoading }
