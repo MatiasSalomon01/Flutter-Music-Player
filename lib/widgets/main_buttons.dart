@@ -1,16 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:music_player/colors/colors.dart';
+import 'package:music_player/providers/audio_provider.dart';
 import 'package:music_player/providers/song_provider.dart';
 import 'package:provider/provider.dart';
 
-class MainButtons extends StatelessWidget {
+class MainButtons extends StatefulWidget {
   const MainButtons({
     super.key,
   });
 
   @override
+  State<MainButtons> createState() => _MainButtonsState();
+}
+
+class _MainButtonsState extends State<MainButtons> {
+  late AudioProvider audioProvider;
+
+  @override
+  void dispose() {
+    audioProvider.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final songProvider = Provider.of<SongProvider>(context);
+    audioProvider = Provider.of<AudioProvider>(context);
     return Container(
       margin: const EdgeInsets.only(top: 30),
       padding: const EdgeInsets.all(10),
@@ -38,11 +53,21 @@ class MainButtons extends StatelessWidget {
             ),
             child: IconButton(
               padding: EdgeInsets.zero,
-              onPressed: () => songProvider.start(),
-              icon: Icon(
-                songProvider.isPlaying == true ? Icons.pause : Icons.play_arrow,
-                size: 35,
-              ),
+              onPressed: audioProvider.songState == SongState.isLoading
+                  ? null
+                  : () => audioProvider.songState == SongState.isPlaying
+                      ? audioProvider.pause()
+                      : audioProvider.play(),
+              icon: audioProvider.songState == SongState.isLoading
+                  ? const CircularProgressIndicator(
+                      color: Colors.black,
+                    )
+                  : Icon(
+                      audioProvider.songState == SongState.isPlaying
+                          ? Icons.pause
+                          : Icons.play_arrow,
+                      size: 35,
+                    ),
               splashRadius: .1,
             ),
           ),
