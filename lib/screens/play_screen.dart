@@ -12,6 +12,7 @@ class PlayScreen extends StatelessWidget {
       appBar: const CustomAppBar(),
       body: SizedBox(
         width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
         child: Column(
           children: const [
             AlbumImage(),

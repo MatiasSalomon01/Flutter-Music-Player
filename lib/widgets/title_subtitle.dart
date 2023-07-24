@@ -9,7 +9,7 @@ class TitleSubTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 50),
+      margin: const EdgeInsets.only(top: 50, left: 50),
       alignment: AlignmentDirectional.centerStart,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

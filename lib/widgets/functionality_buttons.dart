@@ -8,7 +8,7 @@ class FuntionalityButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 40),
+      margin: const EdgeInsets.symmetric(vertical: 30),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
