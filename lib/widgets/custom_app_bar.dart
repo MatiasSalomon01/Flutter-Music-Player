@@ -7,24 +7,24 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: AppColors.appBarBackground,
+      backgroundColor: Colors.transparent,
       elevation: 0,
       leading: Icon(
         Icons.keyboard_arrow_down_rounded,
-        color: AppColors.black,
+        color: AppColors.background,
         size: 30,
       ),
       centerTitle: true,
       title: Text(
         'Let There Be Rock',
-        style: TextStyle(color: AppColors.black),
+        style: TextStyle(color: AppColors.background),
       ),
       actions: [
         Padding(
           padding: const EdgeInsets.only(right: 8),
           child: Icon(
             Icons.more_vert_rounded,
-            color: AppColors.black,
+            color: AppColors.background,
             size: 28,
           ),
         ),

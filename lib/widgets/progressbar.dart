@@ -15,7 +15,7 @@ class ProgressBar extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 25),
       child: Row(
         children: [
-          const Text('0:00', style: TextStyle(color: Colors.grey)),
+          Text('0:00', style: TextStyle(color: AppColors.background)),
           Expanded(
             child: Container(
               margin: const EdgeInsets.symmetric(horizontal: 4),
@@ -29,7 +29,7 @@ class ProgressBar extends StatelessWidget {
               ),
             ),
           ),
-          const Text('6:06', style: TextStyle(color: Colors.grey)),
+          Text('6:06', style: TextStyle(color: AppColors.background)),
         ],
       ),
     );

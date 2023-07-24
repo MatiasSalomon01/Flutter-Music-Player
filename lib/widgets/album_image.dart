@@ -10,7 +10,7 @@ class AlbumImage extends StatelessWidget {
     return Container(
       height: 220,
       width: 220,
-      margin: const EdgeInsets.only(top: 50),
+      margin: const EdgeInsets.only(top: 70),
       decoration: const BoxDecoration(
         boxShadow: [
           BoxShadow(

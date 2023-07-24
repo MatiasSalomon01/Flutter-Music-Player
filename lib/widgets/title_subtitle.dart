@@ -9,17 +9,17 @@ class TitleSubTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 50, left: 50),
+      margin: const EdgeInsets.only(top: 50, left: 50, right: 50),
       alignment: AlignmentDirectional.centerStart,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             'Let There Be Rock',
-            maxLines: 2,
+            maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
-              color: AppColors.black,
+              color: AppColors.background,
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
@@ -27,7 +27,7 @@ class TitleSubTitle extends StatelessWidget {
           const Text(
             'AC/DC',
             style: TextStyle(
-              color: Colors.black54,
+              color: Colors.white60,
               fontSize: 16,
             ),
           ),
