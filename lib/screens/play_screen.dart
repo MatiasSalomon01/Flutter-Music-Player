@@ -14,17 +14,17 @@ class PlayScreen extends StatelessWidget {
       extendBodyBehindAppBar: true,
       appBar: const CustomAppBar(),
       body: Container(
-        padding: EdgeInsets.only(top: kToolbarHeight),
-        decoration: BoxDecoration(
+        padding: const EdgeInsets.only(top: kToolbarHeight),
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/acdc.jpg'),
             fit: BoxFit.fill,
           ),
         ),
         child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+          filter: ImageFilter.blur(sigmaX: 25, sigmaY: 25),
           child: Column(
-            children: [
+            children: const [
               AlbumImage(),
               TitleSubTitle(),
               FuntionalityButtons(),
