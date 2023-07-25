@@ -14,8 +14,11 @@ class AudioProvider extends ChangeNotifier {
         songState = SongState.isLoading;
       } else if (!isPlaying) {
         songState = SongState.isPaused;
-      } else {
+      } else if (processingState != ProcessingState.completed) {
         songState = SongState.isPlaying;
+      } else {
+        _audioPlayer.seek(Duration.zero);
+        pause();
       }
     });
 
@@ -106,6 +109,7 @@ class AudioProvider extends ChangeNotifier {
 
   void play() => _audioPlayer.play();
   void pause() => _audioPlayer.pause();
+  void seek(Duration position) => _audioPlayer.seek(position);
   void disposes() => _audioPlayer.dispose();
 }
 

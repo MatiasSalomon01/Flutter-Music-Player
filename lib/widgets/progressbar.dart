@@ -40,7 +40,8 @@ class _ProgressBarState extends State<ProgressBar> {
                 inactiveColor: Colors.black26,
                 value:
                     double.parse(audioProvider.sliderValue.toStringAsFixed(4)),
-                onChanged: (value) {},
+                onChanged: (value) =>
+                    audioProvider.seek(audioProvider.total * value),
               ),
             ),
           ),
