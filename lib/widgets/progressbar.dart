@@ -23,9 +23,7 @@ class _ProgressBarState extends State<ProgressBar> {
 
   @override
   Widget build(BuildContext context) {
-    final songProvider = Provider.of<SongProvider>(context);
     audioProvider = Provider.of<AudioProvider>(context);
-    final totalDuration = audioProvider.total.inSeconds;
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 25),
       child: Row(

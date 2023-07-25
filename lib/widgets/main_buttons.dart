@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:music_player/colors/colors.dart';
 import 'package:music_player/providers/audio_provider.dart';
-import 'package:music_player/providers/song_provider.dart';
 import 'package:provider/provider.dart';
 
 class MainButtons extends StatefulWidget {
@@ -24,7 +23,6 @@ class _MainButtonsState extends State<MainButtons> {
 
   @override
   Widget build(BuildContext context) {
-    final songProvider = Provider.of<SongProvider>(context);
     audioProvider = Provider.of<AudioProvider>(context);
     return Container(
       margin: const EdgeInsets.only(top: 30, bottom: 50),
