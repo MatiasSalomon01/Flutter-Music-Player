@@ -30,7 +30,11 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const PlayScreen(),
+      initialRoute: 'home',
+      routes: {
+        'home': (context) => const HomeScreen(),
+        'player': (context) => const PlayerScreen(),
+      },
       theme: CustomThemeData.themeData,
     );
   }
