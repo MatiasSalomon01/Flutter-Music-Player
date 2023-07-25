@@ -8,8 +8,8 @@ class AlbumImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 220,
-      width: 220,
+      height: 250,
+      width: 250,
       margin: const EdgeInsets.only(top: 70),
       decoration: const BoxDecoration(
         boxShadow: [

@@ -26,6 +26,7 @@ class PlayScreen extends StatelessWidget {
           child: Column(
             children: const [
               AlbumImage(),
+              Spacer(),
               TitleSubTitle(),
               FuntionalityButtons(),
               ProgressBar(),

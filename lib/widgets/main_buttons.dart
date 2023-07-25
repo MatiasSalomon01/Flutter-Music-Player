@@ -27,7 +27,7 @@ class _MainButtonsState extends State<MainButtons> {
     final songProvider = Provider.of<SongProvider>(context);
     audioProvider = Provider.of<AudioProvider>(context);
     return Container(
-      margin: const EdgeInsets.only(top: 30),
+      margin: const EdgeInsets.only(top: 30, bottom: 50),
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: Colors.grey.withOpacity(.2),
