@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 
 class AudioProvider extends ChangeNotifier {
-  AudioProvider(String url) {
-    setUrl = url;
+  AudioProvider() {
     _init();
 
     //Listener para el estado de la cancion
@@ -60,8 +59,7 @@ class AudioProvider extends ChangeNotifier {
   String get url => _url;
 
   set setUrl(String value) {
-    _url = value;
-    notifyListeners();
+    _audioPlayer.setUrl(value);
   }
 
   SongState _songState = SongState.isPaused;
@@ -111,13 +109,13 @@ class AudioProvider extends ChangeNotifier {
 
   void _init() async {
     _audioPlayer = AudioPlayer();
-    await _audioPlayer.setUrl(url);
+    // await _audioPlayer.setUrl(url);
   }
 
   void play() => _audioPlayer.play();
   void pause() => _audioPlayer.pause();
   void seek(Duration position) => _audioPlayer.seek(position);
-  void disposes() => _audioPlayer.dispose();
+  // void disposes() => _audioPlayer.dispose();
 }
 
 enum SongState { isPlaying, isPaused, isLoading }

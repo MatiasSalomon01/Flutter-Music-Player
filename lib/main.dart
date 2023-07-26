@@ -18,6 +18,7 @@ class AppState extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => SongProvider()),
         ChangeNotifierProvider(create: (context) => SongService()),
+        ChangeNotifierProvider(create: (context) => AudioProvider()),
       ],
       child: const MainApp(),
     );

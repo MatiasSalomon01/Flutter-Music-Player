@@ -7,39 +7,49 @@ import 'package:music_player/providers/providers.dart';
 import 'package:music_player/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
-class PlayerScreen extends StatelessWidget {
+class PlayerScreen extends StatefulWidget {
   final SongModel song;
   const PlayerScreen({super.key, required this.song});
 
   @override
+  State<PlayerScreen> createState() => _PlayerScreenState();
+}
+
+class _PlayerScreenState extends State<PlayerScreen> {
+  @override
+  void initState() {
+    var audioProvider = Provider.of<AudioProvider>(context, listen: false);
+    audioProvider.setUrl = widget.song.url;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => AudioProvider(song.url),
-      child: Scaffold(
-        backgroundColor: AppColors.background,
-        extendBodyBehindAppBar: true,
-        appBar: CustomAppBar(title: song.title),
-        body: Container(
-          padding: const EdgeInsets.only(top: kToolbarHeight),
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: NetworkImage(song.backgroundImage),
-              fit: BoxFit.fill,
-            ),
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      extendBodyBehindAppBar: true,
+      appBar: CustomAppBar(title: widget.song.title),
+      body: Container(
+        padding: const EdgeInsets.only(top: kToolbarHeight),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: NetworkImage(widget.song.backgroundImage),
+            fit: BoxFit.fill,
           ),
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 25, sigmaY: 25),
-            child: Column(
-              children: [
-                AlbumImage(image: song.albumImage),
-                TitleSubTitle(title: song.title, subtitle: song.artists),
-                const FuntionalityButtons(),
-                const Spacer(),
-                const ProgressBar(),
-                const Spacer(),
-                const MainButtons(),
-              ],
-            ),
+        ),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 25, sigmaY: 25),
+          child: Column(
+            children: [
+              AlbumImage(image: widget.song.albumImage),
+              TitleSubTitle(
+                  title: widget.song.title, subtitle: widget.song.artists),
+              const FuntionalityButtons(),
+              const Spacer(),
+              const ProgressBar(),
+              const Spacer(),
+              const MainButtons(),
+            ],
           ),
         ),
       ),

@@ -16,12 +16,6 @@ class _MainButtonsState extends State<MainButtons> {
   late AudioProvider audioProvider;
 
   @override
-  void dispose() {
-    audioProvider.disposes();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     audioProvider = Provider.of<AudioProvider>(context);
     return Container(

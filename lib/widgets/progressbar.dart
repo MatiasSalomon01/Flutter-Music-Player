@@ -14,12 +14,6 @@ class _ProgressBarState extends State<ProgressBar> {
   late AudioProvider audioProvider;
 
   @override
-  void dispose() {
-    audioProvider.disposes();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     audioProvider = Provider.of<AudioProvider>(context);
     return Container(

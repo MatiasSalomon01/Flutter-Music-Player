@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:music_player/constants/constants.dart';
+import 'package:music_player/models/models.dart';
 import 'package:music_player/services/song_service.dart';
 import 'package:music_player/widgets/custom_listtile.dart';
 import 'package:provider/provider.dart';
@@ -12,7 +13,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  bool isDefault = false;
+  bool isDefault = true;
+  late List<SongModel> list;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -40,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Container(
               margin: const EdgeInsets.symmetric(vertical: 20),
               height: 60,
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                   color: darkGrey, borderRadius: BorderRadius.circular(100)),
               child: Row(
@@ -55,7 +57,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50))),
                     ),
-                    onPressed: () => setState(() => isDefault = true),
+                    onPressed: () => setState(
+                        () => songService.songs = songService.songsCopy),
                     child: const Text('Sin Copyright'),
                   ),
                   const SizedBox(width: 20),
@@ -69,36 +72,25 @@ class _HomeScreenState extends State<HomeScreen> {
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50))),
                     ),
-                    onPressed: () => setState(() => isDefault = false),
+                    onPressed: () =>
+                        setState(() => songService.songs = defaultSongs),
                     child: const Text('De Prueba'),
                   )
                 ],
               ),
             ),
-            if (!isDefault) ...[
-              Expanded(
-                child: ListView.separated(
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: defaultSongs.length,
-                  itemBuilder: (context, index) =>
-                      CustomListTile(data: defaultSongs[index]),
-                  separatorBuilder: (context, index) =>
-                      const Divider(color: Colors.grey),
-                ),
-              )
-            ] else ...[
-              Expanded(
-                child: ListView.separated(
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: songService.songs.length,
-                  itemBuilder: (context, index) =>
-                      CustomListTile(data: songService.songs[index]),
-                  separatorBuilder: (context, index) =>
-                      const Divider(color: Colors.grey),
-                ),
-              )
-            ],
+            Expanded(
+              child: ListView.separated(
+                physics: const BouncingScrollPhysics(),
+                itemCount: songService.songs.length,
+                itemBuilder: (context, index) =>
+                    CustomListTile(data: songService.songs[index]),
+                separatorBuilder: (context, index) =>
+                    const Divider(color: Colors.grey),
+              ),
+            )
           ],
+          // ],
         ),
       ),
     );
