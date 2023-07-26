@@ -32,10 +32,11 @@ class PlayerScreen extends StatelessWidget {
             child: Column(
               children: [
                 AlbumImage(image: song.albumImage),
-                const Spacer(),
                 TitleSubTitle(title: song.title, subtitle: song.artists),
                 const FuntionalityButtons(),
+                const Spacer(),
                 const ProgressBar(),
+                const Spacer(),
                 const MainButtons(),
               ],
             ),

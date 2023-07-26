@@ -25,7 +25,7 @@ class _MainButtonsState extends State<MainButtons> {
   Widget build(BuildContext context) {
     audioProvider = Provider.of<AudioProvider>(context);
     return Container(
-      margin: const EdgeInsets.only(top: 30, bottom: 50),
+      margin: const EdgeInsets.only(bottom: 35),
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: Colors.grey.withOpacity(.2),
