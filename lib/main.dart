@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:music_player/providers/providers.dart';
 import 'package:music_player/screens/screens.dart';
+import 'package:music_player/services/song_service.dart';
 import 'package:music_player/theme/themedata.dart';
 import 'package:provider/provider.dart';
 
@@ -16,7 +17,7 @@ class AppState extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => SongProvider()),
-        // ChangeNotifierProvider(create: (context) => AudioProvider()),
+        ChangeNotifierProvider(create: (context) => SongService()),
       ],
       child: const MainApp(),
     );

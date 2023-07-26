@@ -16,7 +16,14 @@ class CustomListTile extends StatelessWidget {
         ),
       ),
       selectedTileColor: Colors.red,
-      leading: Image.asset(data.albumImage),
+      leading: ClipRRect(
+        borderRadius: BorderRadius.circular(8),
+        child: Image.network(
+          data.albumImage,
+          width: 70,
+          height: 70,
+        ),
+      ),
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,

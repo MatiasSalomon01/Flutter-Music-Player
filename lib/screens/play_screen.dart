@@ -18,12 +18,12 @@ class PlayerScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: AppColors.background,
         extendBodyBehindAppBar: true,
-        appBar: const CustomAppBar(),
+        appBar: CustomAppBar(title: song.title),
         body: Container(
           padding: const EdgeInsets.only(top: kToolbarHeight),
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage(song.backgroundImage),
+              image: NetworkImage(song.backgroundImage),
               fit: BoxFit.fill,
             ),
           ),

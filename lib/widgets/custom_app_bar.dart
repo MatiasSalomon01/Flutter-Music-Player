@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:music_player/colors/colors.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const CustomAppBar({super.key});
+  final String title;
+  const CustomAppBar({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       centerTitle: true,
       title: Text(
-        'Let There Be Rock',
+        title,
         style: TextStyle(color: AppColors.background),
       ),
       actions: [
