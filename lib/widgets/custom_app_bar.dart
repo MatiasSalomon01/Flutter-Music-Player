@@ -9,10 +9,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       backgroundColor: Colors.transparent,
       elevation: 0,
-      leading: Icon(
-        Icons.keyboard_arrow_down_rounded,
-        color: AppColors.background,
-        size: 30,
+      leading: GestureDetector(
+        onTap: () => Navigator.of(context).pop(),
+        child: Icon(
+          Icons.keyboard_arrow_down_rounded,
+          color: AppColors.background,
+          size: 30,
+        ),
       ),
       centerTitle: true,
       title: Text(

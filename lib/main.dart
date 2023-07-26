@@ -16,7 +16,7 @@ class AppState extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => SongProvider()),
-        ChangeNotifierProvider(create: (context) => AudioProvider()),
+        // ChangeNotifierProvider(create: (context) => AudioProvider()),
       ],
       child: const MainApp(),
     );
@@ -30,11 +30,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: 'home',
-      routes: {
-        'home': (context) => const HomeScreen(),
-        'player': (context) => const PlayerScreen(),
-      },
+      home: const HomeScreen(),
       theme: CustomThemeData.themeData,
     );
   }

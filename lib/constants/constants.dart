@@ -57,3 +57,4 @@ final defaultSongs = [
 const darkGrey = Color(0xff121212);
 const black = Colors.black;
 const white = Colors.white;
+const transparent = Colors.transparent;

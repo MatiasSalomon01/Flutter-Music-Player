@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AlbumImage extends StatelessWidget {
-  const AlbumImage({
-    super.key,
-  });
+  final String image;
+  const AlbumImage({super.key, required this.image});
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +21,8 @@ class AlbumImage extends StatelessWidget {
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(10),
-        child: const Image(
-          image: AssetImage('assets/acdc.jpg'),
+        child: Image(
+          image: AssetImage(image),
           fit: BoxFit.cover,
         ),
       ),

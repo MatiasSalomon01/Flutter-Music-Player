@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 
 class AudioProvider extends ChangeNotifier {
-  AudioProvider() {
+  AudioProvider(String url) {
+    setUrl = url;
     _init();
 
     //Listener para el estado de la cancion
@@ -52,10 +53,16 @@ class AudioProvider extends ChangeNotifier {
     });
   }
 
-  static const url =
-      'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3';
-
   late AudioPlayer _audioPlayer;
+
+  late String _url;
+
+  String get url => _url;
+
+  set setUrl(String value) {
+    _url = value;
+    notifyListeners();
+  }
 
   SongState _songState = SongState.isPaused;
 
@@ -71,8 +78,8 @@ class AudioProvider extends ChangeNotifier {
   Duration get current => _current;
 
   set current(Duration value) {
-    notifyListeners();
     _current = value;
+    notifyListeners();
   }
 
   Duration _buffered = Duration.zero;

@@ -4,9 +4,7 @@ import 'package:music_player/providers/providers.dart';
 import 'package:provider/provider.dart';
 
 class ProgressBar extends StatefulWidget {
-  const ProgressBar({
-    super.key,
-  });
+  const ProgressBar({super.key});
 
   @override
   State<ProgressBar> createState() => _ProgressBarState();
