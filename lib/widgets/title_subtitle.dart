@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:music_player/colors/colors.dart';
 
 class TitleSubTitle extends StatelessWidget {
+  final String title;
+  final String subtitle;
+
   const TitleSubTitle({
     super.key,
+    required this.title,
+    required this.subtitle,
   });
 
   @override
@@ -15,7 +20,7 @@ class TitleSubTitle extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Let There Be Rock',
+            title,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
@@ -24,9 +29,9 @@ class TitleSubTitle extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          const Text(
-            'AC/DC',
-            style: TextStyle(
+          Text(
+            subtitle,
+            style: const TextStyle(
               color: Colors.white60,
               fontSize: 16,
             ),

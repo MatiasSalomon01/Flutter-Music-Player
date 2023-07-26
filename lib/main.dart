@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:music_player/providers/song_provider.dart';
+import 'package:music_player/providers/providers.dart';
 import 'package:music_player/screens/screens.dart';
 import 'package:music_player/theme/themedata.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +16,7 @@ class AppState extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => SongProvider()),
+        // ChangeNotifierProvider(create: (context) => AudioProvider()),
       ],
       child: const MainApp(),
     );
@@ -29,7 +30,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const PlayScreen(),
+      home: const HomeScreen(),
       theme: CustomThemeData.themeData,
     );
   }

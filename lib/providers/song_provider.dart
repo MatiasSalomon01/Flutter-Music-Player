@@ -1,8 +1,5 @@
 import 'dart:async';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class SongProvider extends ChangeNotifier {
   double _sliderValue = 0;
