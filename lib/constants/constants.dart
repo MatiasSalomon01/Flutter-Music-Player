@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:music_player/models/models.dart';
 
 final defaultSongs = [
@@ -49,6 +50,10 @@ final defaultSongs = [
   SongModel(
       id: 10,
       title: 'SoundHelix-Song-10',
-      artists: 'SoundHelix-',
+      artists: 'SoundHelix',
       url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3'),
 ];
+
+const darkGrey = Color(0xff121212);
+const black = Colors.black;
+const white = Colors.white;
