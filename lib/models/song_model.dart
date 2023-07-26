@@ -25,4 +25,7 @@ class SongModel {
         albumImage: json["image"],
         backgroundImage: json["backgroundImage"],
       );
+
+  factory SongModel.empty() =>
+      SongModel(id: "", title: "", artists: "", url: "");
 }

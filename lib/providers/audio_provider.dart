@@ -114,6 +114,7 @@ class AudioProvider extends ChangeNotifier {
 
   void play() => _audioPlayer.play();
   void pause() => _audioPlayer.pause();
+  void stop() => _audioPlayer.stop();
   void seek(Duration position) => _audioPlayer.seek(position);
   // void disposes() => _audioPlayer.dispose();
 }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:music_player/colors/colors.dart';
 import 'package:music_player/models/models.dart';
 import 'package:music_player/providers/providers.dart';
+import 'package:music_player/services/song_service.dart';
 import 'package:music_player/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -20,11 +21,14 @@ class _PlayerScreenState extends State<PlayerScreen> {
   void initState() {
     var audioProvider = Provider.of<AudioProvider>(context, listen: false);
     audioProvider.setUrl = widget.song.url;
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    var songService = Provider.of<SongService>(context);
+    songService.currentSong = widget.song;
     return Scaffold(
       backgroundColor: AppColors.background,
       extendBodyBehindAppBar: true,

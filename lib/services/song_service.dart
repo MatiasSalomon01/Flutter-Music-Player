@@ -45,4 +45,17 @@ class SongService extends ChangeNotifier {
     _songsCopy = _songs;
     notifyListeners();
   }
+
+  SongModel _currentSong = SongModel.empty();
+
+  SongModel get currentSong => _currentSong;
+
+  set currentSong(SongModel value) {
+    _currentSong = value;
+  }
+
+  void setCurrentSong() {
+    _currentSong = currentSong;
+    notifyListeners();
+  }
 }
