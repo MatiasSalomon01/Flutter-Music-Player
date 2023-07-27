@@ -22,7 +22,7 @@ class AlbumImage extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(10),
         child: Image(
-          image: AssetImage(image),
+          image: NetworkImage(image),
           fit: BoxFit.cover,
         ),
       ),

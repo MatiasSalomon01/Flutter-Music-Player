@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:music_player/constants/constants.dart';
 import 'package:music_player/models/models.dart';
 import 'package:music_player/screens/screens.dart';
+import 'package:music_player/services/song_service.dart';
+import 'package:provider/provider.dart';
 
 class CustomListTile extends StatelessWidget {
   final SongModel data;
@@ -9,6 +11,8 @@ class CustomListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final songService = Provider.of<SongService>(context);
+
     return ListTile(
       onTap: () => Navigator.of(context).push(
         MaterialPageRoute(
@@ -16,7 +20,14 @@ class CustomListTile extends StatelessWidget {
         ),
       ),
       selectedTileColor: Colors.red,
-      leading: Image.asset(data.albumImage),
+      leading: ClipRRect(
+        borderRadius: BorderRadius.circular(8),
+        child: Image.network(
+          data.albumImage,
+          width: 70,
+          height: 70,
+        ),
+      ),
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:music_player/colors/colors.dart';
+import 'package:music_player/services/song_service.dart';
+import 'package:provider/provider.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const CustomAppBar({super.key});
+  final String title;
+  const CustomAppBar({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +13,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Colors.transparent,
       elevation: 0,
       leading: GestureDetector(
-        onTap: () => Navigator.of(context).pop(),
+        onTap: () {
+          var songService =
+              Provider.of<SongService>(context, listen: false).setCurrentSong();
+
+          Navigator.of(context).pop();
+        },
         child: Icon(
           Icons.keyboard_arrow_down_rounded,
           color: AppColors.background,
@@ -19,7 +27,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       centerTitle: true,
       title: Text(
-        'Let There Be Rock',
+        title,
         style: TextStyle(color: AppColors.background),
       ),
       actions: [
