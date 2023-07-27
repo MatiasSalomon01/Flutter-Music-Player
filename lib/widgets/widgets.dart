@@ -1,3 +1,5 @@
+export 'package:music_player/widgets/custom_animated_icon.dart';
+export 'package:music_player/widgets/preview.dart';
 export 'package:music_player/widgets/custom_listtile.dart';
 export 'package:music_player/widgets/main_buttons.dart';
 export 'package:music_player/widgets/progressbar.dart';

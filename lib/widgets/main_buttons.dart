@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:music_player/colors/colors.dart';
 import 'package:music_player/providers/audio_provider.dart';
+import 'package:music_player/services/song_service.dart';
 import 'package:provider/provider.dart';
 
 class MainButtons extends StatefulWidget {
@@ -18,11 +19,14 @@ class _MainButtonsState extends State<MainButtons> {
   @override
   Widget build(BuildContext context) {
     audioProvider = Provider.of<AudioProvider>(context);
+    final songService = Provider.of<SongService>(context);
     return Container(
       margin: const EdgeInsets.only(bottom: 35),
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: Colors.grey.withOpacity(.2),
+        color: songService.isDefault
+            ? Colors.grey.withOpacity(.2)
+            : Colors.black.withOpacity(.2),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Row(
@@ -31,7 +35,7 @@ class _MainButtonsState extends State<MainButtons> {
         children: [
           IconButton(
             padding: EdgeInsets.zero,
-            onPressed: () {},
+            onPressed: () => previous(songService),
             icon: const Icon(Icons.skip_previous, size: 35),
             splashRadius: 24,
             color: AppColors.background,
@@ -65,7 +69,7 @@ class _MainButtonsState extends State<MainButtons> {
           ),
           IconButton(
             padding: EdgeInsets.zero,
-            onPressed: () {},
+            onPressed: () => next(songService),
             icon: const Icon(Icons.skip_next, size: 35),
             splashRadius: 24,
             color: AppColors.background,
@@ -73,5 +77,29 @@ class _MainButtonsState extends State<MainButtons> {
         ],
       ),
     );
+  }
+
+  void next(SongService songService) {
+    int nextIndex = songService.currentIndex + 1;
+
+    if (nextIndex == (songService.songs.length)) nextIndex = 0;
+
+    songService.currentSong = songService.songs[nextIndex];
+    audioProvider.setUrl = songService.currentSong.url;
+    songService.setCurrentSong();
+    songService.currentIndex = nextIndex;
+    if (audioProvider.songState == SongState.isPaused) audioProvider.play();
+  }
+
+  void previous(SongService songService) {
+    int nextIndex = songService.currentIndex - 1;
+
+    if (nextIndex < 0) nextIndex = songService.songs.length - 1;
+
+    songService.currentSong = songService.songs[nextIndex];
+    audioProvider.setUrl = songService.currentSong.url;
+    songService.setCurrentSong();
+    songService.currentIndex = nextIndex;
+    if (audioProvider.songState == SongState.isPaused) audioProvider.play();
   }
 }

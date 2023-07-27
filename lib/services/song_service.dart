@@ -58,4 +58,30 @@ class SongService extends ChangeNotifier {
     _currentSong = currentSong;
     notifyListeners();
   }
+
+  int _currentIndex = 0;
+
+  int get currentIndex => _currentIndex;
+
+  set currentIndex(int value) {
+    _currentIndex = value;
+  }
+
+  bool _isDefault = true;
+
+  bool get isDefault => _isDefault;
+
+  set isDefault(bool value) {
+    _isDefault = value;
+  }
+
+  void updateById(String id, bool isFavorite) {
+    _songs = _songs.map((e) {
+      if (e.id != id) return e;
+
+      e.isFavorite = isFavorite;
+      return e;
+    }).toList();
+    notifyListeners();
+  }
 }
