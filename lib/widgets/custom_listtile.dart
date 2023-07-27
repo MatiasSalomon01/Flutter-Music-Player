@@ -11,15 +11,12 @@ class CustomListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final songService = Provider.of<SongService>(context);
-
     return ListTile(
       onTap: () => Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) => PlayerScreen(song: data),
         ),
       ),
-      selectedTileColor: Colors.red,
       leading: ClipRRect(
         borderRadius: BorderRadius.circular(8),
         child: Image.network(

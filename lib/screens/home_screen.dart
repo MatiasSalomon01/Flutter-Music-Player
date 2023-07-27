@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:music_player/constants/constants.dart';
 import 'package:music_player/models/models.dart';
 import 'package:music_player/providers/audio_provider.dart';
+import 'package:music_player/screens/screens.dart';
 import 'package:music_player/services/song_service.dart';
 import 'package:music_player/widgets/custom_listtile.dart';
 import 'package:provider/provider.dart';
@@ -103,82 +104,82 @@ class _HomeScreenState extends State<HomeScreen> {
             if (songService.currentSong.id.isNotEmpty) ...[
               Positioned(
                 bottom: 0,
-                child: Container(
-                  width: size.width - 15,
-                  margin: const EdgeInsets.symmetric(horizontal: 10),
-                  padding: const EdgeInsets.only(right: 20, left: 30),
-                  height: 70,
-                  decoration: BoxDecoration(
-                    // color: Colors.red,
-                    border: Border.all(color: white, width: .2),
-                    borderRadius: BorderRadius.circular(10),
-                    image: DecorationImage(
-                      image:
-                          NetworkImage(songService.currentSong.backgroundImage),
-                      fit: BoxFit.cover,
-                      opacity: .5,
+                child: GestureDetector(
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          PlayerScreen(song: songService.currentSong),
                     ),
                   ),
-                  child: Row(
-                    children: [
-                      // ClipRRect(
-                      //   borderRadius: BorderRadius.circular(10),
-                      //   child: Image.network(
-                      //     songService.currentSong.albumImage,
-                      //     height: 70,
-                      //     width: 70,
-                      //   ),
-                      // ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(songService.currentSong.title,
-                              style:
-                                  const TextStyle(color: white, fontSize: 18)),
-                          Text(songService.currentSong.artists,
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 119, 119, 119),
-                                  fontSize: 16)),
-                        ],
+                  child: Container(
+                    width: size.width - 15,
+                    margin: const EdgeInsets.symmetric(horizontal: 10),
+                    padding: const EdgeInsets.only(right: 20, left: 30),
+                    height: 70,
+                    decoration: BoxDecoration(
+                      // color: Colors.red,
+                      border: Border.all(color: white, width: .2),
+                      borderRadius: BorderRadius.circular(10),
+                      image: DecorationImage(
+                        image: NetworkImage(
+                            songService.currentSong.backgroundImage),
+                        fit: BoxFit.cover,
+                        opacity: .5,
                       ),
-                      Spacer(),
-                      Material(
-                        color: Colors.transparent,
-                        child: IconButton(
-                          splashRadius: 20,
-                          highlightColor: darkGrey,
-                          onPressed: audioProvider.songState ==
-                                  SongState.isLoading
-                              ? null
-                              : () =>
-                                  audioProvider.songState == SongState.isPlaying
-                                      ? audioProvider.pause()
-                                      : audioProvider.play(),
-                          icon: Icon(
-                            audioProvider.songState == SongState.isPlaying
-                                ? Icons.pause
-                                : Icons.play_arrow,
-                            color: white,
+                    ),
+                    child: Row(
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(songService.currentSong.title,
+                                style: const TextStyle(
+                                    color: white, fontSize: 18)),
+                            Text(songService.currentSong.artists,
+                                style: const TextStyle(
+                                    color: Color.fromARGB(255, 119, 119, 119),
+                                    fontSize: 16)),
+                          ],
+                        ),
+                        const Spacer(),
+                        Material(
+                          color: Colors.transparent,
+                          child: IconButton(
+                            splashRadius: 20,
+                            highlightColor: darkGrey,
+                            onPressed:
+                                audioProvider.songState == SongState.isLoading
+                                    ? null
+                                    : () => audioProvider.songState ==
+                                            SongState.isPlaying
+                                        ? audioProvider.pause()
+                                        : audioProvider.play(),
+                            icon: Icon(
+                              audioProvider.songState == SongState.isPlaying
+                                  ? Icons.pause
+                                  : Icons.play_arrow,
+                              color: white,
+                            ),
                           ),
                         ),
-                      ),
-                      Material(
-                        color: Colors.transparent,
-                        child: IconButton(
-                          splashRadius: 20,
-                          highlightColor: darkGrey,
-                          onPressed: () {
-                            songService.currentSong = SongModel.empty();
-                            audioProvider.stop();
-                          },
-                          icon: Icon(
-                            Icons.stop,
-                            color: white,
+                        Material(
+                          color: Colors.transparent,
+                          child: IconButton(
+                            splashRadius: 20,
+                            highlightColor: darkGrey,
+                            onPressed: () {
+                              songService.currentSong = SongModel.empty();
+                              audioProvider.stop();
+                            },
+                            icon: const Icon(
+                              Icons.stop,
+                              color: white,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               )
