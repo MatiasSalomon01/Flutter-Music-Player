@@ -86,16 +86,18 @@ class _MainButtonsState extends State<MainButtons> {
     audioProvider.setUrl = songService.currentSong.url;
     songService.setCurrentSong();
     songService.currentIndex = nextIndex;
+    if (audioProvider.songState == SongState.isPaused) audioProvider.play();
   }
 
   void previous(SongService songService) {
     int nextIndex = songService.currentIndex - 1;
 
-    if (nextIndex == 0) nextIndex = songService.songs.length - 1;
+    if (nextIndex < 0) nextIndex = songService.songs.length - 1;
 
     songService.currentSong = songService.songs[nextIndex];
     audioProvider.setUrl = songService.currentSong.url;
     songService.setCurrentSong();
     songService.currentIndex = nextIndex;
+    if (audioProvider.songState == SongState.isPaused) audioProvider.play();
   }
 }
