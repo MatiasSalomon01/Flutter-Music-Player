@@ -34,15 +34,6 @@ class AudioProvider extends ChangeNotifier {
           : (position.inSeconds / total.inSeconds);
     });
 
-    //Listener para el buffer de la cancion
-    _audioPlayer.bufferedPositionStream.listen((bufferedPosition) {
-      final oldcurrent = current;
-      final oldtotal = total;
-      current = oldcurrent;
-      buffered = bufferedPosition;
-      total = oldtotal;
-    });
-
     _audioPlayer.durationStream.listen((totalDuration) {
       final oldcurrent = current;
       final oldbuffered = buffered;
