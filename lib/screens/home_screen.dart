@@ -7,6 +7,7 @@ import 'package:music_player/providers/audio_provider.dart';
 import 'package:music_player/screens/screens.dart';
 import 'package:music_player/services/song_service.dart';
 import 'package:music_player/widgets/custom_listtile.dart';
+import 'package:music_player/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -23,7 +24,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final songService = Provider.of<SongService>(context);
-    final audioProvider = Provider.of<AudioProvider>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: darkGrey,
@@ -103,90 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(height: 80)
               ],
             ),
-            if (songService.currentSong.id.isNotEmpty) ...[
-              Positioned(
-                bottom: 0,
-                child: GestureDetector(
-                  onTap: () => Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          PlayerScreen(song: songService.currentSong),
-                    ),
-                  ),
-                  child: Container(
-                    width: size.width - 20,
-                    margin:
-                        const EdgeInsets.only(left: 10, right: 10, bottom: 5),
-                    padding: const EdgeInsets.only(right: 10, left: 20),
-                    height: 70,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: white, width: .2),
-                      borderRadius: BorderRadius.circular(10),
-                      image: DecorationImage(
-                        image: NetworkImage(
-                            songService.currentSong.backgroundImage),
-                        fit: BoxFit.cover,
-                        colorFilter: ColorFilter.mode(
-                            Colors.black.withOpacity(.6), BlendMode.darken),
-                      ),
-                    ),
-                    child: Row(
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(songService.currentSong.title,
-                                style: const TextStyle(
-                                    color: white, fontSize: 18)),
-                            Text(songService.currentSong.artists,
-                                style: const TextStyle(
-                                    color: Color.fromARGB(255, 119, 119, 119),
-                                    fontSize: 16)),
-                          ],
-                        ),
-                        const Spacer(),
-                        Material(
-                          color: Colors.transparent,
-                          child: IconButton(
-                            splashRadius: 20,
-                            highlightColor: darkGrey,
-                            onPressed:
-                                audioProvider.songState == SongState.isLoading
-                                    ? null
-                                    : () => audioProvider.songState ==
-                                            SongState.isPlaying
-                                        ? audioProvider.pause()
-                                        : audioProvider.play(),
-                            icon: Icon(
-                              audioProvider.songState == SongState.isPlaying
-                                  ? Icons.pause
-                                  : Icons.play_arrow,
-                              color: white,
-                            ),
-                          ),
-                        ),
-                        Material(
-                          color: Colors.transparent,
-                          child: IconButton(
-                            splashRadius: 20,
-                            highlightColor: darkGrey,
-                            onPressed: () {
-                              songService.currentSong = SongModel.empty();
-                              audioProvider.stop();
-                            },
-                            icon: const Icon(
-                              Icons.stop,
-                              color: white,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              )
-            ]
+            if (songService.currentSong.id.isNotEmpty) const Preview()
           ],
         ),
       ),
