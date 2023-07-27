@@ -24,39 +24,42 @@ class _PlayerScreenState extends State<PlayerScreen> {
     songService = Provider.of<SongService>(context, listen: false);
 
     if (widget.song.id == songService.currentSong.id) return;
-    audioProvider.setUrl = widget.song.url;
+    songService.currentSong = widget.song;
+
+    audioProvider.setUrl = songService.currentSong.url;
     audioProvider.play();
   }
 
   @override
   Widget build(BuildContext context) {
-    songService.currentSong = widget.song;
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      extendBodyBehindAppBar: true,
-      appBar: CustomAppBar(title: songService.currentSong.title),
-      body: Container(
-        padding: const EdgeInsets.only(top: kToolbarHeight),
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: NetworkImage(songService.currentSong.backgroundImage),
-            fit: BoxFit.fill,
+    return Consumer<SongService>(
+      builder: (context, service, _) => Scaffold(
+        backgroundColor: AppColors.background,
+        extendBodyBehindAppBar: true,
+        appBar: CustomAppBar(title: service.currentSong.title),
+        body: Container(
+          padding: const EdgeInsets.only(top: kToolbarHeight),
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: NetworkImage(service.currentSong.backgroundImage),
+              fit: BoxFit.fill,
+            ),
           ),
-        ),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 25, sigmaY: 25),
-          child: Column(
-            children: [
-              AlbumImage(image: songService.currentSong.albumImage),
-              TitleSubTitle(
-                  title: songService.currentSong.title,
-                  subtitle: songService.currentSong.artists),
-              const FuntionalityButtons(),
-              const Spacer(),
-              const ProgressBar(),
-              const Spacer(),
-              const MainButtons(),
-            ],
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 25, sigmaY: 25),
+            child: Column(
+              children: [
+                AlbumImage(image: service.currentSong.albumImage),
+                TitleSubTitle(
+                    title: service.currentSong.title,
+                    subtitle: service.currentSong.artists),
+                const FuntionalityButtons(),
+                const Spacer(),
+                const ProgressBar(),
+                const Spacer(),
+                const MainButtons(),
+              ],
+            ),
           ),
         ),
       ),

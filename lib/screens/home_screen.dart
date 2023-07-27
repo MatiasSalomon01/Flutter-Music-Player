@@ -93,8 +93,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: ListView.separated(
                     physics: const BouncingScrollPhysics(),
                     itemCount: songService.songs.length,
-                    itemBuilder: (context, index) =>
-                        CustomListTile(data: songService.songs[index]),
+                    itemBuilder: (context, index) => CustomListTile(
+                        data: songService.songs[index], index: index),
                     separatorBuilder: (context, index) =>
                         const Divider(color: Colors.grey),
                   ),
