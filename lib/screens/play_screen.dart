@@ -53,7 +53,9 @@ class _PlayerScreenState extends State<PlayerScreen> {
                 TitleSubTitle(
                     title: service.currentSong.title,
                     subtitle: service.currentSong.artists),
-                const FuntionalityButtons(),
+                FuntionalityButtons(
+                    isFavorite: service.currentSong.isFavorite,
+                    id: service.currentSong.id),
                 const Spacer(),
                 const ProgressBar(),
                 const Spacer(),

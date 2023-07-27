@@ -74,4 +74,14 @@ class SongService extends ChangeNotifier {
   set isDefault(bool value) {
     _isDefault = value;
   }
+
+  void updateById(String id, bool isFavorite) {
+    _songs = _songs.map((e) {
+      if (e.id != id) return e;
+
+      e.isFavorite = isFavorite;
+      return e;
+    }).toList();
+    notifyListeners();
+  }
 }
