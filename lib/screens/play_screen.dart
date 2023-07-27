@@ -34,12 +34,12 @@ class _PlayerScreenState extends State<PlayerScreen> {
     return Scaffold(
       backgroundColor: AppColors.background,
       extendBodyBehindAppBar: true,
-      appBar: CustomAppBar(title: widget.song.title),
+      appBar: CustomAppBar(title: songService.currentSong.title),
       body: Container(
         padding: const EdgeInsets.only(top: kToolbarHeight),
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: NetworkImage(widget.song.backgroundImage),
+            image: NetworkImage(songService.currentSong.backgroundImage),
             fit: BoxFit.fill,
           ),
         ),
@@ -47,9 +47,10 @@ class _PlayerScreenState extends State<PlayerScreen> {
           filter: ImageFilter.blur(sigmaX: 25, sigmaY: 25),
           child: Column(
             children: [
-              AlbumImage(image: widget.song.albumImage),
+              AlbumImage(image: songService.currentSong.albumImage),
               TitleSubTitle(
-                  title: widget.song.title, subtitle: widget.song.artists),
+                  title: songService.currentSong.title,
+                  subtitle: songService.currentSong.artists),
               const FuntionalityButtons(),
               const Spacer(),
               const ProgressBar(),

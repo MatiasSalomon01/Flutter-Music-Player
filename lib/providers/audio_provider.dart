@@ -107,6 +107,8 @@ class AudioProvider extends ChangeNotifier {
   void pause() => _audioPlayer.pause();
   void stop() => _audioPlayer.stop();
   void seek(Duration position) => _audioPlayer.seek(position);
+  void next() => _audioPlayer.seekToNext();
+  void previous() => _audioPlayer.seekToPrevious();
   // void disposes() => _audioPlayer.dispose();
 }
 
