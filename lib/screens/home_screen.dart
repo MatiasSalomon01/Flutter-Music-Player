@@ -126,7 +126,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         image: NetworkImage(
                             songService.currentSong.backgroundImage),
                         fit: BoxFit.cover,
-                        // opacity: .5,
+                        colorFilter: ColorFilter.mode(
+                            Colors.black.withOpacity(.6), BlendMode.darken),
                       ),
                     ),
                     child: Row(
