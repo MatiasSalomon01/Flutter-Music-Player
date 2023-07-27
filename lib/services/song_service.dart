@@ -66,4 +66,12 @@ class SongService extends ChangeNotifier {
   set currentIndex(int value) {
     _currentIndex = value;
   }
+
+  bool _isDefault = true;
+
+  bool get isDefault => _isDefault;
+
+  set isDefault(bool value) {
+    _isDefault = value;
+  }
 }

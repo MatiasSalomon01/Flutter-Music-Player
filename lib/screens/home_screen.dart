@@ -66,8 +66,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(50))),
                         ),
-                        onPressed: () => setState(
-                            () => songService.songs = songService.songsCopy),
+                        onPressed: () => setState(() {
+                          songService.songs = songService.songsCopy;
+                          songService.isDefault = true;
+                        }),
                         child: const Text('Sin Copyright'),
                       ),
                       const SizedBox(width: 20),
@@ -82,8 +84,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(50))),
                         ),
-                        onPressed: () =>
-                            setState(() => songService.songs = defaultSongs),
+                        onPressed: () => setState(() {
+                          songService.songs = defaultSongs;
+                          songService.isDefault = false;
+                        }),
                         child: const Text('De Prueba'),
                       )
                     ],

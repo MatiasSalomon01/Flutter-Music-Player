@@ -24,7 +24,9 @@ class _MainButtonsState extends State<MainButtons> {
       margin: const EdgeInsets.only(bottom: 35),
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: Colors.grey.withOpacity(.2),
+        color: songService.isDefault
+            ? Colors.grey.withOpacity(.2)
+            : Colors.black.withOpacity(.2),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Row(

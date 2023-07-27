@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:music_player/colors/colors.dart';
+import 'package:music_player/services/song_service.dart';
+import 'package:provider/provider.dart';
 
 class FuntionalityButtons extends StatelessWidget {
   const FuntionalityButtons({
@@ -8,10 +10,13 @@ class FuntionalityButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final songService = Provider.of<SongService>(context);
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
       decoration: BoxDecoration(
-        color: Colors.grey.withOpacity(.2),
+        color: songService.isDefault
+            ? Colors.grey.withOpacity(.2)
+            : Colors.black.withOpacity(.2),
         borderRadius: BorderRadius.circular(50),
       ),
       child: Row(
