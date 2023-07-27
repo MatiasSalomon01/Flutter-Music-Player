@@ -98,7 +98,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     separatorBuilder: (context, index) =>
                         const Divider(color: Colors.grey),
                   ),
-                )
+                ),
+                if (songService.currentSong.id.isNotEmpty)
+                  const SizedBox(height: 80)
               ],
             ),
             if (songService.currentSong.id.isNotEmpty) ...[
@@ -112,19 +114,19 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   child: Container(
-                    width: size.width - 15,
-                    margin: const EdgeInsets.symmetric(horizontal: 10),
-                    padding: const EdgeInsets.only(right: 20, left: 30),
+                    width: size.width - 20,
+                    margin:
+                        const EdgeInsets.only(left: 10, right: 10, bottom: 5),
+                    padding: const EdgeInsets.only(right: 10, left: 20),
                     height: 70,
                     decoration: BoxDecoration(
-                      // color: Colors.red,
                       border: Border.all(color: white, width: .2),
                       borderRadius: BorderRadius.circular(10),
                       image: DecorationImage(
                         image: NetworkImage(
                             songService.currentSong.backgroundImage),
                         fit: BoxFit.cover,
-                        opacity: .5,
+                        // opacity: .5,
                       ),
                     ),
                     child: Row(
