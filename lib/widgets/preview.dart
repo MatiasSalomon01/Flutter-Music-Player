@@ -78,6 +78,7 @@ class Preview extends StatelessWidget {
                   highlightColor: darkGrey,
                   onPressed: () {
                     songService.currentSong = SongModel.empty();
+                    songService.setCurrentSong();
                     audioProvider.stop();
                   },
                   icon: const Icon(

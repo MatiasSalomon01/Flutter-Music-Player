@@ -30,5 +30,5 @@ class SongModel {
       );
 
   factory SongModel.empty() =>
-      SongModel(id: "", title: "", artists: "", url: "", isFavorite: false);
+      SongModel(id: "", title: "", artists: "", url: "");
 }

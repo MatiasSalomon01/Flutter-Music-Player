@@ -107,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(height: 80)
               ],
             ),
-            if (songService.currentSong.id.isNotEmpty) const Preview()
+            if (songService.currentSong.id.isNotEmpty) const Preview(),
           ],
         ),
       ),
