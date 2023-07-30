@@ -55,8 +55,12 @@ class _MainButtonsState extends State<MainButtons> {
                       ? audioProvider.pause()
                       : audioProvider.play(),
               icon: audioProvider.songState == SongState.isLoading
-                  ? const CircularProgressIndicator(
-                      color: Colors.black,
+                  ? Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: const CircularProgressIndicator(
+                        color: Colors.black,
+                        strokeWidth: 4,
+                      ),
                     )
                   : Icon(
                       audioProvider.songState == SongState.isPlaying
