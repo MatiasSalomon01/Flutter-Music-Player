@@ -13,45 +13,47 @@ class CustomListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final songService = Provider.of<SongService>(context);
+    // final songService = Provider.of<SongService>(context);
 
-    return ListTile(
-      onTap: () {
-        songService.currentIndex = index;
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => PlayerScreen(song: data),
-          ),
-        );
-      },
-      leading: ClipRRect(
-        borderRadius: BorderRadius.circular(8),
-        child: Image.network(
-          data.albumImage,
-          width: 70,
-          height: 70,
-        ),
-      ),
-      title: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Text(data.title, style: const TextStyle(color: white)),
-          Text(data.artists, style: TextStyle(color: Colors.grey.shade600)),
-        ],
-      ),
-      trailing: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          CustomAnimatedIcon(isFavorite: data.isFavorite, id: data.id),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.more_vert,
-              color: Colors.grey.shade600,
+    return Consumer<SongService>(
+      builder: (context, songService, child) => ListTile(
+        onTap: () {
+          songService.currentIndex = index;
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => PlayerScreen(song: data),
             ),
+          );
+        },
+        leading: ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: Image.network(
+            data.albumImage,
+            width: 70,
+            height: 70,
           ),
-        ],
+        ),
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(data.title, style: const TextStyle(color: white)),
+            Text(data.artists, style: TextStyle(color: Colors.grey.shade600)),
+          ],
+        ),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            CustomAnimatedIcon(isFavorite: data.isFavorite, id: data.id),
+            IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Icons.more_vert,
+                color: Colors.grey.shade600,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
