@@ -4,9 +4,9 @@ import 'package:music_player/services/song_service.dart';
 import 'package:provider/provider.dart';
 
 class CustomAnimatedIcon extends StatefulWidget {
-  final bool isFavorite;
+  bool isFavorite;
   final String id;
-  const CustomAnimatedIcon({
+  CustomAnimatedIcon({
     super.key,
     required this.isFavorite,
     required this.id,
@@ -19,11 +19,9 @@ class CustomAnimatedIcon extends StatefulWidget {
 class _CustomAnimatedIconState extends State<CustomAnimatedIcon>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
-  late bool isFavorite;
 
   @override
   void initState() {
-    isFavorite = widget.isFavorite;
     _animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 200),
@@ -46,8 +44,8 @@ class _CustomAnimatedIconState extends State<CustomAnimatedIcon>
         _animationController
             .forward()
             .whenComplete(() => _animationController.reverse());
-        setState(() => isFavorite = !isFavorite);
-        songService.updateById(widget.id, isFavorite);
+        setState(() => widget.isFavorite = !widget.isFavorite);
+        songService.updateById(widget.id, widget.isFavorite);
       },
       child: AnimatedBuilder(
         animation: _animationController,
@@ -55,12 +53,8 @@ class _CustomAnimatedIconState extends State<CustomAnimatedIcon>
           return Transform.scale(
             scale: (_animationController.value + 1).clamp(1, 1.3),
             child: Icon(
-              _animationController.isAnimating || isFavorite
-                  ? Icons.favorite
-                  : Icons.favorite_outline,
-              color: _animationController.isAnimating || isFavorite
-                  ? Colors.red
-                  : white,
+              widget.isFavorite ? Icons.favorite : Icons.favorite_outline,
+              color: widget.isFavorite ? Colors.red : white,
             ),
           );
         },
