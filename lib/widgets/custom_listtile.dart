@@ -1,6 +1,8 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:music_player/constants/constants.dart';
 import 'package:music_player/models/models.dart';
+import 'package:music_player/providers/providers.dart';
 import 'package:music_player/screens/screens.dart';
 import 'package:music_player/services/song_service.dart';
 import 'package:music_player/widgets/widgets.dart';
@@ -17,12 +19,14 @@ class CustomListTile extends StatelessWidget {
 
     return ListTile(
       onTap: () {
+        var audioProvider = Provider.of<AudioProvider>(context, listen: false);
+
         songService.currentIndex = index;
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => PlayerScreen(song: data),
-          ),
-        );
+        if (data.id == songService.currentSong.id) return;
+        songService.currentSong = data;
+        audioProvider.setUrl = songService.currentSong.url;
+        audioProvider.play();
+        songService.setCurrentSong();
       },
       leading: ClipRRect(
         borderRadius: BorderRadius.circular(8),

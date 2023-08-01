@@ -13,12 +13,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Colors.transparent,
       elevation: 0,
       leading: GestureDetector(
-        onTap: () {
-          var songService =
-              Provider.of<SongService>(context, listen: false).setCurrentSong();
-
-          Navigator.of(context).pop();
-        },
+        onTap: () => Navigator.of(context).pop(),
         child: Icon(
           Icons.keyboard_arrow_down_rounded,
           color: AppColors.background,
