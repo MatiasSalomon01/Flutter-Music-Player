@@ -19,7 +19,11 @@ class CustomListTile extends StatelessWidget {
 
     return Padding(
       padding: EdgeInsets.only(
-          bottom: index == (songService.songs.length - 1) ? 140 : 0),
+          bottom: index == (songService.songs.length - 1)
+              ? songService.currentSong.id.isNotEmpty
+                  ? 140
+                  : 70
+              : 0),
       child: ListTile(
         onTap: () {
           var audioProvider =

@@ -1,3 +1,4 @@
+export 'package:music_player/widgets/bottom_item.dart';
 export 'package:music_player/widgets/custom_bottom_navigationbar.dart';
 export 'package:music_player/widgets/custom_animated_icon.dart';
 export 'package:music_player/widgets/preview.dart';
