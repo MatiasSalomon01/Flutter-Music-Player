@@ -1,5 +1,5 @@
 class SongModel {
-  String id;
+  String? id;
   String title;
   String artists;
   String url;
@@ -8,7 +8,7 @@ class SongModel {
   bool isFavorite;
 
   SongModel({
-    required this.id,
+    this.id,
     required this.title,
     required this.artists,
     required this.url,
@@ -20,7 +20,6 @@ class SongModel {
   });
 
   factory SongModel.fromJson(Map<String, dynamic> json) => SongModel(
-        id: json["id"],
         title: json["title"],
         artists: json["artists"],
         url: json["url"],

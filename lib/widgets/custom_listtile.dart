@@ -20,7 +20,7 @@ class CustomListTile extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(
           bottom: index == (songService.songs.length - 1)
-              ? songService.currentSong.id.isNotEmpty
+              ? songService.currentSong.id!.isNotEmpty
                   ? 140
                   : 70
               : 0),
@@ -55,7 +55,7 @@ class CustomListTile extends StatelessWidget {
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            CustomAnimatedIcon(isFavorite: data.isFavorite, id: data.id),
+            CustomAnimatedIcon(isFavorite: data.isFavorite, id: data.id!),
             IconButton(
               onPressed: () {},
               icon: Icon(

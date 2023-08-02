@@ -106,7 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
-            if (songService.currentSong.id.isNotEmpty) const Preview(),
+            if (songService.currentSong.id!.isNotEmpty) const Preview(),
             const CustomBottomNavigationbar(),
           ],
         ),
