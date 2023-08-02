@@ -17,45 +17,50 @@ class CustomListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final songService = Provider.of<SongService>(context);
 
-    return ListTile(
-      onTap: () {
-        var audioProvider = Provider.of<AudioProvider>(context, listen: false);
+    return Padding(
+      padding: EdgeInsets.only(
+          bottom: index == (songService.songs.length - 1) ? 140 : 0),
+      child: ListTile(
+        onTap: () {
+          var audioProvider =
+              Provider.of<AudioProvider>(context, listen: false);
 
-        songService.currentIndex = index;
-        if (data.id == songService.currentSong.id) return;
-        songService.currentSong = data;
-        audioProvider.setUrl = songService.currentSong.url;
-        audioProvider.play();
-        songService.setCurrentSong();
-      },
-      leading: ClipRRect(
-        borderRadius: BorderRadius.circular(8),
-        child: Image.network(
-          data.albumImage,
-          width: 70,
-          height: 70,
-        ),
-      ),
-      title: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Text(data.title, style: const TextStyle(color: white)),
-          Text(data.artists, style: TextStyle(color: Colors.grey.shade600)),
-        ],
-      ),
-      trailing: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          CustomAnimatedIcon(isFavorite: data.isFavorite, id: data.id),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.more_vert,
-              color: Colors.grey.shade600,
-            ),
+          songService.currentIndex = index;
+          if (data.id == songService.currentSong.id) return;
+          songService.currentSong = data;
+          audioProvider.setUrl = songService.currentSong.url;
+          audioProvider.play();
+          songService.setCurrentSong();
+        },
+        leading: ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: Image.network(
+            data.albumImage,
+            width: 70,
+            height: 70,
           ),
-        ],
+        ),
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(data.title, style: const TextStyle(color: white)),
+            Text(data.artists, style: TextStyle(color: Colors.grey.shade600)),
+          ],
+        ),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            CustomAnimatedIcon(isFavorite: data.isFavorite, id: data.id),
+            IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Icons.more_vert,
+                color: Colors.grey.shade600,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

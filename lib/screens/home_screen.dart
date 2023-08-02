@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:music_player/constants/constants.dart';
 import 'package:music_player/models/models.dart';
@@ -100,14 +101,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     itemBuilder: (context, index) => CustomListTile(
                         data: songService.songs[index], index: index),
                     separatorBuilder: (context, index) =>
-                        const Divider(color: Colors.grey),
+                        const Divider(color: Colors.transparent),
                   ),
                 ),
-                if (songService.currentSong.id.isNotEmpty)
-                  const SizedBox(height: 80)
               ],
             ),
             if (songService.currentSong.id.isNotEmpty) const Preview(),
+            const CustomBottomNavigationbar(),
           ],
         ),
       ),

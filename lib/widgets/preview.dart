@@ -24,9 +24,9 @@ class Preview extends StatelessWidget {
           duration: const Duration(milliseconds: 200),
           child: Container(
             width: size.width - 20,
-            margin: const EdgeInsets.only(left: 10, right: 10, bottom: 5),
+            margin: const EdgeInsets.only(left: 10, right: 10, bottom: 65),
             padding: const EdgeInsets.only(right: 10, left: 20),
-            height: 70,
+            height: 65,
             decoration: BoxDecoration(
               border: Border.all(color: white, width: .2),
               borderRadius: BorderRadius.circular(10),
