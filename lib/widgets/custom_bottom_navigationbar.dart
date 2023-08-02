@@ -16,7 +16,7 @@ class CustomBottomNavigationbar extends StatelessWidget {
         color: Colors.black.withOpacity(.85),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
+          children: const [
             BottomItem(
               index: 0,
               icon: Icons.home_filled,

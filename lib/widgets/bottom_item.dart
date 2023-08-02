@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:music_player/constants/constants.dart';
 import 'package:music_player/providers/providers.dart';
 import 'package:music_player/screens/screens.dart';
 import 'package:provider/provider.dart';
@@ -28,12 +29,21 @@ class BottomItem extends StatelessWidget {
           children: [
             Icon(
               icon,
-              size: 28,
-              color: Colors.grey,
+              size: bottomProvider.currentScreenIndex != index ? 28 : 29,
+              color: bottomProvider.currentScreenIndex != index
+                  ? Colors.grey
+                  : white,
             ),
             Text(
               title,
-              style: TextStyle(color: Colors.grey, fontSize: 12),
+              style: TextStyle(
+                color: bottomProvider.currentScreenIndex != index
+                    ? Colors.grey
+                    : white,
+                fontSize:
+                    bottomProvider.currentScreenIndex != index ? 12 : 12.5,
+                fontWeight: FontWeight.w300,
+              ),
             ),
           ],
         ),
@@ -45,15 +55,55 @@ class BottomItem extends StatelessWidget {
     bottomProvider.currentScreenIndex = index;
     if (index == 0) {
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const HomeScreen()));
+        PageRouteBuilder(
+          pageBuilder: (_, __, ___) => const HomeScreen(),
+          transitionDuration: const Duration(milliseconds: 300),
+          reverseTransitionDuration: const Duration(milliseconds: 150),
+          transitionsBuilder: (_, animation, __, child) {
+            return FadeTransition(
+              opacity: Tween<double>(begin: 0.5, end: 1).animate(
+                CurvedAnimation(parent: animation, curve: Curves.bounceInOut),
+              ),
+              child: child,
+            );
+          },
+        ),
+      );
     }
     if (index == 1) {
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const SearchScreen()));
+        PageRouteBuilder(
+          pageBuilder: (_, __, ___) => const SearchScreen(),
+          transitionDuration: const Duration(milliseconds: 300),
+          reverseTransitionDuration: const Duration(milliseconds: 150),
+          transitionsBuilder: (_, animation, __, child) {
+            return FadeTransition(
+              opacity: Tween<double>(begin: 0.01, end: 1).animate(
+                CurvedAnimation(
+                    parent: animation, curve: Curves.linearToEaseOut),
+              ),
+              child: child,
+            );
+          },
+        ),
+      );
     }
     if (index == 2) {
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const YourLibraryScreen()));
+        PageRouteBuilder(
+          pageBuilder: (_, __, ___) => const YourLibraryScreen(),
+          transitionDuration: const Duration(milliseconds: 300),
+          reverseTransitionDuration: const Duration(milliseconds: 150),
+          transitionsBuilder: (_, animation, __, child) {
+            return FadeTransition(
+              opacity: Tween<double>(begin: 0.01, end: 1).animate(
+                CurvedAnimation(parent: animation, curve: Curves.decelerate),
+              ),
+              child: child,
+            );
+          },
+        ),
+      );
     }
   }
 }
