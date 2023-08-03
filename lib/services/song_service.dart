@@ -52,7 +52,7 @@ class SongService extends ChangeNotifier {
   }
 
   void getSongs() async {
-    _isLoading = true;
+    isLoading = true;
     final url = Uri.https(baseUrl, '/songs.json');
     final response = await http.get(url);
     final Map<String, dynamic> data = json.decode(response.body);
@@ -62,7 +62,7 @@ class SongService extends ChangeNotifier {
       model.id = key;
       _songs.add(model);
     });
-    _isLoading = false;
+    isLoading = false;
     _songsCopy = _songs;
     notifyListeners();
   }

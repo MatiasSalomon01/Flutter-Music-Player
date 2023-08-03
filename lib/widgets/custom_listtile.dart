@@ -40,9 +40,9 @@ class CustomListTile extends StatelessWidget {
           borderRadius: BorderRadius.circular(5),
           child: Image.network(
             data.albumImage,
-            width: 60,
-            height: 60,
             fit: BoxFit.cover,
+            loadingBuilder: (context, child, loadingProgress) =>
+                Container(color: darkGrey, width: 60, height: 60, child: child),
           ),
         ),
         title: Column(
