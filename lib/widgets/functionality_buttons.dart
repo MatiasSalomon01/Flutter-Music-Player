@@ -19,9 +19,9 @@ class FuntionalityButtons extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
       decoration: BoxDecoration(
-        color: songService.isDefault
+        color: !songService.currentSong.isLightColor
             ? Colors.grey.withOpacity(.2)
-            : Colors.black.withOpacity(.2),
+            : Colors.black.withOpacity(.1),
         borderRadius: BorderRadius.circular(50),
       ),
       child: Row(

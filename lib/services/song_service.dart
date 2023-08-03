@@ -39,6 +39,7 @@ class SongService extends ChangeNotifier {
 
   set isDefault(bool value) {
     _isDefault = value;
+    notifyListeners();
   }
 
   set isLoading(bool value) {
