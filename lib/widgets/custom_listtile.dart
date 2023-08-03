@@ -37,11 +37,12 @@ class CustomListTile extends StatelessWidget {
           songService.setCurrentSong();
         },
         leading: ClipRRect(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(5),
           child: Image.network(
             data.albumImage,
-            width: 70,
-            height: 70,
+            width: 60,
+            height: 60,
+            fit: BoxFit.cover,
           ),
         ),
         title: Column(

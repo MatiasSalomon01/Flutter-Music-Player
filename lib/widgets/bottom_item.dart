@@ -61,7 +61,7 @@ class BottomItem extends StatelessWidget {
           reverseTransitionDuration: const Duration(milliseconds: 150),
           transitionsBuilder: (_, animation, __, child) {
             return FadeTransition(
-              opacity: Tween<double>(begin: 0.5, end: 1).animate(
+              opacity: Tween<double>(begin: 0.1, end: 1).animate(
                 CurvedAnimation(parent: animation, curve: Curves.bounceInOut),
               ),
               child: child,
