@@ -11,7 +11,13 @@ import 'package:provider/provider.dart';
 class CustomListTile extends StatelessWidget {
   final SongModel data;
   final int index;
-  const CustomListTile({super.key, required this.data, required this.index});
+  final int length;
+  const CustomListTile({
+    super.key,
+    required this.data,
+    required this.index,
+    required this.length,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +25,7 @@ class CustomListTile extends StatelessWidget {
 
     return Padding(
       padding: EdgeInsets.only(
-          bottom: index == (songService.songs.length - 1)
+          bottom: index == (length - 1)
               ? songService.currentSong.id!.isNotEmpty
                   ? 140
                   : 70

@@ -99,7 +99,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     physics: const BouncingScrollPhysics(),
                     itemCount: songService.songs.length,
                     itemBuilder: (context, index) => CustomListTile(
-                        data: songService.songs[index], index: index),
+                      data: songService.songs[index],
+                      index: index,
+                      length: songService.songs.length,
+                    ),
                     separatorBuilder: (context, index) =>
                         const Divider(color: Colors.transparent),
                   ),

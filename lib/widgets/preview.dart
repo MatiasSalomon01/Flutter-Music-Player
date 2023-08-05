@@ -21,7 +21,6 @@ class Preview extends StatelessWidget {
       child: GestureDetector(
         onTap: () => toPlayerScreen(context, songService),
         child: SlideInUp(
-          duration: const Duration(milliseconds: 200),
           child: Container(
             width: size.width - 20,
             margin: const EdgeInsets.only(left: 10, right: 10, bottom: 65),

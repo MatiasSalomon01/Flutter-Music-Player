@@ -12,28 +12,42 @@ class YourLibraryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final songService = Provider.of<SongService>(context);
+    final likedSongs = songService.getLikedSongs();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: darkGrey,
         title: Row(
-          children: [
+          children: const [
             CircleAvatar(
-              backgroundColor: white,
+              backgroundColor: Colors.grey,
               radius: 20,
-              child: const Text('M'),
+              child: Text(
+                'M',
+                style: TextStyle(color: black, fontSize: 20),
+              ),
             ),
             SizedBox(width: 10),
-            const Text('Tu biblioteca'),
+            Text('Tu biblioteca'),
           ],
         ),
       ),
       body: Container(
+        padding: EdgeInsets.only(top: 15),
         color: black,
         child: Stack(
           children: [
-            Center(
-              child: Text('YourLibraryScreen'),
+            ListView.separated(
+              physics: const BouncingScrollPhysics(),
+              itemCount: likedSongs.length,
+              itemBuilder: (context, index) => CustomListTile(
+                data: likedSongs[index],
+                index: index,
+                length: likedSongs.length,
+              ),
+              separatorBuilder: (context, index) =>
+                  const Divider(color: Colors.transparent),
             ),
+            if (songService.currentSong.id!.isNotEmpty) const Preview(),
             const CustomBottomNavigationbar(),
           ],
         ),
