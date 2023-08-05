@@ -67,6 +67,14 @@ class SongService extends ChangeNotifier {
     notifyListeners();
   }
 
+  List<SongModel> getLikedSongs() {
+    List<SongModel> likedSongs = [];
+    songs.forEach((element) {
+      if (element.isFavorite) likedSongs.add(element);
+    });
+    return likedSongs;
+  }
+
   void updateById(String id, bool isFavorite) async {
     final url = Uri.https(baseUrl, "/songs/$id/isFavorite.json");
     final response = await http.put(url, body: json.encode(isFavorite));
