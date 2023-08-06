@@ -24,6 +24,8 @@ class Preview extends StatelessWidget {
       child: GestureDetector(
         onTap: () => toPlayerScreen(context, songService),
         child: SlideInUp(
+          from: 40,
+          duration: const Duration(milliseconds: 200),
           child: Container(
             width: size.width - 20,
             margin: const EdgeInsets.only(left: 10, right: 10, bottom: 65),
@@ -128,17 +130,8 @@ class _TitleSubtitlePreview extends StatelessWidget {
         SizedBox(
           width: size.width * .6,
           height: 22,
-          child: _buildTitle(songService.currentSong.title.length < 30,
-              songService), /*songService.currentSong.title.length > textLimit
-              ? */
-
-          // : Text(
-          //     songService.currentSong.title,
-          //     style: const TextStyle(
-          //       color: white,
-          //       fontSize: 18,
-          //     ),
-          //   ),
+          child: _buildTitle(
+              songService.currentSong.title.length < 30, songService),
         ),
         Text(
           songService.currentSong.artists,
