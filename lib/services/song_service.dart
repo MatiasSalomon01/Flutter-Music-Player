@@ -73,10 +73,6 @@ class SongService extends ChangeNotifier {
     songs.forEach((element) {
       if (element.isFavorite) likedSongs.add(element);
     });
-
-    defaultSongs.forEach((element) {
-      if (element.isFavorite) likedSongs.add(element);
-    });
     return likedSongs;
   }
 

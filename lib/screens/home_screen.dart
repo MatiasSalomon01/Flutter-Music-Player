@@ -43,57 +43,11 @@ class _HomeScreenState extends State<HomeScreen> {
         width: size.width,
         height: size.height,
         color: black,
+        padding: const EdgeInsets.only(top: 15),
         child: Stack(
           children: [
             Column(
               children: [
-                Container(
-                  margin: const EdgeInsets.symmetric(vertical: 20),
-                  height: 60,
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                      color: darkGrey,
-                      borderRadius: BorderRadius.circular(100)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      ElevatedButton(
-                        style: ButtonStyle(
-                          splashFactory: NoSplash.splashFactory,
-                          backgroundColor: MaterialStateProperty.all(
-                              const Color.fromARGB(255, 56, 56, 56)),
-                          shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(50))),
-                        ),
-                        onPressed: () {
-                          songService.songs = songService.songsCopy;
-                          songService.isDefault = true;
-                        },
-                        child: const Text('Sin Copyright'),
-                      ),
-                      const SizedBox(width: 20),
-                      ElevatedButton(
-                        style: ButtonStyle(
-                          splashFactory: NoSplash.splashFactory,
-                          padding: MaterialStateProperty.all(
-                              const EdgeInsets.symmetric(horizontal: 20)),
-                          backgroundColor: MaterialStateProperty.all(
-                              const Color.fromARGB(255, 56, 56, 56)),
-                          shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(50))),
-                        ),
-                        onPressed: () {
-                          songService.songs = defaultSongs;
-                          songService.isDefault = false;
-                        },
-                        child: const Text('De Prueba'),
-                      )
-                    ],
-                  ),
-                ),
                 Expanded(
                   child: ListView.separated(
                     physics: const BouncingScrollPhysics(),
