@@ -16,9 +16,9 @@ class MainButtons extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 35),
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: songService.isDefault
+        color: !songService.currentSong.isLightColor
             ? Colors.grey.withOpacity(.2)
-            : Colors.black.withOpacity(.2),
+            : Colors.black.withOpacity(.1),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Row(

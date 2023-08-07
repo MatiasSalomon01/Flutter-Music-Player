@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:marquee/marquee.dart';
 import 'package:music_player/constants/constants.dart';
 import 'package:music_player/models/models.dart';
 import 'package:music_player/providers/providers.dart';
@@ -8,8 +11,23 @@ import 'package:provider/provider.dart';
 
 import '../services/song_service.dart';
 
-class Preview extends StatelessWidget {
+class Preview extends StatefulWidget {
   const Preview({super.key});
+
+  @override
+  State<Preview> createState() => _PreviewState();
+}
+
+class _PreviewState extends State<Preview> {
+  bool animate = true;
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final songService = Provider.of<SongService>(context, listen: false);
+      songService.isPreviewOn = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +39,7 @@ class Preview extends StatelessWidget {
       child: GestureDetector(
         onTap: () => toPlayerScreen(context, songService),
         child: SlideInUp(
+          from: !songService.isPreviewOn ? 0 : 40,
           duration: const Duration(milliseconds: 200),
           child: Container(
             width: size.width - 20,
@@ -39,18 +58,7 @@ class Preview extends StatelessWidget {
             ),
             child: Row(
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(songService.currentSong.title,
-                        style: const TextStyle(color: white, fontSize: 18)),
-                    Text(songService.currentSong.artists,
-                        style: const TextStyle(
-                            color: Color.fromARGB(255, 119, 119, 119),
-                            fontSize: 16)),
-                  ],
-                ),
+                const _TitleSubtitlePreview(),
                 const Spacer(),
                 Material(
                   color: Colors.transparent,
@@ -87,6 +95,7 @@ class Preview extends StatelessWidget {
                       songService.currentSong = SongModel.empty();
                       songService.setCurrentSong();
                       audioProvider.stop();
+                      songService.isPreviewOn = true;
                     },
                     icon: const Icon(
                       Icons.stop,
@@ -119,4 +128,57 @@ class Preview extends StatelessWidget {
           },
         ),
       );
+}
+
+class _TitleSubtitlePreview extends StatelessWidget {
+  const _TitleSubtitlePreview({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final songService = Provider.of<SongService>(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SizedBox(
+          width: size.width * .6,
+          height: 22,
+          child: _buildTitle(
+              songService.currentSong.title.length < 30, songService),
+        ),
+        Text(
+          songService.currentSong.artists,
+          style: const TextStyle(
+            color: Color.fromARGB(255, 119, 119, 119),
+            fontSize: 16,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildTitle(bool isShortText, SongService songService) {
+    return isShortText
+        ? Text(
+            songService.currentSong.title,
+            style: const TextStyle(
+              color: white,
+              fontSize: 18,
+            ),
+          )
+        : Marquee(
+            text: songService.currentSong.title,
+            style: const TextStyle(color: white, fontSize: 18),
+            scrollAxis: Axis.horizontal,
+            blankSpace: 50.0,
+            velocity: 50.0,
+            startAfter: const Duration(milliseconds: 2000),
+            pauseAfterRound: const Duration(milliseconds: 1500),
+            accelerationDuration: const Duration(milliseconds: 500),
+            decelerationDuration: const Duration(milliseconds: 500),
+          );
+  }
 }

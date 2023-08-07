@@ -11,6 +11,7 @@ class SongService extends ChangeNotifier {
   bool _isLoading = false;
   bool _isDefault = true;
   int _currentIndex = 0;
+  bool _isPreviewOn = true;
 
   List<SongModel> get songsCopy => _songsCopy;
   SongModel _currentSong = SongModel.empty();
@@ -19,6 +20,7 @@ class SongService extends ChangeNotifier {
   bool get isLoading => _isLoading;
   int get currentIndex => _currentIndex;
   bool get isDefault => _isDefault;
+  bool get isPreviewOn => _isPreviewOn;
 
   SongService() {
     getSongs();
@@ -39,10 +41,16 @@ class SongService extends ChangeNotifier {
 
   set isDefault(bool value) {
     _isDefault = value;
+    notifyListeners();
   }
 
   set isLoading(bool value) {
     _isLoading = value;
+    notifyListeners();
+  }
+
+  set isPreviewOn(bool value) {
+    _isPreviewOn = value;
     notifyListeners();
   }
 
@@ -52,7 +60,7 @@ class SongService extends ChangeNotifier {
   }
 
   void getSongs() async {
-    _isLoading = true;
+    isLoading = true;
     final url = Uri.https(baseUrl, '/songs.json');
     final response = await http.get(url);
     final Map<String, dynamic> data = json.decode(response.body);
@@ -62,9 +70,17 @@ class SongService extends ChangeNotifier {
       model.id = key;
       _songs.add(model);
     });
-    _isLoading = false;
+    isLoading = false;
     _songsCopy = _songs;
     notifyListeners();
+  }
+
+  List<SongModel> getLikedSongs() {
+    List<SongModel> likedSongs = [];
+    songs.forEach((element) {
+      if (element.isFavorite) likedSongs.add(element);
+    });
+    return likedSongs;
   }
 
   void updateById(String id, bool isFavorite) async {
