@@ -1,13 +1,7 @@
-import 'dart:ui';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:music_player/constants/constants.dart';
 import 'package:music_player/models/models.dart';
-import 'package:music_player/providers/audio_provider.dart';
-import 'package:music_player/screens/screens.dart';
 import 'package:music_player/services/song_service.dart';
-import 'package:music_player/widgets/custom_listtile.dart';
 import 'package:music_player/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 

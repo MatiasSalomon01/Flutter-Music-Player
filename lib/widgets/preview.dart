@@ -11,8 +11,23 @@ import 'package:provider/provider.dart';
 
 import '../services/song_service.dart';
 
-class Preview extends StatelessWidget {
+class Preview extends StatefulWidget {
   const Preview({super.key});
+
+  @override
+  State<Preview> createState() => _PreviewState();
+}
+
+class _PreviewState extends State<Preview> {
+  bool animate = true;
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final songService = Provider.of<SongService>(context, listen: false);
+      songService.isPreviewOn = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +39,7 @@ class Preview extends StatelessWidget {
       child: GestureDetector(
         onTap: () => toPlayerScreen(context, songService),
         child: SlideInUp(
-          from: 40,
+          from: !songService.isPreviewOn ? 0 : 40,
           duration: const Duration(milliseconds: 200),
           child: Container(
             width: size.width - 20,
@@ -80,6 +95,7 @@ class Preview extends StatelessWidget {
                       songService.currentSong = SongModel.empty();
                       songService.setCurrentSong();
                       audioProvider.stop();
+                      songService.isPreviewOn = true;
                     },
                     icon: const Icon(
                       Icons.stop,

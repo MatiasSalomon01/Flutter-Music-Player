@@ -11,6 +11,7 @@ class SongService extends ChangeNotifier {
   bool _isLoading = false;
   bool _isDefault = true;
   int _currentIndex = 0;
+  bool _isPreviewOn = true;
 
   List<SongModel> get songsCopy => _songsCopy;
   SongModel _currentSong = SongModel.empty();
@@ -19,6 +20,7 @@ class SongService extends ChangeNotifier {
   bool get isLoading => _isLoading;
   int get currentIndex => _currentIndex;
   bool get isDefault => _isDefault;
+  bool get isPreviewOn => _isPreviewOn;
 
   SongService() {
     getSongs();
@@ -44,6 +46,11 @@ class SongService extends ChangeNotifier {
 
   set isLoading(bool value) {
     _isLoading = value;
+    notifyListeners();
+  }
+
+  set isPreviewOn(bool value) {
+    _isPreviewOn = value;
     notifyListeners();
   }
 
