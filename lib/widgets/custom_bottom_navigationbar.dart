@@ -26,7 +26,7 @@ class CustomBottomNavigationbar extends StatelessWidget {
               index: 1,
               icon: Icons.search,
               title: 'Buscar',
-              padding: const EdgeInsets.only(left: 20),
+              padding: EdgeInsets.only(left: 20),
             ),
             BottomItem(
               index: 2,

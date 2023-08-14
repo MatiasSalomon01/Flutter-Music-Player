@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:marquee/marquee.dart';
@@ -8,7 +6,6 @@ import 'package:music_player/models/models.dart';
 import 'package:music_player/providers/providers.dart';
 import 'package:music_player/screens/screens.dart';
 import 'package:provider/provider.dart';
-
 import '../services/song_service.dart';
 
 class Preview extends StatefulWidget {

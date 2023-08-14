@@ -31,6 +31,7 @@ class CustomListTile extends StatelessWidget {
                   : 70
               : 0),
       child: ListTile(
+        contentPadding: const EdgeInsets.only(left: 15, right: 0),
         onTap: () {
           var audioProvider =
               Provider.of<AudioProvider>(context, listen: false);
