@@ -12,17 +12,40 @@ class PlaylistScreen extends StatefulWidget {
   State<PlaylistScreen> createState() => _PlaylistScreenState();
 }
 
-class _PlaylistScreenState extends State<PlaylistScreen> {
+class _PlaylistScreenState extends State<PlaylistScreen>
+    with SingleTickerProviderStateMixin {
   ScrollController controller = ScrollController();
-
+  late AnimationController _animationController;
+  late Animation<double> _opacityAnimation;
+  // Color color = Colors.transparent;
+  double opacity = 0;
   void lsitener() {
     print(controller.offset);
+    if (controller.offset > 264) {
+      _animationController.forward();
+      // color = const Color(0xff716d61).withOpacity(1);
+      // color = Colors.transparent;
+    } else {
+      if (_animationController.isCompleted) {
+        _animationController.reverse();
+      }
+      // color = Colors.transparent;
+    }
+    setState(() {});
+
     //160
     //260
   }
 
   @override
   void initState() {
+    _animationController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 200),
+    );
+    _opacityAnimation = Tween<double>(begin: 0.0, end: 1).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.linear),
+    );
     controller.addListener(lsitener);
     super.initState();
   }
@@ -57,7 +80,17 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
             SliverAppBar(
               pinned: true,
               expandedHeight: 280,
-              backgroundColor: Colors.transparent,
+              elevation: 0,
+              // backgroundColor: Color(0xff716d61),
+              backgroundColor:
+                  const Color(0xff716d61).withOpacity(_opacityAnimation.value),
+              title: Text(
+                'Tus me gusta',
+                style: TextStyle(
+                    color: white.withOpacity(_opacityAnimation.value),
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold),
+              ),
               flexibleSpace: LayoutBuilder(
                 builder: (context, constraints) {
                   return SafeArea(
@@ -71,11 +104,14 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                         //     ? 1 - (controller.offset / 100).clamp(0, 1)
                         //     : 1,
                         AnimatedOpacity(
-                          duration: const Duration(milliseconds: 200),
+                          duration: const Duration(milliseconds: 300),
                           curve: Curves.linear,
-                          opacity: controller.offset > 144
-                              ? 1 - (controller.offset / 250).clamp(0, 1)
-                              : 1,
+                          opacity: controller.offset > 160
+                              ? 0
+                              : controller.offset > 144 &&
+                                      controller.offset < 160
+                                  ? 1 - (controller.offset / 234).clamp(0, 1)
+                                  : 1,
                           child: Container(
                             padding: EdgeInsets.only(top: 20),
                             child: AspectRatio(
