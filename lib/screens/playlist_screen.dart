@@ -31,16 +31,75 @@ class PlaylistScreen extends StatelessWidget {
             end: Alignment.center,
           ),
         ),
-        child: ListView.separated(
-          physics: const BouncingScrollPhysics(),
-          itemCount: likedSongs.length,
-          itemBuilder: (context, index) => CustomListTile(
-            data: likedSongs[index],
-            index: index,
-            length: likedSongs.length,
+        child: SafeArea(
+          child: Column(
+            // mainAxisSize: MainAxisSize.min,
+            children: [
+              Spacer(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  SizedBox(width: 2),
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.download_for_offline_outlined,
+                      color: Colors.grey,
+                      size: 30,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.group_add_outlined,
+                      color: Colors.grey,
+                      size: 30,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.more_vert,
+                      color: Colors.grey,
+                      size: 30,
+                    ),
+                  ),
+                  Spacer(),
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.shuffle_rounded,
+                      color: Colors.grey,
+                      size: 25,
+                    ),
+                  ),
+                  CircleAvatar(
+                    backgroundColor: Color(0xff1ed760),
+                    radius: 25,
+                    child: Icon(
+                      Icons.play_arrow,
+                      color: black,
+                      size: 32,
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                ],
+              ),
+              SizedBox(height: 20),
+              ListView.separated(
+                shrinkWrap: true,
+                physics: const BouncingScrollPhysics(),
+                itemCount: likedSongs.length,
+                itemBuilder: (context, index) => CustomListTile(
+                  data: likedSongs[index],
+                  index: index,
+                  length: likedSongs.length,
+                ),
+                separatorBuilder: (context, index) =>
+                    const Divider(color: Colors.transparent),
+              ),
+            ],
           ),
-          separatorBuilder: (context, index) =>
-              const Divider(color: Colors.transparent),
         ),
       ),
     );
