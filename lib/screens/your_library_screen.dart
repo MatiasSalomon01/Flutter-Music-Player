@@ -61,67 +61,71 @@ class YourLibraryScreen extends StatelessWidget {
               child: Column(
                 children: [
                   GestureDetector(
-                    onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => PlaylistScreen(),
-                    )),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Container(
-                          width: 70,
-                          height: 70,
-                          margin: EdgeInsets.symmetric(horizontal: 15),
-                          decoration: BoxDecoration(
-                            color: Colors.red,
-                            gradient: LinearGradient(
-                              colors: [Color(0xff4309ea), white],
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomRight,
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const PlaylistScreen(),
+                      ),
+                    ),
+                    child: Container(
+                      color: Colors.transparent,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            width: 70,
+                            height: 70,
+                            margin: const EdgeInsets.symmetric(horizontal: 15),
+                            child: Image.network(
+                              "https://firebasestorage.googleapis.com/v0/b/flutter-music-player-9518c.appspot.com/o/images%2Fliked-songs-300.png?alt=media&token=b89872ec-3c82-4317-831e-651b84606206",
+                              fit: BoxFit.cover,
+                              loadingBuilder:
+                                  (context, child, loadingProgress) =>
+                                      Container(
+                                color: darkGrey,
+                                width: 60,
+                                height: 60,
+                                child: child,
+                              ),
                             ),
                           ),
-                          child: Icon(
-                            Icons.favorite_outlined,
-                            color: white,
-                            size: 30,
-                          ),
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Tus me gusta',
-                              style: TextStyle(color: white, fontSize: 18),
-                            ),
-                            SizedBox(height: 5),
-                            Row(
-                              children: [
-                                Transform.rotate(
-                                  angle: .7,
-                                  child: Icon(
-                                    Icons.push_pin_rounded,
-                                    size: 18,
-                                    color: Color(0xff1ed760),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'Tus me gusta',
+                                style: TextStyle(color: white, fontSize: 18),
+                              ),
+                              const SizedBox(height: 5),
+                              Row(
+                                children: [
+                                  Transform.rotate(
+                                    angle: .7,
+                                    child: const Icon(
+                                      Icons.push_pin_rounded,
+                                      size: 18,
+                                      color: Color(0xff1ed760),
+                                    ),
                                   ),
-                                ),
-                                SizedBox(width: 5),
-                                Text(
-                                  'Playlist • ${likedSongs.length} canciones',
-                                  style: TextStyle(
-                                      color: Colors.grey, fontSize: 16),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        Spacer(),
-                        IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            Icons.more_vert,
-                            color: Colors.grey.shade600,
+                                  const SizedBox(width: 5),
+                                  Text(
+                                    'Playlist • ${likedSongs.length} canciones',
+                                    style: const TextStyle(
+                                        color: Colors.grey, fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
-                        ),
-                      ],
+                          const Spacer(),
+                          IconButton(
+                            onPressed: () {},
+                            icon: Icon(
+                              Icons.more_vert,
+                              color: Colors.grey.shade600,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
