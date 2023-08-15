@@ -15,34 +15,10 @@ class PlaylistScreen extends StatefulWidget {
 
 class _PlaylistScreenState extends State<PlaylistScreen>
     with SingleTickerProviderStateMixin {
-  ScrollController controller = ScrollController();
   late AnimationController _animationController;
+  ScrollController controller = ScrollController();
   double opacity = 0;
-  double heighttest = 0;
   double addToButton = 0;
-  void lsitener() {
-    print(controller.offset);
-
-    if (controller.offset > 287) {
-      opacity = 1;
-    } else {
-      opacity = 0;
-    }
-    if (controller.offset > 264) {
-      _animationController.forward();
-    } else {
-      if (_animationController.isCompleted) {
-        _animationController.reverse();
-      }
-    }
-
-    if (controller.offset < 356) {
-      addToButton = controller.offset;
-    } else {
-      addToButton = 356;
-    }
-    setState(() {});
-  }
 
   @override
   void initState() {
@@ -50,13 +26,14 @@ class _PlaylistScreenState extends State<PlaylistScreen>
       vsync: this,
       duration: const Duration(milliseconds: 200),
     );
-    controller.addListener(lsitener);
+    controller.addListener(scrollDependantAnimations);
     super.initState();
   }
 
   @override
   void dispose() {
     controller.dispose();
+    _animationController.dispose();
     super.dispose();
   }
 
@@ -65,8 +42,8 @@ class _PlaylistScreenState extends State<PlaylistScreen>
     final size = MediaQuery.of(context).size;
     final songService = Provider.of<SongService>(context);
     final likedSongs = songService.getLikedSongs();
-    heighttest = MediaQuery.of(context).size.height * .415;
-    ;
+    final heighttest = MediaQuery.of(context).size.height * .415;
+
     return FadeInUpBig(
       duration: const Duration(milliseconds: 300),
       from: 100,
@@ -113,7 +90,6 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                                 child: Image.network(
                                   "https://firebasestorage.googleapis.com/v0/b/flutter-music-player-9518c.appspot.com/o/images%2Fliked-songs-300.png?alt=media&token=b89872ec-3c82-4317-831e-651b84606206",
                                   fit: BoxFit.cover,
-                                  // height: 50,
                                 ),
                               ),
                             ),
@@ -129,7 +105,6 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                               padding: const EdgeInsets.only(
                                   left: 50, top: kToolbarHeight),
                               width: size.width,
-                              // color: Color.fromARGB(255, 88, 85, 76),
                               color: const Color.fromARGB(255, 58, 56, 50),
                               child: const Text(
                                 'Tus me gusta',
@@ -270,38 +245,34 @@ class _PlaylistScreenState extends State<PlaylistScreen>
             ),
           ),
         ),
-        // floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
       ),
     );
   }
-}
 
-class Header extends SliverPersistentHeaderDelegate {
-  @override
-  double get maxExtent => 290;
+  void scrollDependantAnimations() {
+    //Para el appbar
+    if (controller.offset > 287) {
+      opacity = 1;
+    } else {
+      opacity = 0;
+    }
 
-  @override
-  double get minExtent => 100;
+    //Para la foto
+    if (controller.offset > 264) {
+      _animationController.forward();
+    } else {
+      if (_animationController.isCompleted) {
+        _animationController.reverse();
+      }
+    }
 
-  @override
-  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
-    return true;
-  }
+    //Para de play/pause
+    if (controller.offset < 356) {
+      addToButton = controller.offset;
+    } else {
+      addToButton = 356;
+    }
 
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return SafeArea(
-      child: Container(
-        color: Colors.transparent,
-        child: AspectRatio(
-          aspectRatio: 16 / 9,
-          child: Image.network(
-            "https://firebasestorage.googleapis.com/v0/b/flutter-music-player-9518c.appspot.com/o/images%2Fpexels-petr-ganaj-4064305.jpg?alt=media&token=58821401-057f-4bc6-938f-ff87104e3919",
-            fit: BoxFit.contain,
-          ),
-        ),
-      ),
-    );
+    setState(() {});
   }
 }
