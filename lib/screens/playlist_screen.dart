@@ -16,35 +16,28 @@ class _PlaylistScreenState extends State<PlaylistScreen>
     with SingleTickerProviderStateMixin {
   ScrollController controller = ScrollController();
   late AnimationController _animationController;
-  late Animation<double> _opacityAnimation;
-  // Color color = Colors.transparent;
   double opacity = 0;
   void lsitener() {
-    print(controller.offset);
+    if (controller.offset > 287) {
+      opacity = 1;
+    } else {
+      opacity = 0;
+    }
     if (controller.offset > 264) {
       _animationController.forward();
-      // color = const Color(0xff716d61).withOpacity(1);
-      // color = Colors.transparent;
     } else {
       if (_animationController.isCompleted) {
         _animationController.reverse();
       }
-      // color = Colors.transparent;
     }
     setState(() {});
-
-    //160
-    //260
   }
 
   @override
   void initState() {
     _animationController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 200),
-    );
-    _opacityAnimation = Tween<double>(begin: 0.0, end: 1).animate(
-      CurvedAnimation(parent: _animationController, curve: Curves.linear),
+      duration: const Duration(milliseconds: 200),
     );
     controller.addListener(lsitener);
     super.initState();
@@ -81,29 +74,29 @@ class _PlaylistScreenState extends State<PlaylistScreen>
               pinned: true,
               expandedHeight: 280,
               elevation: 0,
-              // backgroundColor: Color(0xff716d61),
-              backgroundColor:
-                  const Color(0xff716d61).withOpacity(_opacityAnimation.value),
-              title: Text(
-                'Tus me gusta',
-                style: TextStyle(
-                    color: white.withOpacity(_opacityAnimation.value),
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold),
-              ),
+              backgroundColor: Colors.transparent,
+              // backgroundColor:
+              //     const Color(0xff716d61).withOpacity(_opacityAnimation.value),
+              // title: Text(
+              //   'Tus me gusta',
+              //   style: TextStyle(
+              //       color: white.withOpacity(_opacityAnimation.value),
+              //       fontSize: 25,
+              //       fontWeight: FontWeight.bold),
+              // ),
               flexibleSpace: LayoutBuilder(
                 builder: (context, constraints) {
-                  return SafeArea(
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        // AnimatedOpacity(
-                        //   duration: const Duration(milliseconds: 800),
-                        //   curve: Curves.linearToEaseOut,
-                        // opacity: controller.offset > 145
-                        //     ? 1 - (controller.offset / 100).clamp(0, 1)
-                        //     : 1,
-                        AnimatedOpacity(
+                  return Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      // AnimatedOpacity(
+                      //   duration: const Duration(milliseconds: 800),
+                      //   curve: Curves.linearToEaseOut,
+                      // opacity: controller.offset > 145
+                      //     ? 1 - (controller.offset / 100).clamp(0, 1)
+                      //     : 1,
+                      SafeArea(
+                        child: AnimatedOpacity(
                           duration: const Duration(milliseconds: 300),
                           curve: Curves.linear,
                           opacity: controller.offset > 160
@@ -113,152 +106,166 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                                   ? 1 - (controller.offset / 234).clamp(0, 1)
                                   : 1,
                           child: Container(
-                            padding: EdgeInsets.only(top: 20),
+                            padding: const EdgeInsets.only(top: 20),
                             child: AspectRatio(
                               aspectRatio: 1.0,
                               child: Image.network(
-                                "https://firebasestorage.googleapis.com/v0/b/flutter-music-player-9518c.appspot.com/o/images%2Fpexels-petr-ganaj-4064305.jpg?alt=media&token=58821401-057f-4bc6-938f-ff87104e3919",
+                                "https://firebasestorage.googleapis.com/v0/b/flutter-music-player-9518c.appspot.com/o/images%2FCaptura%20de%20pantalla%202023-08-14%20203624%20(1).png?alt=media&token=49a4d518-aa5e-49ed-ae47-4cd365da11a3",
                                 fit: BoxFit.cover,
                                 // height: 50,
                               ),
                             ),
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                      Positioned(
+                        top: 0,
+                        child: AnimatedOpacity(
+                          duration: const Duration(milliseconds: 400),
+                          opacity: opacity,
+                          child: Container(
+                            height: kToolbarHeight * 1.7,
+                            padding: const EdgeInsets.only(
+                                left: 50, top: kToolbarHeight),
+                            width: size.width,
+                            // color: Color.fromARGB(255, 88, 85, 76),
+                            color: const Color.fromARGB(255, 58, 56, 50),
+                            child: const Text(
+                              'Tus me gusta',
+                              style: TextStyle(
+                                color: white,
+                                fontSize: 22,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
                   );
                 },
               ),
             ),
             SliverToBoxAdapter(
-              child: Container(
-                // width: size.width,
-                // height: size.height,
-
-                child: SafeArea(
-                  child: Container(
-                    child: Column(
-                      // mainAxisSize: MainAxisSize.min,
+              child: SafeArea(
+                child: Column(
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.only(left: 15),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Tus me gusta',
+                          style: TextStyle(
+                              color: white,
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 15),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 15),
+                      child: Row(
+                        children: const [
+                          Icon(
+                            Icons.timer_sharp,
+                            color: Colors.grey,
+                            size: 20,
+                          ),
+                          SizedBox(width: 4),
+                          Text(
+                            '2 h 30 min',
+                            style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 15),
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              'Tus me gusta',
-                              style: TextStyle(
-                                  color: white,
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.bold),
-                            ),
+                        const SizedBox(width: 4),
+                        IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.download_for_offline_outlined,
+                            color: Colors.grey,
+                            size: 30,
                           ),
                         ),
-                        const SizedBox(height: 15),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 15),
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.timer_sharp,
-                                color: Colors.grey,
-                                size: 20,
-                              ),
-                              const SizedBox(width: 4),
-                              Text(
-                                '2 h 30 min',
-                                style: TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w400),
-                              ),
-                            ],
+                        IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.group_add_outlined,
+                            color: Colors.grey,
+                            size: 30,
                           ),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            const SizedBox(width: 4),
-                            IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.download_for_offline_outlined,
-                                color: Colors.grey,
-                                size: 30,
-                              ),
-                            ),
-                            IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.group_add_outlined,
-                                color: Colors.grey,
-                                size: 30,
-                              ),
-                            ),
-                            IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.more_vert,
-                                color: Colors.grey,
-                                size: 30,
-                              ),
-                            ),
-                            const Spacer(),
-                            IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.shuffle_rounded,
-                                color: Colors.grey,
-                                size: 25,
-                              ),
-                            ),
-                            const CircleAvatar(
-                              backgroundColor: Color(0xff1ed760),
-                              radius: 25,
-                              child: Icon(
-                                Icons.play_arrow,
-                                color: black,
-                                size: 32,
-                              ),
-                            ),
-                            const SizedBox(width: 10),
-                          ],
-                        ),
-                        const SizedBox(height: 20),
-                        ListTile(
-                          contentPadding:
-                              const EdgeInsets.only(left: 15, right: 0),
-                          onTap: () {},
-                          leading: Container(
-                            color: const Color(0xff242424),
-                            width: 60,
-                            height: 60,
-                            child: const Icon(
-                              Icons.add,
-                              color: Colors.grey,
-                              size: 35,
-                            ),
-                          ),
-                          title: const Text(
-                            'Agregar a esta playlist',
-                            style: TextStyle(color: white),
+                        IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.more_vert,
+                            color: Colors.grey,
+                            size: 30,
                           ),
                         ),
-                        const Divider(color: Colors.transparent),
-                        ListView.separated(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: likedSongs.length,
-                          itemBuilder: (context, index) => CustomListTile(
-                            data: likedSongs[index],
-                            index: index,
-                            length: likedSongs.length,
+                        const Spacer(),
+                        IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.shuffle_rounded,
+                            color: Colors.grey,
+                            size: 25,
                           ),
-                          separatorBuilder: (context, index) =>
-                              const Divider(color: Colors.transparent),
                         ),
+                        const CircleAvatar(
+                          backgroundColor: Color(0xff1ed760),
+                          radius: 25,
+                          child: Icon(
+                            Icons.play_arrow,
+                            color: black,
+                            size: 32,
+                          ),
+                        ),
+                        const SizedBox(width: 10),
                       ],
                     ),
-                  ),
+                    const SizedBox(height: 20),
+                    ListTile(
+                      contentPadding: const EdgeInsets.only(left: 15, right: 0),
+                      onTap: () {},
+                      leading: Container(
+                        color: const Color(0xff242424),
+                        width: 60,
+                        height: 60,
+                        child: const Icon(
+                          Icons.add,
+                          color: Colors.grey,
+                          size: 35,
+                        ),
+                      ),
+                      title: const Text(
+                        'Agregar a esta playlist',
+                        style: TextStyle(color: white),
+                      ),
+                    ),
+                    const Divider(color: Colors.transparent),
+                    ListView.separated(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: likedSongs.length,
+                      itemBuilder: (context, index) => CustomListTile(
+                        data: likedSongs[index],
+                        index: index,
+                        length: likedSongs.length,
+                      ),
+                      separatorBuilder: (context, index) =>
+                          const Divider(color: Colors.transparent),
+                    ),
+                  ],
                 ),
               ),
             ),
