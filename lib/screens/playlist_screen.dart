@@ -49,13 +49,7 @@ class _PlaylistScreenState extends State<PlaylistScreen>
       duration: const Duration(milliseconds: 200),
     );
     controller.addListener(lsitener);
-
     super.initState();
-
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   heighttest =
-    //       MediaQuery.of(context).size.height * .415 + controller.offset;
-    // });
   }
 
   @override
@@ -95,26 +89,11 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                 expandedHeight: 280,
                 elevation: 0,
                 backgroundColor: Colors.transparent,
-                // backgroundColor:
-                //     const Color(0xff716d61).withOpacity(_opacityAnimation.value),
-                // title: Text(
-                //   'Tus me gusta',
-                //   style: TextStyle(
-                //       color: white.withOpacity(_opacityAnimation.value),
-                //       fontSize: 25,
-                //       fontWeight: FontWeight.bold),
-                // ),
                 flexibleSpace: LayoutBuilder(
                   builder: (context, constraints) {
                     return Stack(
                       alignment: Alignment.center,
                       children: [
-                        // AnimatedOpacity(
-                        //   duration: const Duration(milliseconds: 800),
-                        //   curve: Curves.linearToEaseOut,
-                        // opacity: controller.offset > 145
-                        //     ? 1 - (controller.offset / 100).clamp(0, 1)
-                        //     : 1,
                         SafeArea(
                           child: AnimatedOpacity(
                             duration: const Duration(milliseconds: 300),
@@ -242,15 +221,6 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                             ),
                           ),
                           const SizedBox(width: 70),
-                          // const CircleAvatar(
-                          //   backgroundColor: Color(0xff1ed760),
-                          //   radius: 28,
-                          //   child: Icon(
-                          //     Icons.play_arrow,
-                          //     color: black,
-                          //     size: 32,
-                          //   ),
-                          // ),
                         ],
                       ),
                       const SizedBox(height: 20),
