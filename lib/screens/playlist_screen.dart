@@ -18,7 +18,11 @@ class _PlaylistScreenState extends State<PlaylistScreen>
   ScrollController controller = ScrollController();
   late AnimationController _animationController;
   double opacity = 0;
+  double heighttest = 0;
+  double addToButton = 0;
   void lsitener() {
+    print(controller.offset);
+
     if (controller.offset > 287) {
       opacity = 1;
     } else {
@@ -31,6 +35,10 @@ class _PlaylistScreenState extends State<PlaylistScreen>
         _animationController.reverse();
       }
     }
+
+    if (controller.offset < 356) {
+      addToButton = controller.offset;
+    }
     setState(() {});
   }
 
@@ -41,7 +49,13 @@ class _PlaylistScreenState extends State<PlaylistScreen>
       duration: const Duration(milliseconds: 200),
     );
     controller.addListener(lsitener);
+
     super.initState();
+
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   heighttest =
+    //       MediaQuery.of(context).size.height * .415 + controller.offset;
+    // });
   }
 
   @override
@@ -55,6 +69,8 @@ class _PlaylistScreenState extends State<PlaylistScreen>
     final size = MediaQuery.of(context).size;
     final songService = Provider.of<SongService>(context);
     final likedSongs = songService.getLikedSongs();
+    heighttest = MediaQuery.of(context).size.height * .415;
+    ;
     return FadeInUpBig(
       duration: const Duration(milliseconds: 300),
       from: 100,
@@ -225,16 +241,16 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                               size: 25,
                             ),
                           ),
-                          const CircleAvatar(
-                            backgroundColor: Color(0xff1ed760),
-                            radius: 25,
-                            child: Icon(
-                              Icons.play_arrow,
-                              color: black,
-                              size: 32,
-                            ),
-                          ),
-                          const SizedBox(width: 10),
+                          const SizedBox(width: 70),
+                          // const CircleAvatar(
+                          //   backgroundColor: Color(0xff1ed760),
+                          //   radius: 28,
+                          //   child: Icon(
+                          //     Icons.play_arrow,
+                          //     color: black,
+                          //     size: 32,
+                          //   ),
+                          // ),
                         ],
                       ),
                       const SizedBox(height: 20),
@@ -277,6 +293,19 @@ class _PlaylistScreenState extends State<PlaylistScreen>
             ],
           ),
         ),
+        floatingActionButton: Padding(
+          padding: EdgeInsets.only(bottom: heighttest + addToButton),
+          child: FloatingActionButton(
+            backgroundColor: const Color(0xff1ed760),
+            onPressed: () {},
+            child: Icon(
+              Icons.play_arrow,
+              color: black,
+              size: 32,
+            ),
+          ),
+        ),
+        // floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
       ),
     );
   }
