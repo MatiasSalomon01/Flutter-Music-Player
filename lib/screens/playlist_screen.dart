@@ -38,6 +38,8 @@ class _PlaylistScreenState extends State<PlaylistScreen>
 
     if (controller.offset < 356) {
       addToButton = controller.offset;
+    } else {
+      addToButton = 356;
     }
     setState(() {});
   }
@@ -186,21 +188,22 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          const SizedBox(width: 4),
+                          const SizedBox(width: 5),
                           IconButton(
                             onPressed: () {},
                             icon: const Icon(
-                              Icons.download_for_offline_outlined,
+                              Icons.sort,
                               color: Colors.grey,
                               size: 30,
                             ),
                           ),
+
                           IconButton(
                             onPressed: () {},
                             icon: const Icon(
-                              Icons.group_add_outlined,
+                              Icons.shuffle_rounded,
                               color: Colors.grey,
-                              size: 30,
+                              size: 25,
                             ),
                           ),
                           IconButton(
@@ -212,15 +215,7 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                             ),
                           ),
                           const Spacer(),
-                          IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.shuffle_rounded,
-                              color: Colors.grey,
-                              size: 25,
-                            ),
-                          ),
-                          const SizedBox(width: 70),
+                          // const SizedBox(width: 80),
                         ],
                       ),
                       const SizedBox(height: 20),
