@@ -43,7 +43,9 @@ class YourLibraryScreen extends StatelessWidget {
           ),
           IconButton(
             padding: EdgeInsets.zero,
-            onPressed: () {},
+            onPressed: () {
+              songService.getPlaylists();
+            },
             icon: const Icon(Icons.add, size: 30),
             splashRadius: 20,
             splashColor: Colors.transparent,

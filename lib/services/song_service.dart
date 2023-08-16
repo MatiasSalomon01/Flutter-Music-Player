@@ -9,7 +9,7 @@ class SongService extends ChangeNotifier {
   List<SongModel> _songs = [];
   List<SongModel> _songsCopy = [];
   List<SongModel> _currentPlaylist = [];
-  List<Playlists> playlists = [];
+  List<Playlists> _playlists = [];
 
   bool _isLoading = false;
   bool _isDefault = true;
@@ -27,6 +27,7 @@ class SongService extends ChangeNotifier {
   bool get isPreviewOn => _isPreviewOn;
   List<SongModel> get currentPlaylist => _currentPlaylist;
   bool get isPlaylists => _isPlaylists;
+  List<Playlists> get playlists => _playlists;
 
   SongService() {
     getSongs();
@@ -75,6 +76,10 @@ class SongService extends ChangeNotifier {
     notifyListeners();
   }
 
+  set playlists(List<Playlists> value) {
+    _playlists = value;
+  }
+
   void getSongs() async {
     isLoading = true;
     final url = Uri.https(baseUrl, '/songs.json');
@@ -98,6 +103,28 @@ class SongService extends ChangeNotifier {
       if (element.isFavorite) likedSongs.add(element);
     });
     return likedSongs;
+  }
+
+  void getPlaylists() async {
+    final url = Uri.https(baseUrl, '/playlists.json');
+    final response = await http.get(url);
+    final Map<String, dynamic> data = json.decode(response.body);
+
+    data.forEach((key, value) {
+      final playlist = Playlists.fromJson(value);
+      _playlists.add(playlist);
+      // print(playlist.title);
+      // print(playlist.totalSongs);
+      // print(playlist.image);
+      // playlist.songs.forEach((element) {
+      //   print(element.id);
+      //   print(element.title);
+      //   print(element.artists);
+      //   print(element.albumImage);
+      //   print(element.backgroundImage);
+      // });
+    });
+    notifyListeners();
   }
 
   void updateById(String id, bool isFavorite) async {
