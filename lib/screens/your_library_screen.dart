@@ -43,7 +43,9 @@ class YourLibraryScreen extends StatelessWidget {
           ),
           IconButton(
             padding: EdgeInsets.zero,
-            onPressed: () {},
+            onPressed: () {
+              print(songService.currentPlaylist);
+            },
             icon: const Icon(Icons.add, size: 30),
             splashRadius: 20,
             splashColor: Colors.transparent,
@@ -61,11 +63,14 @@ class YourLibraryScreen extends StatelessWidget {
               child: Column(
                 children: [
                   GestureDetector(
-                    onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const PlaylistScreen(),
-                      ),
-                    ),
+                    onTap: () {
+                      songService.currentPlaylist = likedSongs;
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const PlaylistScreen(),
+                        ),
+                      );
+                    },
                     child: Container(
                       color: Colors.transparent,
                       child: Row(

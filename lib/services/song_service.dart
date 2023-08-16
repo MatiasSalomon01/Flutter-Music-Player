@@ -8,10 +8,13 @@ import 'package:music_player/models/models.dart';
 class SongService extends ChangeNotifier {
   List<SongModel> _songs = [];
   List<SongModel> _songsCopy = [];
+  List<SongModel> _currentPlaylist = [];
+
   bool _isLoading = false;
   bool _isDefault = true;
   int _currentIndex = 0;
   bool _isPreviewOn = true;
+  bool _isPlaylists = false;
 
   List<SongModel> get songsCopy => _songsCopy;
   SongModel _currentSong = SongModel.empty();
@@ -21,6 +24,8 @@ class SongService extends ChangeNotifier {
   int get currentIndex => _currentIndex;
   bool get isDefault => _isDefault;
   bool get isPreviewOn => _isPreviewOn;
+  List<SongModel> get currentPlaylist => _currentPlaylist;
+  bool get isPlaylists => _isPlaylists;
 
   SongService() {
     getSongs();
@@ -59,6 +64,16 @@ class SongService extends ChangeNotifier {
     notifyListeners();
   }
 
+  set currentPlaylist(List<SongModel> value) {
+    _currentPlaylist = value;
+    notifyListeners();
+  }
+
+  set isPlaylists(bool value) {
+    _isPlaylists = value;
+    notifyListeners();
+  }
+
   void getSongs() async {
     isLoading = true;
     final url = Uri.https(baseUrl, '/songs.json');
@@ -72,6 +87,7 @@ class SongService extends ChangeNotifier {
     });
     isLoading = false;
     _songsCopy = _songs;
+    currentPlaylist = _songs;
     notifyListeners();
   }
 

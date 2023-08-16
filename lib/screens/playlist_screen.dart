@@ -20,7 +20,6 @@ class _PlaylistScreenState extends State<PlaylistScreen>
   ScrollController controller = ScrollController();
   double opacity = 0;
   double addToButton = 0;
-
   @override
   void initState() {
     _animationController = AnimationController(
@@ -250,9 +249,23 @@ class _PlaylistScreenState extends State<PlaylistScreen>
             backgroundColor: const Color(0xff1ed760),
             onPressed: audioProvider.songState == SongState.isLoading
                 ? null
-                : () => audioProvider.songState == SongState.isPlaying
-                    ? audioProvider.pause()
-                    : audioProvider.play(),
+                : () {
+                    if (audioProvider.songState == SongState.isPlaying) {
+                      audioProvider.pause();
+                    } else {
+                      if (!songService.isPlaylists) {
+                        songService.isPlaylists = true;
+                        songService.currentIndex = 0;
+                        songService.currentSong =
+                            songService.currentPlaylist[0];
+                        audioProvider.setUrl = songService.currentSong.url;
+                        audioProvider.play();
+                        songService.setCurrentSong();
+                      } else {
+                        audioProvider.play();
+                      }
+                    }
+                  },
             child: audioProvider.songState == SongState.isLoading
                 ? const Padding(
                     padding: EdgeInsets.all(12),

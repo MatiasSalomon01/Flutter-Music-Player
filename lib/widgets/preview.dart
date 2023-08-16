@@ -90,9 +90,11 @@ class _PreviewState extends State<Preview> {
                     highlightColor: darkGrey,
                     onPressed: () {
                       songService.currentSong = SongModel.empty();
+                      // songService.currentPlaylist = songService.songs;
                       songService.setCurrentSong();
                       audioProvider.stop();
                       songService.isPreviewOn = true;
+                      songService.isPlaylists = false;
                     },
                     icon: const Icon(
                       Icons.stop,
