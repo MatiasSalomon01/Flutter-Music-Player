@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:music_player/constants/constants.dart';
+import 'package:music_player/providers/providers.dart';
 import 'package:music_player/services/song_service.dart';
 import 'package:music_player/widgets/widgets.dart';
 import 'package:provider/provider.dart';
@@ -40,6 +41,7 @@ class _PlaylistScreenState extends State<PlaylistScreen>
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final audioProvider = Provider.of<AudioProvider>(context);
     final songService = Provider.of<SongService>(context);
     final likedSongs = songService.getLikedSongs();
     final heighttest = MediaQuery.of(context).size.height * .415;
@@ -246,12 +248,26 @@ class _PlaylistScreenState extends State<PlaylistScreen>
           padding: EdgeInsets.only(bottom: heighttest + addToButton),
           child: FloatingActionButton(
             backgroundColor: const Color(0xff1ed760),
-            onPressed: () {},
-            child: Icon(
-              Icons.play_arrow,
-              color: black,
-              size: 32,
-            ),
+            onPressed: audioProvider.songState == SongState.isLoading
+                ? null
+                : () => audioProvider.songState == SongState.isPlaying
+                    ? audioProvider.pause()
+                    : audioProvider.play(),
+            child: audioProvider.songState == SongState.isLoading
+                ? const Padding(
+                    padding: EdgeInsets.all(12),
+                    child: CircularProgressIndicator(
+                      color: black,
+                      strokeWidth: 4,
+                    ),
+                  )
+                : Icon(
+                    audioProvider.songState == SongState.isPlaying
+                        ? Icons.pause
+                        : Icons.play_arrow,
+                    color: black,
+                    size: 32,
+                  ),
           ),
         ),
       ),
