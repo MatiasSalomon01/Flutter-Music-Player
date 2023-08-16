@@ -1,19 +1,19 @@
 import 'package:music_player/models/models.dart';
 
-class Playlists {
+class Playlist {
   String title;
   int totalSongs;
   String image;
   List<SongModel> songs;
 
-  Playlists({
+  Playlist({
     required this.title,
     required this.totalSongs,
     required this.image,
     required this.songs,
   });
 
-  factory Playlists.fromJson(Map<String, dynamic> json) => Playlists(
+  factory Playlist.fromJson(Map<String, dynamic> json) => Playlist(
         title: json["title"],
         totalSongs: json["totalSongs"],
         image: json["image"],

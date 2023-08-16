@@ -1,14 +1,15 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:music_player/constants/constants.dart';
+import 'package:music_player/models/playlists.dart';
 import 'package:music_player/providers/providers.dart';
 import 'package:music_player/services/song_service.dart';
 import 'package:music_player/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 class PlaylistScreen extends StatefulWidget {
-  const PlaylistScreen({super.key, this.photo});
-  final Widget? photo;
+  PlaylistScreen({super.key, required this.playlist});
+  final Playlist playlist;
 
   @override
   State<PlaylistScreen> createState() => _PlaylistScreenState();
@@ -93,7 +94,7 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                                   child: AspectRatio(
                                     aspectRatio: 1.0,
                                     child: Image.network(
-                                      "https://firebasestorage.googleapis.com/v0/b/flutter-music-player-9518c.appspot.com/o/images%2Fliked-songs-300.png?alt=media&token=b89872ec-3c82-4317-831e-651b84606206",
+                                      widget.playlist.image,
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -111,9 +112,9 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                                       left: 50, top: kToolbarHeight),
                                   width: size.width,
                                   color: const Color.fromARGB(255, 59, 59, 59),
-                                  child: const Text(
-                                    'Tus me gusta',
-                                    style: TextStyle(
+                                  child: Text(
+                                    widget.playlist.title,
+                                    style: const TextStyle(
                                       color: white,
                                       fontSize: 22,
                                       fontWeight: FontWeight.w500,
@@ -131,13 +132,13 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                     child: SafeArea(
                       child: Column(
                         children: [
-                          const Padding(
-                            padding: EdgeInsets.only(left: 15),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 15),
                             child: Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                'Tus me gusta',
-                                style: TextStyle(
+                                widget.playlist.title,
+                                style: const TextStyle(
                                     color: white,
                                     fontSize: 25,
                                     fontWeight: FontWeight.bold),
@@ -223,11 +224,11 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                           ListView.separated(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
-                            itemCount: likedSongs.length,
+                            itemCount: widget.playlist.songs.length,
                             itemBuilder: (context, index) => CustomListTile(
-                              data: likedSongs[index],
+                              data: widget.playlist.songs[index],
                               index: index,
-                              length: likedSongs.length,
+                              length: widget.playlist.songs.length,
                             ),
                             separatorBuilder: (context, index) =>
                                 const Divider(color: Colors.transparent),

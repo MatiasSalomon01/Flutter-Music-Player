@@ -9,7 +9,7 @@ class SongService extends ChangeNotifier {
   List<SongModel> _songs = [];
   List<SongModel> _songsCopy = [];
   List<SongModel> _currentPlaylist = [];
-  List<Playlists> _playlists = [];
+  List<Playlist> _playlists = [];
 
   bool _isLoading = false;
   bool _isDefault = true;
@@ -27,10 +27,11 @@ class SongService extends ChangeNotifier {
   bool get isPreviewOn => _isPreviewOn;
   List<SongModel> get currentPlaylist => _currentPlaylist;
   bool get isPlaylists => _isPlaylists;
-  List<Playlists> get playlists => _playlists;
+  List<Playlist> get playlists => _playlists;
 
   SongService() {
     getSongs();
+    getPlaylists();
   }
 
   set currentSong(SongModel value) {
@@ -76,7 +77,7 @@ class SongService extends ChangeNotifier {
     notifyListeners();
   }
 
-  set playlists(List<Playlists> value) {
+  set playlists(List<Playlist> value) {
     _playlists = value;
   }
 
@@ -111,7 +112,7 @@ class SongService extends ChangeNotifier {
     final Map<String, dynamic> data = json.decode(response.body);
 
     data.forEach((key, value) {
-      final playlist = Playlists.fromJson(value);
+      final playlist = Playlist.fromJson(value);
       _playlists.add(playlist);
       // print(playlist.title);
       // print(playlist.totalSongs);
