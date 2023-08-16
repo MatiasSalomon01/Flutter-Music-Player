@@ -30,6 +30,17 @@ class SongModel {
       isFavorite: json["isFavorite"],
       isLightColor: json["isLightColor"]);
 
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "title": title,
+        "artists": artists,
+        "url": url,
+        "image": albumImage,
+        "backgroundImage": backgroundImage,
+        "isFavorite": isFavorite,
+        "isLightColor": isLightColor,
+      };
+
   factory SongModel.empty() =>
       SongModel(id: "", title: "", artists: "", url: "");
 }

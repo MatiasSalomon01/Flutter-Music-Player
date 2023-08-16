@@ -1,14 +1,15 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:music_player/constants/constants.dart';
 import 'package:music_player/models/models.dart';
+import 'package:music_player/models/playlists.dart';
+import 'dart:convert';
 
 class SongService extends ChangeNotifier {
   List<SongModel> _songs = [];
   List<SongModel> _songsCopy = [];
   List<SongModel> _currentPlaylist = [];
+  List<Playlists> playlists = [];
 
   bool _isLoading = false;
   bool _isDefault = true;
