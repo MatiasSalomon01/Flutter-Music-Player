@@ -7,8 +7,10 @@ import 'package:music_player/services/song_service.dart';
 import 'package:music_player/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
+//TODO: corregir las posiciones de los widgets con MediaQuery para que sea responseive
+
 class PlaylistScreen extends StatefulWidget {
-  PlaylistScreen({super.key, required this.playlist});
+  const PlaylistScreen({super.key, required this.playlist});
   final Playlist playlist;
 
   @override
