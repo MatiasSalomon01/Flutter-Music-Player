@@ -149,7 +149,7 @@ class SongService extends ChangeNotifier {
     final response = await http.put(url, body: json.encode(playlist));
   }
 
-  void updateLikedSong(Playlist playlist) async {
+  Future updateLikedSong(Playlist playlist) async {
     playlist.totalSongs = playlist.songs.length;
     final url = Uri.https(baseUrl, '/playlists/likedSongs.json');
     final response = await http.put(url, body: json.encode(playlist));
@@ -157,7 +157,7 @@ class SongService extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateById(String id, bool isFavorite) async {
+  Future updateById(String id, bool isFavorite) async {
     final url = Uri.https(baseUrl, "/songs/$id/isFavorite.json");
     final response = await http.put(url, body: json.encode(isFavorite));
     if (response.statusCode == 200) {

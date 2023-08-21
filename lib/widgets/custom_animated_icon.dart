@@ -20,7 +20,6 @@ class CustomAnimatedIcon extends StatefulWidget {
 class _CustomAnimatedIconState extends State<CustomAnimatedIcon>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
-
   @override
   void initState() {
     _animationController = AnimationController(
@@ -41,23 +40,27 @@ class _CustomAnimatedIconState extends State<CustomAnimatedIcon>
     final songService = Provider.of<SongService>(context);
 
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
         _animationController
             .forward()
             .whenComplete(() => _animationController.reverse());
-        setState(() => widget.isFavorite = !widget.isFavorite);
-        songService.updateById(widget.id, widget.isFavorite);
+        widget.isFavorite = !widget.isFavorite;
+
+        await songService.updateById(widget.id, widget.isFavorite);
         var song =
             songService.songs.firstWhere((element) => element.id == widget.id);
 
         if (songService.playlists.isNotEmpty) {
           var likedSongs = songService.playlists.first;
-          if (widget.isFavorite == true) {
+          var exists =
+              likedSongs.songs.any((element) => element.id == widget.id);
+          if (exists == false && widget.isFavorite == true) {
             likedSongs.songs.add(song);
-            songService.updateLikedSong(likedSongs);
-          } else {
+            await songService.updateLikedSong(likedSongs);
+          }
+          if (exists == true && widget.isFavorite == false) {
             likedSongs.songs.removeWhere((element) => element.id == widget.id);
-            songService.updateLikedSong(likedSongs);
+            await songService.updateLikedSong(likedSongs);
           }
         } else {
           var playlist = Playlist(
@@ -68,8 +71,9 @@ class _CustomAnimatedIconState extends State<CustomAnimatedIcon>
             songs: [song],
           );
           songService.playlists = [playlist];
-          songService.updateLikedSong(playlist);
+          await songService.updateLikedSong(playlist);
         }
+        setState(() {});
       },
       child: AnimatedBuilder(
         animation: _animationController,
