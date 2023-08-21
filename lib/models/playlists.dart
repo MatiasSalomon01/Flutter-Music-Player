@@ -1,6 +1,7 @@
 import 'package:music_player/models/models.dart';
 
 class Playlist {
+  String? id;
   String title;
   int totalSongs;
   String image;

@@ -15,7 +15,7 @@ class YourLibraryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final songService = Provider.of<SongService>(context);
-    final likedSongs = songService.getLikedSongs();
+    // final likedSongs = songService.getLikedSongs();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: darkGrey,
@@ -44,7 +44,7 @@ class YourLibraryScreen extends StatelessWidget {
           IconButton(
             padding: EdgeInsets.zero,
             onPressed: () {
-              songService.getPlaylists();
+              // songService.getPlaylists();
             },
             icon: const Icon(Icons.add, size: 30),
             splashRadius: 20,

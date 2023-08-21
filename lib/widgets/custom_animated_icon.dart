@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:music_player/constants/constants.dart';
+import 'package:music_player/models/playlists.dart';
 import 'package:music_player/services/song_service.dart';
 import 'package:provider/provider.dart';
 
@@ -46,6 +47,29 @@ class _CustomAnimatedIconState extends State<CustomAnimatedIcon>
             .whenComplete(() => _animationController.reverse());
         setState(() => widget.isFavorite = !widget.isFavorite);
         songService.updateById(widget.id, widget.isFavorite);
+        var song =
+            songService.songs.firstWhere((element) => element.id == widget.id);
+
+        if (songService.playlists.isNotEmpty) {
+          var likedSongs = songService.playlists.first;
+          if (widget.isFavorite == true) {
+            likedSongs.songs.add(song);
+            songService.updateLikedSong(likedSongs);
+          } else {
+            likedSongs.songs.removeWhere((element) => element.id == widget.id);
+            songService.updateLikedSong(likedSongs);
+          }
+        } else {
+          var playlist = Playlist(
+            title: 'Tus me gusta',
+            totalSongs: 1,
+            image:
+                'https://firebasestorage.googleapis.com/v0/b/flutter-music-player-9518c.appspot.com/o/images%2Fliked-songs-300.png?alt=media&token=b89872ec-3c82-4317-831e-651b84606206',
+            songs: [song],
+          );
+          songService.playlists = [playlist];
+          songService.updateLikedSong(playlist);
+        }
       },
       child: AnimatedBuilder(
         animation: _animationController,

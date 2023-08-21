@@ -79,6 +79,7 @@ class SongService extends ChangeNotifier {
 
   set playlists(List<Playlist> value) {
     _playlists = value;
+    notifyListeners();
   }
 
   void getSongs() async {
@@ -98,13 +99,13 @@ class SongService extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<SongModel> getLikedSongs() {
-    List<SongModel> likedSongs = [];
-    songs.forEach((element) {
-      if (element.isFavorite) likedSongs.add(element);
-    });
-    return likedSongs;
-  }
+  // List<SongModel> getLikedSongs() {
+  //   List<SongModel> likedSongs = [];
+  //   songs.forEach((element) {
+  //     if (element.isFavorite) likedSongs.add(element);
+  //   });
+  //   return likedSongs;
+  // }
 
   void getPlaylists() async {
     final url = Uri.https(baseUrl, '/playlists.json');
@@ -112,7 +113,21 @@ class SongService extends ChangeNotifier {
     final Map<String, dynamic> data = json.decode(response.body);
 
     data.forEach((key, value) {
+      if (value["totalSongs"] == 0) {
+        var playlist = Playlist(
+          title: 'Tus me gustas',
+          totalSongs: 0,
+          image:
+              'https://firebasestorage.googleapis.com/v0/b/flutter-music-player-9518c.appspot.com/o/images%2Fliked-songs-300.png?alt=media&token=b89872ec-3c82-4317-831e-651b84606206',
+          songs: [],
+        );
+        _playlists = [playlist];
+        notifyListeners();
+        return;
+      }
+
       final playlist = Playlist.fromJson(value);
+      playlist.id = key;
       _playlists.add(playlist);
       // print(playlist.title);
       // print(playlist.totalSongs);
@@ -125,6 +140,20 @@ class SongService extends ChangeNotifier {
       //   print(element.backgroundImage);
       // });
     });
+    notifyListeners();
+  }
+
+  void updatePlaylistsSong(Playlist playlist) async {
+    playlist.totalSongs = playlist.songs.length;
+    final url = Uri.https(baseUrl, '/playlists/${playlist.id}.json');
+    final response = await http.put(url, body: json.encode(playlist));
+  }
+
+  void updateLikedSong(Playlist playlist) async {
+    playlist.totalSongs = playlist.songs.length;
+    final url = Uri.https(baseUrl, '/playlists/likedSongs.json');
+    final response = await http.put(url, body: json.encode(playlist));
+    _playlists[0] = playlist;
     notifyListeners();
   }
 

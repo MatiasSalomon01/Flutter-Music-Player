@@ -45,7 +45,6 @@ class _PlaylistScreenState extends State<PlaylistScreen>
     final size = MediaQuery.of(context).size;
     final audioProvider = Provider.of<AudioProvider>(context);
     final songService = Provider.of<SongService>(context);
-    final likedSongs = songService.getLikedSongs();
     final heighttest = MediaQuery.of(context).size.height * .415;
 
     return FadeInUpBig(
