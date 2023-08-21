@@ -7,8 +7,6 @@ import 'package:music_player/services/song_service.dart';
 import 'package:music_player/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
-//TODO: corregir las posiciones de los widgets con MediaQuery para que sea responseive
-
 class PlaylistScreen extends StatefulWidget {
   const PlaylistScreen({super.key, required this.playlist});
   final Playlist playlist;
@@ -249,7 +247,8 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                   : topHeight,
               child: FloatingActionButton(
                 backgroundColor: const Color(0xff1ed760),
-                onPressed: audioProvider.songState == SongState.isLoading
+                onPressed: audioProvider.songState == SongState.isLoading ||
+                        widget.playlist.songs.isEmpty
                     ? null
                     : () {
                         if (audioProvider.songState == SongState.isPlaying) {
