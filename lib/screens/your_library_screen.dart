@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:music_player/constants/constants.dart';
+import 'package:music_player/screens/screens.dart';
 import 'package:music_player/services/song_service.dart';
 import 'package:music_player/widgets/widgets.dart';
 import 'package:provider/provider.dart';
@@ -12,7 +15,7 @@ class YourLibraryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final songService = Provider.of<SongService>(context);
-    final likedSongs = songService.getLikedSongs();
+    // final likedSongs = songService.getLikedSongs();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: darkGrey,
@@ -20,7 +23,7 @@ class YourLibraryScreen extends StatelessWidget {
           children: const [
             CircleAvatar(
               backgroundColor: Colors.grey,
-              radius: 20,
+              radius: 18,
               child: Text(
                 'M',
                 style: TextStyle(color: black, fontSize: 20),
@@ -30,22 +33,42 @@ class YourLibraryScreen extends StatelessWidget {
             Text('Tu biblioteca'),
           ],
         ),
+        actions: [
+          IconButton(
+            padding: EdgeInsets.zero,
+            onPressed: () {},
+            icon: const Icon(Icons.search_outlined),
+            splashRadius: 20,
+            splashColor: Colors.transparent,
+          ),
+          IconButton(
+            padding: EdgeInsets.zero,
+            onPressed: () {
+              // songService.getPlaylists();
+            },
+            icon: const Icon(Icons.add, size: 30),
+            splashRadius: 20,
+            splashColor: Colors.transparent,
+          ),
+        ],
       ),
       body: Container(
-        padding: EdgeInsets.only(top: 15),
+        padding: const EdgeInsets.only(top: 15),
         color: black,
         child: Stack(
           children: [
-            ListView.separated(
-              physics: const BouncingScrollPhysics(),
-              itemCount: likedSongs.length,
-              itemBuilder: (context, index) => CustomListTile(
-                data: likedSongs[index],
-                index: index,
-                length: likedSongs.length,
+            SizedBox(
+              width: size.width,
+              height: size.height,
+              child: ListView.builder(
+                itemCount: songService.playlists.length,
+                itemBuilder: (context, index) {
+                  return PlaylistListTile(
+                    playlist: songService.playlists[index],
+                    index: index,
+                  );
+                },
               ),
-              separatorBuilder: (context, index) =>
-                  const Divider(color: Colors.transparent),
             ),
             if (songService.currentSong.id!.isNotEmpty) const Preview(),
             const CustomBottomNavigationbar(),

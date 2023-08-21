@@ -78,9 +78,9 @@ class MainButtons extends StatelessWidget {
   void next(AudioProvider audioProvider, SongService songService) {
     int nextIndex = songService.currentIndex + 1;
 
-    if (nextIndex == (songService.songs.length)) nextIndex = 0;
+    if (nextIndex == (songService.currentPlaylist.length)) nextIndex = 0;
 
-    songService.currentSong = songService.songs[nextIndex];
+    songService.currentSong = songService.currentPlaylist[nextIndex];
     audioProvider.setUrl = songService.currentSong.url;
     songService.setCurrentSong();
     songService.currentIndex = nextIndex;
@@ -90,9 +90,9 @@ class MainButtons extends StatelessWidget {
   void previous(AudioProvider audioProvider, SongService songService) {
     int nextIndex = songService.currentIndex - 1;
 
-    if (nextIndex < 0) nextIndex = songService.songs.length - 1;
+    if (nextIndex < 0) nextIndex = songService.currentPlaylist.length - 1;
 
-    songService.currentSong = songService.songs[nextIndex];
+    songService.currentSong = songService.currentPlaylist[nextIndex];
     audioProvider.setUrl = songService.currentSong.url;
     songService.setCurrentSong();
     songService.currentIndex = nextIndex;

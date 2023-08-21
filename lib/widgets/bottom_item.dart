@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:music_player/constants/constants.dart';
 import 'package:music_player/providers/providers.dart';
 import 'package:music_player/screens/screens.dart';
+import 'package:music_player/services/song_service.dart';
 import 'package:provider/provider.dart';
 
 class BottomItem extends StatelessWidget {
@@ -54,6 +55,8 @@ class BottomItem extends StatelessWidget {
   void onTap(BuildContext context, BottomNavigationProvider bottomProvider) {
     bottomProvider.currentScreenIndex = index;
     if (index == 0) {
+      final songService = Provider.of<SongService>(context, listen: false);
+      songService.currentPlaylist = songService.songs;
       Navigator.of(context).pushReplacement(
         PageRouteBuilder(
           pageBuilder: (_, __, ___) => const HomeScreen(),
