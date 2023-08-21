@@ -22,7 +22,6 @@ class _PlaylistScreenState extends State<PlaylistScreen>
   late AnimationController _animationController;
   ScrollController controller = ScrollController();
   double opacity = 0;
-  double addToButton = 0;
   double topHeight = 0;
   @override
   void initState() {
@@ -46,7 +45,6 @@ class _PlaylistScreenState extends State<PlaylistScreen>
     final size = MediaQuery.of(context).size;
     final audioProvider = Provider.of<AudioProvider>(context);
     final songService = Provider.of<SongService>(context);
-    final heighttest = MediaQuery.of(context).size.height * .7;
     topHeight = size.height * .45;
     return FadeInUpBig(
       duration: const Duration(milliseconds: 300),
@@ -291,53 +289,13 @@ class _PlaylistScreenState extends State<PlaylistScreen>
             const CustomBottomNavigationbar(),
           ],
         ),
-        // floatingActionButton: Padding(
-        //   padding: EdgeInsets.only(top: heighttest + addToButton),
-        //   child: FloatingActionButton(
-        //     backgroundColor: const Color(0xff1ed760),
-        //     onPressed: audioProvider.songState == SongState.isLoading
-        //         ? null
-        //         : () {
-        //             if (audioProvider.songState == SongState.isPlaying) {
-        //               audioProvider.pause();
-        //             } else {
-        //               if (!songService.isPlaylists) {
-        //                 songService.isPlaylists = true;
-        //                 songService.currentIndex = 0;
-        //                 songService.currentSong =
-        //                     songService.currentPlaylist[0];
-        //                 audioProvider.setUrl = songService.currentSong.url;
-        //                 audioProvider.play();
-        //                 songService.setCurrentSong();
-        //               } else {
-        //                 audioProvider.play();
-        //               }
-        //             }
-        //           },
-        //     child: audioProvider.songState == SongState.isLoading
-        //         ? const Padding(
-        //             padding: EdgeInsets.all(12),
-        //             child: CircularProgressIndicator(
-        //               color: black,
-        //               strokeWidth: 4,
-        //             ),
-        //           )
-        //         : Icon(
-        //             audioProvider.songState == SongState.isPlaying
-        //                 ? Icons.pause
-        //                 : Icons.play_arrow,
-        //             color: black,
-        //             size: 32,
-        //           ),
-        //   ),
-        // ),
       ),
     );
   }
 
   void scrollDependantAnimations() {
     //Para el appbar
-    if (controller.offset > 287) {
+    if (controller.offset > MediaQuery.of(context).size.height * .35) {
       opacity = 1;
     } else {
       opacity = 0;
@@ -351,14 +309,6 @@ class _PlaylistScreenState extends State<PlaylistScreen>
         _animationController.reverse();
       }
     }
-
-    //Para de play/pause
-    if (controller.offset < 356) {
-      addToButton = controller.offset;
-    } else {
-      addToButton = 356;
-    }
-
     setState(() {});
   }
 }
