@@ -45,6 +45,7 @@ class _CustomAnimatedIconState extends State<CustomAnimatedIcon>
             .forward()
             .whenComplete(() => _animationController.reverse());
         widget.isFavorite = !widget.isFavorite;
+        setState(() {});
 
         await songService.updateById(widget.id, widget.isFavorite);
         var song =
@@ -73,7 +74,6 @@ class _CustomAnimatedIconState extends State<CustomAnimatedIcon>
           songService.playlists = [playlist];
           await songService.updateLikedSong(playlist);
         }
-        setState(() {});
       },
       child: AnimatedBuilder(
         animation: _animationController,
