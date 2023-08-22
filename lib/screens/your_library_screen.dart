@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:animate_do/animate_do.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:music_player/constants/constants.dart';
 import 'package:music_player/screens/screens.dart';
@@ -44,7 +45,32 @@ class YourLibraryScreen extends StatelessWidget {
           IconButton(
             padding: EdgeInsets.zero,
             onPressed: () {
-              // songService.getPlaylists();
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  backgroundColor: Colors.transparent,
+                  content: Stack(
+                    children: [
+                      Positioned(
+                        bottom: 0,
+                        child: SlideInUp(
+                          duration: const Duration(milliseconds: 200),
+                          child: Container(
+                            height: 200,
+                            width: size.width,
+                            decoration: const BoxDecoration(
+                              color: Color(0xff242424),
+                              borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(15),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
             },
             icon: const Icon(Icons.add, size: 30),
             splashRadius: 20,

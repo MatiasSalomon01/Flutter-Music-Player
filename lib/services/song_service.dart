@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:just_audio/just_audio.dart';
 import 'package:music_player/constants/constants.dart';
 import 'package:music_player/models/models.dart';
 import 'package:music_player/models/playlists.dart';
@@ -107,41 +108,45 @@ class SongService extends ChangeNotifier {
   //   return likedSongs;
   // }
 
-  void getPlaylists() async {
-    final url = Uri.https(baseUrl, '/playlists.json');
-    final response = await http.get(url);
-    final Map<String, dynamic> data = json.decode(response.body);
+  Future getPlaylists() async {
+    try {
+      final url = Uri.https(baseUrl, '/playlists.json');
+      final response = await http.get(url);
+      final Map<String, dynamic> data = json.decode(response.body);
 
-    data.forEach((key, value) {
-      if (value["totalSongs"] == 0) {
-        var playlist = Playlist(
-          title: 'Tus me gustas',
-          totalSongs: 0,
-          image:
-              'https://firebasestorage.googleapis.com/v0/b/flutter-music-player-9518c.appspot.com/o/images%2Fliked-songs-300.png?alt=media&token=b89872ec-3c82-4317-831e-651b84606206',
-          songs: [],
-        );
-        _playlists = [playlist];
-        notifyListeners();
-        return;
-      }
+      List<UriAudioSource> items = [];
+      data.forEach((key, value) {
+        if (value["totalSongs"] == 0) {
+          var playlist = Playlist(
+            title: 'Tus me gustas',
+            totalSongs: 0,
+            image:
+                'https://firebasestorage.googleapis.com/v0/b/flutter-music-player-9518c.appspot.com/o/images%2Fliked-songs-300.png?alt=media&token=b89872ec-3c82-4317-831e-651b84606206',
+            songs: [],
+          );
+          _playlists = [playlist];
+          notifyListeners();
+          return;
+        }
+        final playlist = Playlist.fromJson(value);
+        playlist.id = key;
+        _playlists.add(playlist);
 
-      final playlist = Playlist.fromJson(value);
-      playlist.id = key;
-      _playlists.add(playlist);
-      // print(playlist.title);
-      // print(playlist.totalSongs);
-      // print(playlist.image);
-      // playlist.songs.forEach((element) {
-      //   print(element.id);
-      //   print(element.title);
-      //   print(element.artists);
-      //   print(element.albumImage);
-      //   print(element.backgroundImage);
-      // });
-    });
+        playlist.songs.forEach((element) {
+          items.add(AudioSource.uri(Uri.parse(element.url)));
+        });
+        final player = AudioPlayer();
+        var sources = ConcatenatingAudioSource(children: items);
+        player.setAudioSource(sources);
+        print("DURACION: ${player.durationStream}");
+      });
+    } catch (e) {}
+
     notifyListeners();
   }
+//   Future selectItem(int index) {
+//   await player.setAudioSource(items[index]!);
+// }
 
   void updatePlaylistsSong(Playlist playlist) async {
     playlist.totalSongs = playlist.songs.length;
