@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:music_player/constants/constants.dart';
 import 'package:music_player/models/playlists.dart';
 import 'package:music_player/providers/providers.dart';
-import 'package:music_player/services/song_service.dart';
+import 'package:music_player/services/services.dart';
 import 'package:music_player/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -20,7 +20,6 @@ class _PlaylistScreenState extends State<PlaylistScreen>
   late AnimationController _animationController;
   ScrollController controller = ScrollController();
   double opacity = 0;
-  double topHeight = 0;
   @override
   void initState() {
     _animationController = AnimationController(
@@ -43,7 +42,7 @@ class _PlaylistScreenState extends State<PlaylistScreen>
     final size = MediaQuery.of(context).size;
     final audioProvider = Provider.of<AudioProvider>(context);
     final songService = Provider.of<SongService>(context);
-    topHeight = size.height * .45;
+    double topHeight = size.height * .45;
     return FadeInUpBig(
       duration: const Duration(milliseconds: 300),
       from: 100,
@@ -241,9 +240,7 @@ class _PlaylistScreenState extends State<PlaylistScreen>
             Positioned(
               right: 20,
               top: controller.positions.isNotEmpty
-                  ? controller.offset < size.height * .38
-                      ? topHeight - controller.offset
-                      : 50
+                  ? topHeight - controller.offset.clamp(0, size.height * .38)
                   : topHeight,
               child: FloatingActionButton(
                 backgroundColor: const Color(0xff1ed760),
@@ -294,7 +291,7 @@ class _PlaylistScreenState extends State<PlaylistScreen>
 
   void scrollDependantAnimations() {
     //Para el appbar
-    if (controller.offset > MediaQuery.of(context).size.height * .35) {
+    if (controller.offset > MediaQuery.of(context).size.height * .38) {
       opacity = 1;
     } else {
       opacity = 0;
