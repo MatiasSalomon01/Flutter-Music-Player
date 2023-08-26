@@ -6,13 +6,14 @@ class Playlist {
   int totalSongs;
   String image;
   List<SongModel> songs;
+  String total;
 
-  Playlist({
-    required this.title,
-    required this.totalSongs,
-    required this.image,
-    required this.songs,
-  });
+  Playlist(
+      {required this.title,
+      required this.totalSongs,
+      required this.image,
+      required this.songs,
+      this.total = ""});
 
   factory Playlist.fromJson(Map<String, dynamic> json) => Playlist(
         title: json["title"],

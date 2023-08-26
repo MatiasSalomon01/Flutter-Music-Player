@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:music_player/colors/colors.dart';
+import 'package:music_player/constants/constants.dart';
 import 'package:music_player/providers/providers.dart';
 import 'package:provider/provider.dart';
 
@@ -40,17 +41,5 @@ class _ProgressBarState extends State<ProgressBar> {
         ],
       ),
     );
-  }
-
-  String formatDuration(Duration duration) {
-    String twoDigits(int n) {
-      if (n >= 10) return "$n";
-      return "0$n";
-    }
-
-    String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
-    String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
-
-    return "$twoDigitMinutes:$twoDigitSeconds";
   }
 }

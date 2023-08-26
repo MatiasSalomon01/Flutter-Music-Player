@@ -128,30 +128,12 @@ class SongService extends ChangeNotifier {
       }
       final playlist = Playlist.fromJson(value);
       playlist.id = key;
+      playlist.total =
+          formatDuration(getTotalDuration(playlist.songs), withHours: true);
       _playlists.add(playlist);
     });
 
     notifyListeners();
-  }
-
-  Future<void> getTotalDuration(List<SongModel> songs) async {
-    final player = AudioPlayer();
-    Duration totalDuration = Duration.zero;
-    List<UriAudioSource> sources = [];
-
-    for (var element in songs) {
-      sources.add(AudioSource.uri(Uri.parse(element.url)));
-    }
-    var audioSource = ConcatenatingAudioSource(children: sources);
-    await player.setAudioSource(audioSource);
-
-    // for (var i = 0; i < audioSource.children.length; i++) {
-    //   final source = audioSource.children[i];
-    //   await source.load();
-    //   final duration = source.duration;
-    //   totalDuration += duration;
-    // }
-    await player.dispose();
   }
 
   void updatePlaylistsSong(Playlist playlist) async {
@@ -179,6 +161,11 @@ class SongService extends ChangeNotifier {
         return e;
       }).toList();
     }
+
+    _playlists = playlists.map((e) {
+      e.total = formatDuration(getTotalDuration(e.songs), withHours: true);
+      return e;
+    }).toList();
     notifyListeners();
   }
 }

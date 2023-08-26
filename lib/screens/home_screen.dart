@@ -27,9 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           IconButton(
             padding: EdgeInsets.zero,
-            onPressed: () async{
-              await songService.getTotalDuration(songService.songs);
-            },
+            onPressed: () {},
             icon: const Icon(Icons.history),
             splashRadius: 20,
           ),

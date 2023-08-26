@@ -146,21 +146,33 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                           Padding(
                             padding: const EdgeInsets.only(left: 15),
                             child: Row(
-                              children: const [
-                                Icon(
-                                  Icons.timer_sharp,
-                                  color: Colors.grey,
-                                  size: 20,
-                                ),
-                                SizedBox(width: 4),
-                                Text(
-                                  '2 h 30 min',
-                                  style: TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
+                              children: [
+                                const SizedBox(width: 4),
+                                widget.playlist.songs.isEmpty
+                                    ? const Text("")
+                                    : RichText(
+                                        text: TextSpan(
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                          children: [
+                                            TextSpan(
+                                              text:
+                                                  "${widget.playlist.songs.length} canciones, ",
+                                              style: const TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                            TextSpan(
+                                              text:
+                                                  // "${formatDuration(duration, withHours: true)}",
+                                                  widget.playlist.total,
+                                              style: const TextStyle(
+                                                  color: Colors.grey),
+                                            )
+                                          ],
+                                        ),
+                                      ),
                               ],
                             ),
                           ),
