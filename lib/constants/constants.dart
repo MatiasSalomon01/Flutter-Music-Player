@@ -22,7 +22,9 @@ String formatDuration(Duration duration, {bool withHours = false}) {
   String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
 
   return withHours
-      ? "$hours h $twoDigitMinutes m $twoDigitSeconds s"
+      ? hours == "0"
+          ? "$twoDigitMinutes min $twoDigitSeconds s"
+          : "$hours h $twoDigitMinutes min $twoDigitSeconds s"
       : "$twoDigitMinutes:$twoDigitSeconds";
 }
 

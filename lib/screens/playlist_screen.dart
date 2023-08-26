@@ -8,9 +8,15 @@ import 'package:music_player/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 class PlaylistScreen extends StatefulWidget {
-  const PlaylistScreen({super.key, required this.playlist});
+  const PlaylistScreen({
+    super.key,
+    required this.playlist,
+    this.mainColor = const Color(0xff6a6a6a),
+    this.appBarColor = const Color.fromARGB(255, 59, 59, 59),
+  });
   final Playlist playlist;
-
+  final Color mainColor;
+  final Color appBarColor;
   @override
   State<PlaylistScreen> createState() => _PlaylistScreenState();
 }
@@ -51,15 +57,15 @@ class _PlaylistScreenState extends State<PlaylistScreen>
         body: Stack(
           children: [
             Container(
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [
-                    Color(0xff6a6a6a),
-                    Color(0xff121212),
-                  ],
-                  begin: Alignment.topCenter,
-                  end: Alignment.center,
-                ),
+                    colors: [
+                      widget.mainColor,
+                      const Color(0xff121212),
+                    ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.center,
+                    stops: const [.4, 1]),
               ),
               child: CustomScrollView(
                 controller: controller,
@@ -108,7 +114,7 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                                   padding: const EdgeInsets.only(
                                       left: 50, top: kToolbarHeight * .7),
                                   width: size.width,
-                                  color: const Color.fromARGB(255, 59, 59, 59),
+                                  color: widget.appBarColor,
                                   child: Text(
                                     widget.playlist.title,
                                     style: const TextStyle(

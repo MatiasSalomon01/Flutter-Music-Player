@@ -20,7 +20,11 @@ class PlaylistListTile extends StatelessWidget {
         songService.currentPlaylist = playlist.songs;
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => PlaylistScreen(playlist: playlist),
+            builder: (context) => PlaylistScreen(
+              playlist: playlist,
+              mainColor: Color(int.parse(playlist.mainColor)),
+              appBarColor: Color(int.parse(playlist.mainColor) - 30),
+            ),
           ),
         );
       },
