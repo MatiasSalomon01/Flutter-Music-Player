@@ -2,7 +2,7 @@ import 'package:auto_size_text_field/auto_size_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:music_player/constants/constants.dart';
 import 'package:music_player/models/playlists.dart';
-import 'package:music_player/providers/providers.dart';
+import 'package:music_player/services/services.dart';
 import 'package:provider/provider.dart';
 
 class CreatePlaylist extends StatefulWidget {
@@ -29,6 +29,7 @@ class _CreatePlaylistState extends State<CreatePlaylist> {
 
   @override
   Widget build(BuildContext context) {
+    final songService = Provider.of<SongService>(context);
     final playlistService = Provider.of<PlaylistService>(context);
     return Scaffold(
       body: Container(
@@ -112,6 +113,8 @@ class _CreatePlaylistState extends State<CreatePlaylist> {
                       );
 
                       await playlistService.create(playlist);
+                      songService.getPlaylists();
+                      Navigator.of(context).pop();
                     },
                     padding: const EdgeInsets.symmetric(
                       horizontal: 30,

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:music_player/constants/constants.dart';
 import 'package:music_player/models/playlists.dart';
+import 'package:music_player/providers/providers.dart';
 import 'package:music_player/screens/playlist_screen.dart';
 import 'package:music_player/services/song_service.dart';
+import 'package:music_player/utlis/utils.dart';
 import 'package:provider/provider.dart';
 
 class PlaylistListTile extends StatelessWidget {
@@ -14,6 +16,7 @@ class PlaylistListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final songService = Provider.of<SongService>(context);
+    final playlistService = Provider.of<PlaylistService>(context);
 
     return GestureDetector(
       onTap: () {
@@ -28,6 +31,73 @@ class PlaylistListTile extends StatelessWidget {
           ),
         );
       },
+      onLongPress: () => showPlaylistModal(
+        context,
+        height: 260,
+        child: Column(
+          children: [
+            ListTile(
+              contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+              leading: Transform.rotate(
+                angle: .7,
+                child: const Icon(
+                  Icons.push_pin_outlined,
+                  size: 30,
+                  color: Colors.grey,
+                ),
+              ),
+              title: const Text(
+                'Fijar playlist',
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  color: white,
+                  fontSize: 20,
+                ),
+              ),
+            ),
+            const ListTile(
+              contentPadding: EdgeInsets.symmetric(horizontal: 10),
+              leading: Icon(
+                Icons.share_outlined,
+                size: 30,
+                color: Colors.grey,
+              ),
+              title: Text(
+                'Compartir',
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  color: white,
+                  fontSize: 20,
+                ),
+              ),
+            ),
+            ListTile(
+              onTap: () async {
+                await playlistService.delete(playlist);
+                songService.playlists
+                    .removeWhere((element) => element.id == playlist.id);
+                var playlists = songService.playlists;
+                songService.playlists = playlists;
+                Navigator.of(context).pop();
+              },
+              contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+              leading: const Icon(
+                Icons.close,
+                size: 32,
+                color: Colors.grey,
+              ),
+              title: const Text(
+                'Eliminar playlist',
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  color: white,
+                  fontSize: 20,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
       child: Container(
         color: transparent,
         child: Row(
@@ -76,14 +146,6 @@ class PlaylistListTile extends StatelessWidget {
                   ],
                 ),
               ],
-            ),
-            const Spacer(),
-            IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.more_vert,
-                color: Colors.grey.shade600,
-              ),
             ),
           ],
         ),

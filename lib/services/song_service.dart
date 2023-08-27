@@ -109,6 +109,7 @@ class SongService extends ChangeNotifier {
   // }
 
   Future getPlaylists() async {
+    _playlists.clear();
     final url = Uri.https(baseUrl, '/playlists.json');
     final response = await http.get(url);
     final Map<String, dynamic> data = json.decode(response.body);

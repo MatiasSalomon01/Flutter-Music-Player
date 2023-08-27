@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:music_player/constants/constants.dart';
 import 'package:music_player/models/playlists.dart';
@@ -12,5 +11,8 @@ class PlaylistService extends ChangeNotifier {
   }
 
   Future<void> update(Playlist playlist) async {}
-  Future<void> delete(Playlist playlist) async {}
+  Future<void> delete(Playlist playlist) async {
+    final url = Uri.https(baseUrl, '/playlists/${playlist.id}.json');
+    final response = await http.delete(url);
+  }
 }
