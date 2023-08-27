@@ -118,10 +118,9 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                                   child: Text(
                                     widget.playlist.title,
                                     style: const TextStyle(
-                                      color: white,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                                        color: white,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w600),
                                   ),
                                 ),
                               ),
@@ -143,8 +142,8 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                                 widget.playlist.title,
                                 style: const TextStyle(
                                     color: white,
-                                    fontSize: 25,
-                                    fontWeight: FontWeight.bold),
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w600),
                               ),
                             ),
                           ),
@@ -215,7 +214,7 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                               // const SizedBox(width: 80),
                             ],
                           ),
-                          const SizedBox(height: 20),
+                          const SizedBox(height: 10),
                           ListTile(
                             contentPadding:
                                 const EdgeInsets.only(left: 15, right: 0),

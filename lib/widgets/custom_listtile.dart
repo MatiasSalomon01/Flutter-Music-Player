@@ -28,7 +28,7 @@ class CustomListTile extends StatelessWidget {
           bottom: index == (length - 1)
               ? songService.currentSong.id!.isNotEmpty
                   ? 140
-                  : 70
+                  : 80
               : 0),
       child: ListTile(
         contentPadding: const EdgeInsets.only(left: 15, right: 0),
