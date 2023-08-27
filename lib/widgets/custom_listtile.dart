@@ -25,10 +25,10 @@ class CustomListTile extends StatefulWidget {
 
 class _CustomListTileState extends State<CustomListTile> {
   bool isActive = false;
+
   @override
   Widget build(BuildContext context) {
     final songService = Provider.of<SongService>(context);
-
     return Padding(
       padding: EdgeInsets.only(
           bottom: widget.index == (widget.length - 1)
@@ -49,9 +49,7 @@ class _CustomListTileState extends State<CustomListTile> {
           audioProvider.setUrl = songService.currentSong.url;
           audioProvider.play();
           songService.setCurrentSong();
-          setState(() {
-            isActive = !isActive;
-          });
+          setState(() => isActive = !isActive);
         },
         leading: ClipRRect(
           borderRadius: BorderRadius.circular(5),
@@ -66,13 +64,17 @@ class _CustomListTileState extends State<CustomListTile> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text(widget.data.title,
-                style: TextStyle(
-                    color: widget.data.id == songService.currentSong.id
-                        ? lightGreen
-                        : white)),
-            Text(widget.data.artists,
-                style: TextStyle(color: Colors.grey.shade600)),
+            Text(
+              widget.data.title,
+              style: TextStyle(
+                  color: widget.data.id == songService.currentSong.id
+                      ? lightGreen
+                      : white),
+            ),
+            Text(
+              widget.data.artists,
+              style: TextStyle(color: Colors.grey.shade600),
+            ),
           ],
         ),
         trailing: Row(

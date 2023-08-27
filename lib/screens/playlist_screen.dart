@@ -164,7 +164,7 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                                           children: [
                                             TextSpan(
                                               text:
-                                                  "${widget.playlist.songs.length} canciones, ",
+                                                  "• ${widget.playlist.songs.length} canciones, ",
                                               style: const TextStyle(
                                                   color: Colors.white),
                                             ),
