@@ -14,16 +14,25 @@ class CreatePlaylist extends StatefulWidget {
 
 class _CreatePlaylistState extends State<CreatePlaylist> {
   late final TextEditingController controller;
+  final FocusNode _focusNode = FocusNode();
 
   @override
   void initState() {
     controller = TextEditingController(text: 'Mi Playlist #1');
+
+    Future.delayed(Duration.zero, () => _focusNode.requestFocus());
+
+    controller.selection = TextSelection(
+      baseOffset: 0,
+      extentOffset: controller.text.length,
+    );
     super.initState();
   }
 
   @override
   void dispose() {
     controller.dispose();
+    _focusNode.dispose();
     super.dispose();
   }
 
@@ -56,6 +65,7 @@ class _CreatePlaylistState extends State<CreatePlaylist> {
                 margin: const EdgeInsets.symmetric(vertical: 60),
                 constraints: const BoxConstraints(maxWidth: 360),
                 child: AutoSizeTextField(
+                  focusNode: _focusNode,
                   controller: controller,
                   cursorColor: white,
                   minFontSize: 14,
