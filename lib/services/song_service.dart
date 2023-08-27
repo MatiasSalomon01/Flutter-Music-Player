@@ -114,18 +114,18 @@ class SongService extends ChangeNotifier {
     final Map<String, dynamic> data = json.decode(response.body);
 
     data.forEach((key, value) {
-      if (value["totalSongs"] == 0) {
-        var playlist = Playlist(
-          title: 'Tus me gustas',
-          totalSongs: 0,
-          image:
-              'https://firebasestorage.googleapis.com/v0/b/flutter-music-player-9518c.appspot.com/o/images%2Fliked-songs-300.png?alt=media&token=b89872ec-3c82-4317-831e-651b84606206',
-          songs: [],
-        );
-        _playlists = [playlist];
-        notifyListeners();
-        return;
-      }
+      // if (value["totalSongs"] == 0) {
+      //   var playlist = Playlist(
+      //     title: 'Tus me gustas',
+      //     totalSongs: 0,
+      //     image:
+      //         'https://firebasestorage.googleapis.com/v0/b/flutter-music-player-9518c.appspot.com/o/images%2Fliked-songs-300.png?alt=media&token=b89872ec-3c82-4317-831e-651b84606206',
+      //     songs: [],
+      //   );
+      //   _playlists = [playlist];
+      //   notifyListeners();
+      //   return;
+      // }
       final playlist = Playlist.fromJson(value);
       playlist.id = key;
       playlist.total =
@@ -133,6 +133,11 @@ class SongService extends ChangeNotifier {
       _playlists.add(playlist);
     });
 
+    List<Playlist> orderedPlaylists = [];
+    for (var i = _playlists.length - 1; i >= 0; i--) {
+      orderedPlaylists.add(_playlists[i]);
+    }
+    _playlists = orderedPlaylists;
     notifyListeners();
   }
 

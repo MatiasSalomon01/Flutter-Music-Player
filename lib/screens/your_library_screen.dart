@@ -60,7 +60,7 @@ class YourLibraryScreen extends StatelessWidget {
             SizedBox(
               width: size.width,
               height: size.height,
-              child: ListView.builder(
+              child: ListView.separated(
                 itemCount: songService.playlists.length,
                 itemBuilder: (context, index) {
                   return PlaylistListTile(
@@ -68,6 +68,8 @@ class YourLibraryScreen extends StatelessWidget {
                     index: index,
                   );
                 },
+                separatorBuilder: (context, index) =>
+                    const Divider(color: transparent),
               ),
             ),
             if (songService.currentSong.id!.isNotEmpty) const Preview(),

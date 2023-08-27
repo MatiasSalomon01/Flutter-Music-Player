@@ -21,8 +21,10 @@ class Playlist {
       title: json["title"],
       totalSongs: json["totalSongs"],
       image: json["image"],
-      songs:
-          List<SongModel>.from(json["songs"].map((e) => SongModel.fromJson(e))),
+      songs: json["songs"] != null
+          ? List<SongModel>.from(
+              json["songs"].map((e) => SongModel.fromJson(e)))
+          : [],
       mainColor: json["mainColor"]);
 
   Map<String, dynamic> toJson() => {

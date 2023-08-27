@@ -58,7 +58,7 @@ class PlaylistListTile extends StatelessWidget {
                 const SizedBox(height: 5),
                 Row(
                   children: [
-                    if (index == 0)
+                    if (index == 0) ...[
                       Transform.rotate(
                         angle: .7,
                         child: const Icon(
@@ -67,7 +67,8 @@ class PlaylistListTile extends StatelessWidget {
                           color: lightGreen,
                         ),
                       ),
-                    const SizedBox(width: 5),
+                      const SizedBox(width: 8),
+                    ],
                     Text(
                       'Playlist • ${playlist.songs.length} canciones',
                       style: const TextStyle(color: Colors.grey, fontSize: 16),
