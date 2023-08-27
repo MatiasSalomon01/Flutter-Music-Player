@@ -1,12 +1,6 @@
-import 'dart:math';
-
-import 'package:animate_do/animate_do.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:music_player/constants/constants.dart';
-import 'package:music_player/screens/screens.dart';
 import 'package:music_player/services/song_service.dart';
-import 'package:music_player/utlis/utils.dart';
 import 'package:music_player/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
