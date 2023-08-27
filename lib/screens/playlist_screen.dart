@@ -119,7 +119,7 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                                     widget.playlist.title,
                                     style: const TextStyle(
                                       color: white,
-                                      fontSize: 22,
+                                      fontSize: 20,
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),

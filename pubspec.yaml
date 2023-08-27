@@ -22,5 +22,10 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-  assets:
-    - assets/
+  fonts:
+    - family: OpenSans
+      fonts:
+        - asset: assets/OpenSans-Bold.ttf
+        - asset: assets/OpenSans-Light.ttf
+        - asset: assets/OpenSans-Regular.ttf
+        - asset: assets/OpenSans-SemiBold.ttf
