@@ -48,26 +48,24 @@ class CustomAppBar2 extends StatelessWidget implements PreferredSizeWidget {
                 ),
               ),
             ),
-            child: Row(
-              children: [
-                const Icon(
-                  Icons.music_note_outlined,
-                  color: Colors.grey,
-                  size: 35,
-                ),
-                const SizedBox(width: 10),
-                GestureDetector(
-                  onTap: () {
-                    {
-                      Navigator.of(context).pop();
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const CreatePlaylist(),
-                        ),
-                      );
-                    }
-                  },
-                  child: Column(
+            child: InkWell(
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const CreatePlaylist(),
+                  ),
+                );
+              },
+              child: Row(
+                children: [
+                  const Icon(
+                    Icons.music_note_outlined,
+                    color: Colors.grey,
+                    size: 35,
+                  ),
+                  const SizedBox(width: 10),
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: const [
                       Text(
@@ -86,9 +84,9 @@ class CustomAppBar2 extends StatelessWidget implements PreferredSizeWidget {
                         ),
                       ),
                     ],
-                  ),
-                )
-              ],
+                  )
+                ],
+              ),
             ),
           ),
           icon: const Icon(Icons.add, size: 30),
