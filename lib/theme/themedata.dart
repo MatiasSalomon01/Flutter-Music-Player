@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:music_player/colors/colors.dart';
+import 'package:music_player/constants/constants.dart';
 
 class CustomThemeData {
   static ThemeData themeData = ThemeData(
@@ -10,7 +11,7 @@ class CustomThemeData {
         pressedElevation: 0,
         enabledThumbRadius: 7,
       ),
-      overlayColor: Colors.transparent,
+      overlayColor: transparent,
       overlayShape: SliderComponentShape.noOverlay,
     ),
   );

@@ -29,7 +29,7 @@ class PlaylistListTile extends StatelessWidget {
         );
       },
       child: Container(
-        color: Colors.transparent,
+        color: transparent,
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -64,7 +64,7 @@ class PlaylistListTile extends StatelessWidget {
                         child: const Icon(
                           Icons.push_pin_rounded,
                           size: 18,
-                          color: Color(0xff1ed760),
+                          color: lightGreen,
                         ),
                       ),
                     const SizedBox(width: 5),

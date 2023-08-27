@@ -40,7 +40,7 @@ class YourLibraryScreen extends StatelessWidget {
             onPressed: () {},
             icon: const Icon(Icons.search_outlined),
             splashRadius: 20,
-            splashColor: Colors.transparent,
+            splashColor: transparent,
           ),
           IconButton(
             padding: EdgeInsets.zero,
@@ -48,7 +48,7 @@ class YourLibraryScreen extends StatelessWidget {
               showDialog(
                 context: context,
                 builder: (context) => AlertDialog(
-                  backgroundColor: Colors.transparent,
+                  backgroundColor: transparent,
                   content: Stack(
                     children: [
                       Positioned(
@@ -74,7 +74,7 @@ class YourLibraryScreen extends StatelessWidget {
             },
             icon: const Icon(Icons.add, size: 30),
             splashRadius: 20,
-            splashColor: Colors.transparent,
+            splashColor: transparent,
           ),
         ],
         automaticallyImplyLeading: false,

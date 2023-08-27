@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:music_player/colors/colors.dart';
-import 'package:music_player/services/song_service.dart';
-import 'package:provider/provider.dart';
+import 'package:music_player/constants/constants.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -10,7 +9,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.transparent,
+      backgroundColor: transparent,
       elevation: 0,
       leading: GestureDetector(
         onTap: () => Navigator.of(context).pop(),

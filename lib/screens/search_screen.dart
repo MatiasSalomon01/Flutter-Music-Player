@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:music_player/constants/constants.dart';
 import 'package:music_player/widgets/widgets.dart';
 
 class SearchScreen extends StatelessWidget {
@@ -8,7 +9,7 @@ class SearchScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: transparent,
         elevation: 0,
         automaticallyImplyLeading: false,
       ),

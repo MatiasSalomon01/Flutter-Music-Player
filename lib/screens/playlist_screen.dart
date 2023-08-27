@@ -74,7 +74,7 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                     pinned: true,
                     expandedHeight: 280,
                     elevation: 0,
-                    backgroundColor: Colors.transparent,
+                    backgroundColor: transparent,
                     flexibleSpace: LayoutBuilder(
                       builder: (context, constraints) {
                         return Stack(
@@ -235,7 +235,7 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                               style: TextStyle(color: white),
                             ),
                           ),
-                          const Divider(color: Colors.transparent),
+                          const Divider(color: transparent),
                           ListView.separated(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
@@ -246,7 +246,7 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                               length: widget.playlist.songs.length,
                             ),
                             separatorBuilder: (context, index) =>
-                                const Divider(color: Colors.transparent),
+                                const Divider(color: transparent),
                           ),
                         ],
                       ),

@@ -58,7 +58,7 @@ class _PreviewState extends State<Preview> {
                 const _TitleSubtitlePreview(),
                 const Spacer(),
                 Material(
-                  color: Colors.transparent,
+                  color: transparent,
                   child: IconButton(
                     splashRadius: 20,
                     highlightColor: darkGrey,
@@ -84,7 +84,7 @@ class _PreviewState extends State<Preview> {
                   ),
                 ),
                 Material(
-                  color: Colors.transparent,
+                  color: transparent,
                   child: IconButton(
                     splashRadius: 20,
                     highlightColor: darkGrey,
