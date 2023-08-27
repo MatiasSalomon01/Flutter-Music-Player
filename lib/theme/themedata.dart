@@ -14,5 +14,9 @@ class CustomThemeData {
         overlayColor: transparent,
         overlayShape: SliderComponentShape.noOverlay,
       ),
-      fontFamily: 'OpenSans');
+      fontFamily: 'OpenSans',
+      textSelectionTheme: const TextSelectionThemeData(
+        selectionColor: selectionColor,
+        selectionHandleColor: lightGreen,
+      ));
 }

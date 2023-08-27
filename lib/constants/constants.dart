@@ -6,6 +6,7 @@ const black = Colors.black;
 const white = Colors.white;
 const transparent = Colors.transparent;
 const lightGreen = Color(0xff1ed760);
+const selectionColor = Color(0xff3a8453);
 const gray = Color(0xff242424);
 
 const baseUrl = 'flutter-music-player-9518c-default-rtdb.firebaseio.com';
