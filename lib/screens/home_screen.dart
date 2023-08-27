@@ -53,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       length: songService.songs.length,
                     ),
                     separatorBuilder: (context, index) =>
-                        const Divider(color: Colors.transparent),
+                        const Divider(color: transparent),
                   ),
                 ),
               ],
