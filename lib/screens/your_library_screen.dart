@@ -81,7 +81,6 @@ class YourLibraryScreen extends StatelessWidget {
   Future showCreatePlaylistModal(BuildContext context) {
     return showModalBottomSheet(
       context: context,
-      // isScrollControlled: true,
       backgroundColor: transparent,
       builder: (context) => Container(
         height: 180,
@@ -118,11 +117,14 @@ class YourLibraryScreen extends StatelessWidget {
             ),
             const Divider(color: white, thickness: .1),
             GestureDetector(
-              onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => const CreatePlaylist(),
-                ),
-              ),
+              onTap: () async {
+                Navigator.of(context).pop();
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const CreatePlaylist(),
+                  ),
+                );
+              },
               child: Container(
                 margin:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -148,7 +150,6 @@ class YourLibraryScreen extends StatelessWidget {
                         Text(
                           'Crea una playlist con canciones',
                           style: TextStyle(
-                            // fontWeight: FontWeight.w500,
                             color: Colors.grey,
                             fontSize: 16,
                           ),

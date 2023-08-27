@@ -1,6 +1,9 @@
 import 'package:auto_size_text_field/auto_size_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:music_player/constants/constants.dart';
+import 'package:music_player/models/playlists.dart';
+import 'package:music_player/providers/providers.dart';
+import 'package:provider/provider.dart';
 
 class CreatePlaylist extends StatefulWidget {
   const CreatePlaylist({super.key});
@@ -26,6 +29,7 @@ class _CreatePlaylistState extends State<CreatePlaylist> {
 
   @override
   Widget build(BuildContext context) {
+    final playlistService = Provider.of<PlaylistService>(context);
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -76,7 +80,7 @@ class _CreatePlaylistState extends State<CreatePlaylist> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   MaterialButton(
-                    onPressed: () {},
+                    onPressed: () => Navigator.of(context).pop(),
                     padding: const EdgeInsets.symmetric(
                       horizontal: 30,
                       vertical: 15,
@@ -98,7 +102,17 @@ class _CreatePlaylistState extends State<CreatePlaylist> {
                   ),
                   const SizedBox(width: 25),
                   MaterialButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      var playlist = Playlist(
+                        title: controller.text,
+                        totalSongs: 0,
+                        image:
+                            'https://firebasestorage.googleapis.com/v0/b/flutter-music-player-9518c.appspot.com/o/images%2FCaptura%20de%20pantalla%202023-08-14%20203624%20(1).png?alt=media&token=49a4d518-aa5e-49ed-ae47-4cd365da11a3',
+                        songs: [],
+                      );
+
+                      await playlistService.create(playlist);
+                    },
                     padding: const EdgeInsets.symmetric(
                       horizontal: 30,
                       vertical: 15,

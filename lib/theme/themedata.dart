@@ -4,19 +4,20 @@ import 'package:music_player/constants/constants.dart';
 
 class CustomThemeData {
   static ThemeData themeData = ThemeData(
-      sliderTheme: SliderThemeData(
-        thumbColor: AppColors.barColor,
-        trackHeight: 2,
-        thumbShape: const RoundSliderThumbShape(
-          pressedElevation: 0,
-          enabledThumbRadius: 7,
-        ),
-        overlayColor: transparent,
-        overlayShape: SliderComponentShape.noOverlay,
+    sliderTheme: SliderThemeData(
+      thumbColor: AppColors.barColor,
+      trackHeight: 2,
+      thumbShape: const RoundSliderThumbShape(
+        pressedElevation: 0,
+        enabledThumbRadius: 7,
       ),
-      fontFamily: 'OpenSans',
-      textSelectionTheme: const TextSelectionThemeData(
-        selectionColor: selectionColor,
-        selectionHandleColor: lightGreen,
-      ));
+      overlayColor: transparent,
+      overlayShape: SliderComponentShape.noOverlay,
+    ),
+    fontFamily: 'OpenSans',
+    textSelectionTheme: const TextSelectionThemeData(
+      selectionColor: selectionColor,
+      selectionHandleColor: lightGreen,
+    ),
+  );
 }
