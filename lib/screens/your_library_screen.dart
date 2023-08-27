@@ -45,26 +45,77 @@ class YourLibraryScreen extends StatelessWidget {
           IconButton(
             padding: EdgeInsets.zero,
             onPressed: () {
-              showDialog(
+              showModalBottomSheet(
                 context: context,
-                builder: (context) => AlertDialog(
-                  backgroundColor: transparent,
-                  content: Stack(
+                // isScrollControlled: true,
+                backgroundColor: transparent,
+                builder: (context) => Container(
+                  height: 180,
+                  decoration: const BoxDecoration(
+                    color: gray,
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(15),
+                    ),
+                  ),
+                  child: Column(
                     children: [
-                      Positioned(
-                        bottom: 0,
-                        child: SlideInUp(
-                          duration: const Duration(milliseconds: 200),
-                          child: Container(
-                            height: 200,
-                            width: size.width,
-                            decoration: const BoxDecoration(
-                              color: Color(0xff242424),
-                              borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(15),
-                              ),
-                            ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(vertical: 10),
+                        width: 40,
+                        height: 5,
+                        decoration: const BoxDecoration(
+                          color: Colors.grey,
+                          borderRadius: BorderRadius.horizontal(
+                            left: Radius.circular(25),
+                            right: Radius.circular(25),
                           ),
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(vertical: 10),
+                        child: const Text(
+                          'Crear',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color: white,
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                      const Divider(color: white, thickness: .1),
+                      Container(
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 10),
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.music_note_outlined,
+                              color: Colors.grey,
+                              size: 35,
+                            ),
+                            const SizedBox(width: 10),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: const [
+                                Text(
+                                  'Playlist',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    color: white,
+                                    fontSize: 18,
+                                  ),
+                                ),
+                                Text(
+                                  'Crea una playlist con canciones',
+                                  style: TextStyle(
+                                    // fontWeight: FontWeight.w500,
+                                    color: Colors.grey,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
                         ),
                       ),
                     ],

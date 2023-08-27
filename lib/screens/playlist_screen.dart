@@ -169,9 +169,7 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                                                   color: Colors.white),
                                             ),
                                             TextSpan(
-                                              text:
-                                                  // "${formatDuration(duration, withHours: true)}",
-                                                  widget.playlist.total,
+                                              text: widget.playlist.total,
                                               style: const TextStyle(
                                                   color: Colors.grey),
                                             )
