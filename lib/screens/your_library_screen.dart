@@ -77,6 +77,7 @@ class YourLibraryScreen extends StatelessWidget {
             splashColor: Colors.transparent,
           ),
         ],
+        automaticallyImplyLeading: false,
       ),
       body: Container(
         padding: const EdgeInsets.only(top: 15),

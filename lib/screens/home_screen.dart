@@ -32,6 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
             splashRadius: 20,
           ),
         ],
+        automaticallyImplyLeading: false,
       ),
       body: Container(
         width: size.width,
