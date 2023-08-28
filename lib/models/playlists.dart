@@ -9,26 +9,31 @@ class Playlist {
   List<SongModel> songs;
   String total;
   String mainColor;
+  bool isPinned;
 
-  Playlist(
-      {required this.title,
-      required this.totalSongs,
-      required this.image,
-      required this.albumCover,
-      required this.songs,
-      this.total = "",
-      this.mainColor = "0xff4e4e4e"});
+  Playlist({
+    required this.title,
+    required this.totalSongs,
+    required this.image,
+    required this.albumCover,
+    required this.songs,
+    this.total = "",
+    this.mainColor = "0xff4e4e4e",
+    required this.isPinned,
+  });
 
   factory Playlist.fromJson(Map<String, dynamic> json) => Playlist(
-      title: json["title"],
-      totalSongs: json["totalSongs"],
-      image: json["image"],
-      albumCover: json["albumCover"],
-      songs: json["songs"] != null
-          ? List<SongModel>.from(
-              json["songs"].map((e) => SongModel.fromJson(e)))
-          : [],
-      mainColor: json["mainColor"]);
+        title: json["title"],
+        totalSongs: json["totalSongs"],
+        image: json["image"],
+        albumCover: json["albumCover"],
+        songs: json["songs"] != null
+            ? List<SongModel>.from(
+                json["songs"].map((e) => SongModel.fromJson(e)))
+            : [],
+        mainColor: json["mainColor"],
+        isPinned: json["isPinned"],
+      );
 
   Map<String, dynamic> toJson() => {
         "title": title,
@@ -36,6 +41,7 @@ class Playlist {
         "image": image,
         "albumCover": albumCover,
         "songs": List<dynamic>.from(songs.map((x) => x.toJson())),
-        "mainColor": mainColor
+        "mainColor": mainColor,
+        "isPinned": isPinned,
       };
 }

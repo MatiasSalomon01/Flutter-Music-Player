@@ -112,6 +112,7 @@ class _CreatePlaylistState extends State<CreatePlaylist> {
                         albumCover:
                             'https://firebasestorage.googleapis.com/v0/b/flutter-music-player-9518c.appspot.com/o/images%2Falbum-default.png?alt=media&token=e6c6d08e-68dc-4fd4-bcf0-d153f2f1ad25',
                         songs: [],
+                        isPinned: false,
                       );
                       await playlistService.create(playlist);
                       songService.addPlaylist(playlist);

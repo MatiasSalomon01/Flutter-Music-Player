@@ -72,6 +72,7 @@ class _CustomAnimatedIconState extends State<CustomAnimatedIcon>
             albumCover:
                 'https://firebasestorage.googleapis.com/v0/b/flutter-music-player-9518c.appspot.com/o/images%2Falbum-default.png?alt=media&token=e6c6d08e-68dc-4fd4-bcf0-d153f2f1ad25',
             songs: [song],
+            isPinned: false,
           );
           songService.playlists = [playlist];
           await songService.updateLikedSong(playlist);
