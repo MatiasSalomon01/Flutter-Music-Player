@@ -69,6 +69,8 @@ class _CustomAnimatedIconState extends State<CustomAnimatedIcon>
             totalSongs: 1,
             image:
                 'https://firebasestorage.googleapis.com/v0/b/flutter-music-player-9518c.appspot.com/o/images%2Fliked-songs-300.png?alt=media&token=b89872ec-3c82-4317-831e-651b84606206',
+            albumCover:
+                'https://firebasestorage.googleapis.com/v0/b/flutter-music-player-9518c.appspot.com/o/images%2Falbum-default.png?alt=media&token=e6c6d08e-68dc-4fd4-bcf0-d153f2f1ad25',
             songs: [song],
           );
           songService.playlists = [playlist];

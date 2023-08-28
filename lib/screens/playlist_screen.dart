@@ -2,7 +2,6 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:music_player/constants/constants.dart';
 import 'package:music_player/models/playlists.dart';
-import 'package:music_player/providers/providers.dart';
 import 'package:music_player/services/services.dart';
 import 'package:music_player/widgets/widgets.dart';
 import 'package:provider/provider.dart';
@@ -11,7 +10,7 @@ class PlaylistScreen extends StatefulWidget {
   const PlaylistScreen({
     super.key,
     required this.playlist,
-    this.mainColor = const Color(0xff6a6a6a),
+    this.mainColor = const Color(0xff4e4e4e),
     this.appBarColor = const Color.fromARGB(255, 59, 59, 59),
   });
   final Playlist playlist;
@@ -65,7 +64,7 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                     ],
                     begin: Alignment.topCenter,
                     end: Alignment.center,
-                    stops: const [.4, 1]),
+                    stops: const [0, 1]),
               ),
               child: CustomScrollView(
                 controller: controller,
@@ -93,11 +92,20 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                                                 .clamp(0, 1)
                                         : 1,
                                 child: Container(
-                                  padding: const EdgeInsets.only(top: 20),
+                                  margin: const EdgeInsets.only(top: 20),
+                                  decoration: BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: black.withOpacity(.5),
+                                        spreadRadius: 1,
+                                        blurRadius: 10,
+                                      ),
+                                    ],
+                                  ),
                                   child: AspectRatio(
                                     aspectRatio: 1.0,
                                     child: Image.network(
-                                      widget.playlist.image,
+                                      widget.playlist.albumCover,
                                       fit: BoxFit.cover,
                                     ),
                                   ),
