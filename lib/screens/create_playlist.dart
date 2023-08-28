@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:music_player/constants/constants.dart';
 import 'package:music_player/models/playlists.dart';
 import 'package:music_player/services/services.dart';
+import 'package:music_player/widgets/stadium_button.dart';
 import 'package:provider/provider.dart';
 
 class CreatePlaylist extends StatefulWidget {
@@ -14,16 +15,27 @@ class CreatePlaylist extends StatefulWidget {
 
 class _CreatePlaylistState extends State<CreatePlaylist> {
   late final TextEditingController controller;
+  final FocusNode _focusNode = FocusNode();
 
   @override
   void initState() {
-    controller = TextEditingController(text: 'Mi Playlist #1');
+    final songService = Provider.of<SongService>(context, listen: false);
+    controller = TextEditingController(
+        text: 'Mi Playlist #${songService.playlists.length}');
+
+    Future.delayed(Duration.zero, () => _focusNode.requestFocus());
+
+    controller.selection = TextSelection(
+      baseOffset: 0,
+      extentOffset: controller.text.length,
+    );
     super.initState();
   }
 
   @override
   void dispose() {
     controller.dispose();
+    _focusNode.dispose();
     super.dispose();
   }
 
@@ -56,6 +68,7 @@ class _CreatePlaylistState extends State<CreatePlaylist> {
                 margin: const EdgeInsets.symmetric(vertical: 60),
                 constraints: const BoxConstraints(maxWidth: 360),
                 child: AutoSizeTextField(
+                  focusNode: _focusNode,
                   controller: controller,
                   cursorColor: white,
                   minFontSize: 14,
@@ -80,61 +93,32 @@ class _CreatePlaylistState extends State<CreatePlaylist> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  MaterialButton(
+                  StadiumButton(
+                    text: 'Cancelar',
+                    buttonColor: transparent,
                     onPressed: () => Navigator.of(context).pop(),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 30,
-                      vertical: 15,
-                    ),
-                    splashColor: transparent,
-                    highlightColor: transparent,
-                    elevation: 0,
-                    shape: const StadiumBorder(
-                      side: BorderSide(color: white, width: .3),
-                    ),
-                    child: const Text(
-                      'Cancelar',
-                      style: TextStyle(
-                        color: white,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
                   ),
                   const SizedBox(width: 25),
-                  MaterialButton(
+                  StadiumButton(
+                    text: 'Crear',
+                    textColor: black,
+                    borderColor: black,
                     onPressed: () async {
                       var playlist = Playlist(
                         title: controller.text,
                         totalSongs: 0,
                         image:
                             'https://firebasestorage.googleapis.com/v0/b/flutter-music-player-9518c.appspot.com/o/images%2FCaptura%20de%20pantalla%202023-08-14%20203624%20(1).png?alt=media&token=49a4d518-aa5e-49ed-ae47-4cd365da11a3',
+                        albumCover:
+                            'https://firebasestorage.googleapis.com/v0/b/flutter-music-player-9518c.appspot.com/o/images%2Falbum-default.png?alt=media&token=e6c6d08e-68dc-4fd4-bcf0-d153f2f1ad25',
                         songs: [],
+                        isPinned: false,
                       );
-
-                      await playlistService.create(playlist);
-                      songService.getPlaylists();
+                      var id = await playlistService.create(playlist);
+                      playlist.id = id;
+                      songService.addPlaylist(playlist);
                       Navigator.of(context).pop();
                     },
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 30,
-                      vertical: 15,
-                    ),
-                    splashColor: transparent,
-                    highlightColor: transparent,
-                    color: lightGreen,
-                    elevation: 0,
-                    shape: const StadiumBorder(
-                      side: BorderSide(color: black, width: .3),
-                    ),
-                    child: const Text(
-                      'Crear',
-                      style: TextStyle(
-                        color: black,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
                   ),
                 ],
               ),

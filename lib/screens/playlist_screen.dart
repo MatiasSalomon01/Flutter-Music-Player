@@ -2,7 +2,6 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:music_player/constants/constants.dart';
 import 'package:music_player/models/playlists.dart';
-import 'package:music_player/providers/providers.dart';
 import 'package:music_player/services/services.dart';
 import 'package:music_player/widgets/widgets.dart';
 import 'package:provider/provider.dart';
@@ -11,7 +10,7 @@ class PlaylistScreen extends StatefulWidget {
   const PlaylistScreen({
     super.key,
     required this.playlist,
-    this.mainColor = const Color(0xff6a6a6a),
+    this.mainColor = const Color(0xff4e4e4e),
     this.appBarColor = const Color.fromARGB(255, 59, 59, 59),
   });
   final Playlist playlist;
@@ -48,7 +47,7 @@ class _PlaylistScreenState extends State<PlaylistScreen>
     final size = MediaQuery.of(context).size;
     final audioProvider = Provider.of<AudioProvider>(context);
     final songService = Provider.of<SongService>(context);
-    double topHeight = size.height * .45;
+    double topHeight = size.height * .5;
     return FadeInUpBig(
       duration: const Duration(milliseconds: 300),
       from: 100,
@@ -65,7 +64,7 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                     ],
                     begin: Alignment.topCenter,
                     end: Alignment.center,
-                    stops: const [.4, 1]),
+                    stops: const [0, 1]),
               ),
               child: CustomScrollView(
                 controller: controller,
@@ -93,11 +92,20 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                                                 .clamp(0, 1)
                                         : 1,
                                 child: Container(
-                                  padding: const EdgeInsets.only(top: 20),
+                                  margin: const EdgeInsets.only(top: 20),
+                                  decoration: BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: black.withOpacity(.5),
+                                        spreadRadius: 1,
+                                        blurRadius: 10,
+                                      ),
+                                    ],
+                                  ),
                                   child: AspectRatio(
                                     aspectRatio: 1.0,
                                     child: Image.network(
-                                      widget.playlist.image,
+                                      widget.playlist.albumCover,
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -135,50 +143,55 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                       child: Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(left: 15),
+                            padding: const EdgeInsets.only(
+                              left: 15,
+                              right: 100,
+                            ),
                             child: Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
                                 widget.playlist.title,
+                                maxLines: 2,
                                 style: const TextStyle(
                                     color: white,
                                     fontSize: 20,
-                                    fontWeight: FontWeight.w600),
+                                    fontWeight: FontWeight.w600,
+                                    overflow: TextOverflow.ellipsis),
                               ),
                             ),
                           ),
-                          const SizedBox(height: 15),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 15),
-                            child: Row(
-                              children: [
-                                const SizedBox(width: 4),
-                                widget.playlist.songs.isEmpty
-                                    ? const Text("")
-                                    : RichText(
-                                        text: TextSpan(
-                                          style: const TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                          children: [
-                                            TextSpan(
-                                              text:
-                                                  "• ${widget.playlist.songs.length} canciones, ",
-                                              style: const TextStyle(
-                                                  color: Colors.white),
-                                            ),
-                                            TextSpan(
-                                              text: widget.playlist.total,
-                                              style: const TextStyle(
-                                                  color: Colors.grey),
-                                            )
-                                          ],
-                                        ),
+                          if (widget.playlist.songs.isNotEmpty) ...[
+                            const SizedBox(height: 15),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 15),
+                              child: Row(
+                                children: [
+                                  const SizedBox(width: 4),
+                                  RichText(
+                                    text: TextSpan(
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w400,
                                       ),
-                              ],
+                                      children: [
+                                        TextSpan(
+                                          text:
+                                              "• ${widget.playlist.songs.length} canciones, ",
+                                          style: const TextStyle(
+                                              color: Colors.white),
+                                        ),
+                                        TextSpan(
+                                          text: widget.playlist.total,
+                                          style: const TextStyle(
+                                              color: Colors.grey),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
+                          ],
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
@@ -255,7 +268,7 @@ class _PlaylistScreenState extends State<PlaylistScreen>
             Positioned(
               right: 20,
               top: controller.positions.isNotEmpty
-                  ? topHeight - controller.offset.clamp(0, size.height * .38)
+                  ? topHeight - controller.offset.clamp(0, size.height * .43)
                   : topHeight,
               child: FloatingActionButton(
                 backgroundColor: const Color(0xff1ed760),

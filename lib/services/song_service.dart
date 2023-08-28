@@ -100,45 +100,26 @@ class SongService extends ChangeNotifier {
     notifyListeners();
   }
 
-  // List<SongModel> getLikedSongs() {
-  //   List<SongModel> likedSongs = [];
-  //   songs.forEach((element) {
-  //     if (element.isFavorite) likedSongs.add(element);
-  //   });
-  //   return likedSongs;
-  // }
-
   Future getPlaylists() async {
     _playlists.clear();
     final url = Uri.https(baseUrl, '/playlists.json');
     final response = await http.get(url);
     final Map<String, dynamic> data = json.decode(response.body);
 
+    List<Playlist> pinned = [];
     data.forEach((key, value) {
-      // if (value["totalSongs"] == 0) {
-      //   var playlist = Playlist(
-      //     title: 'Tus me gustas',
-      //     totalSongs: 0,
-      //     image:
-      //         'https://firebasestorage.googleapis.com/v0/b/flutter-music-player-9518c.appspot.com/o/images%2Fliked-songs-300.png?alt=media&token=b89872ec-3c82-4317-831e-651b84606206',
-      //     songs: [],
-      //   );
-      //   _playlists = [playlist];
-      //   notifyListeners();
-      //   return;
-      // }
       final playlist = Playlist.fromJson(value);
       playlist.id = key;
       playlist.total =
           formatDuration(getTotalDuration(playlist.songs), withHours: true);
-      _playlists.add(playlist);
-    });
 
-    List<Playlist> orderedPlaylists = [];
-    for (var i = _playlists.length - 1; i >= 0; i--) {
-      orderedPlaylists.add(_playlists[i]);
-    }
-    _playlists = orderedPlaylists;
+      if (playlist.isPinned) {
+        pinned.add(playlist);
+      } else {
+        _playlists.add(playlist);
+      }
+    });
+    _playlists.insertAll(0, pinned.reversed);
     notifyListeners();
   }
 
@@ -172,6 +153,33 @@ class SongService extends ChangeNotifier {
       e.total = formatDuration(getTotalDuration(e.songs), withHours: true);
       return e;
     }).toList();
+    notifyListeners();
+  }
+
+  void addPlaylist(Playlist playlist) {
+    _playlists.add(playlist);
+    notifyListeners();
+  }
+
+  void deletePlaylistById(String id) {
+    _playlists.removeWhere((element) => element.id == id);
+    notifyListeners();
+  }
+
+  void pinPlaylist(Playlist playlist) async {
+    final url = Uri.https(baseUrl, '/playlists/${playlist.id}/isPinned.json');
+    final response = await http.put(url, body: json.encode(!playlist.isPinned));
+    _playlists = _playlists.map((e) {
+      if (e.id != playlist.id) return e;
+      e.isPinned = !e.isPinned;
+      return e;
+    }).toList();
+
+    var pinned = _playlists.where((element) => element.isPinned).toList();
+    var notPinned = _playlists.where((element) => !element.isPinned).toList();
+    pinned.addAll(notPinned);
+    _playlists.clear();
+    _playlists.addAll(pinned);
     notifyListeners();
   }
 }
