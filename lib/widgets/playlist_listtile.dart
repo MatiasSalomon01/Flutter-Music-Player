@@ -59,7 +59,7 @@ class PlaylistListTile extends StatelessWidget {
                 const SizedBox(height: 5),
                 Row(
                   children: [
-                    if (index == 0) ...[
+                    if (playlist.isPinned) ...[
                       Transform.rotate(
                         angle: .7,
                         child: const Icon(
@@ -141,20 +141,28 @@ class PlaylistListTile extends StatelessWidget {
               contentPadding: const EdgeInsets.symmetric(horizontal: 10),
               leading: Transform.rotate(
                 angle: .7,
-                child: const Icon(
-                  Icons.push_pin_outlined,
+                child: Icon(
+                  playlist.isPinned
+                      ? Icons.push_pin_rounded
+                      : Icons.push_pin_outlined,
                   size: 30,
-                  color: Colors.grey,
+                  color: playlist.isPinned ? lightGreen : Colors.grey,
                 ),
               ),
-              title: const Text(
-                'Fijar playlist',
-                style: TextStyle(
+              title: Text(
+                playlist.isPinned ? 'Desfijar playlist' : 'Fijar playlist',
+                style: const TextStyle(
                   fontWeight: FontWeight.w500,
                   color: white,
                   fontSize: 20,
                 ),
               ),
+              onTap: () {
+                final songService =
+                    Provider.of<SongService>(context, listen: false);
+                songService.pinPlaylist(playlist);
+                Navigator.of(context).pop();
+              },
             ),
             const ListTile(
               contentPadding: EdgeInsets.symmetric(horizontal: 10),
