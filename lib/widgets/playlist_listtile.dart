@@ -45,9 +45,16 @@ class PlaylistListTile extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  playlist.title,
-                  style: const TextStyle(color: white, fontSize: 18),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * .75,
+                  child: Text(
+                    playlist.title,
+                    style: const TextStyle(
+                      color: white,
+                      fontSize: 18,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 5),
                 Row(
