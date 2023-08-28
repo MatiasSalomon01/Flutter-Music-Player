@@ -175,6 +175,11 @@ class SongService extends ChangeNotifier {
     notifyListeners();
   }
 
+  void addPlaylist(Playlist playlist) {
+    _playlists.add(playlist);
+    notifyListeners();
+  }
+
   void deletePlaylistById(String id) {
     _playlists.removeWhere((element) => element.id == id);
     notifyListeners();

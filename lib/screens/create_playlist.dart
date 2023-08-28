@@ -19,7 +19,9 @@ class _CreatePlaylistState extends State<CreatePlaylist> {
 
   @override
   void initState() {
-    controller = TextEditingController(text: 'Mi Playlist #1');
+    final songService = Provider.of<SongService>(context, listen: false);
+    controller = TextEditingController(
+        text: 'Mi Playlist #${songService.playlists.length}');
 
     Future.delayed(Duration.zero, () => _focusNode.requestFocus());
 
@@ -110,7 +112,7 @@ class _CreatePlaylistState extends State<CreatePlaylist> {
                         songs: [],
                       );
                       await playlistService.create(playlist);
-                      songService.getPlaylists();
+                      songService.addPlaylist(playlist);
                       Navigator.of(context).pop();
                     },
                   ),
