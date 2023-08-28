@@ -81,10 +81,7 @@ Future showDeleteModal(BuildContext context, Playlist playlist) {
                 textColor: black,
                 onPressed: () async {
                   await playlistService.delete(playlist);
-                  songService.playlists
-                      .removeWhere((element) => element.id == playlist.id);
-                  var playlists = songService.playlists;
-                  songService.playlists = playlists;
+                  songService.deletePlaylistById(playlist.id!);
                   Navigator.of(context).pop(); //modal
                 }),
             StadiumButton(
