@@ -21,7 +21,7 @@ class PlaylistListTile extends StatelessWidget {
     final songService = Provider.of<SongService>(context);
     return GestureDetector(
       onTap: () => goToPlaylistScreen(context, songService),
-      onLongPress: () => showModal(context),
+      onLongPress: () => showModal(context, playlist),
       child: Container(
         color: transparent,
         child: Row(
@@ -97,9 +97,44 @@ class PlaylistListTile extends StatelessWidget {
     );
   }
 
-  void showModal(BuildContext context) => showPlaylistModal(
+  void showModal(BuildContext context, Playlist playlist) => showPlaylistModal(
         context,
-        height: 260,
+        height: 310,
+        header: Container(
+          margin: const EdgeInsets.symmetric(vertical: 10),
+          child: Row(
+            children: [
+              Container(
+                width: 55,
+                height: 55,
+                margin: const EdgeInsets.symmetric(horizontal: 15),
+                child: Image.network(
+                  playlist.image,
+                  fit: BoxFit.cover,
+                  loadingBuilder: (context, child, loadingProgress) =>
+                      Container(
+                    color: darkGrey,
+                    width: 55,
+                    height: 55,
+                    child: child,
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * .75,
+                child: Text(
+                  playlist.title,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w500,
+                    color: white,
+                    fontSize: 20,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
         child: Column(
           children: [
             ListTile(
