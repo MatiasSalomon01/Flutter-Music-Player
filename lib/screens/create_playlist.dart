@@ -114,7 +114,8 @@ class _CreatePlaylistState extends State<CreatePlaylist> {
                         songs: [],
                         isPinned: false,
                       );
-                      await playlistService.create(playlist);
+                      var id = await playlistService.create(playlist);
+                      playlist.id = id;
                       songService.addPlaylist(playlist);
                       Navigator.of(context).pop();
                     },

@@ -22,6 +22,7 @@ class YourLibraryScreen extends StatelessWidget {
               width: size.width,
               height: size.height,
               child: ListView.separated(
+                physics: const BouncingScrollPhysics(),
                 itemCount: songService.playlists.length,
                 itemBuilder: (context, index) {
                   return PlaylistListTile(
