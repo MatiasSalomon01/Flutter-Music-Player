@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:music_player/constants/constants.dart';
 import 'package:music_player/models/playlists.dart';
 import 'package:music_player/services/services.dart';
+import 'package:music_player/widgets/stadium_button.dart';
 import 'package:provider/provider.dart';
 
 class CreatePlaylist extends StatefulWidget {
@@ -90,29 +91,16 @@ class _CreatePlaylistState extends State<CreatePlaylist> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  MaterialButton(
+                  StadiumButton(
+                    text: 'Cancelar',
+                    buttonColor: transparent,
                     onPressed: () => Navigator.of(context).pop(),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 30,
-                      vertical: 15,
-                    ),
-                    splashColor: transparent,
-                    highlightColor: transparent,
-                    elevation: 0,
-                    shape: const StadiumBorder(
-                      side: BorderSide(color: white, width: .3),
-                    ),
-                    child: const Text(
-                      'Cancelar',
-                      style: TextStyle(
-                        color: white,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
                   ),
                   const SizedBox(width: 25),
-                  MaterialButton(
+                  StadiumButton(
+                    text: 'Crear',
+                    textColor: black,
+                    borderColor: black,
                     onPressed: () async {
                       var playlist = Playlist(
                         title: controller.text,
@@ -121,30 +109,10 @@ class _CreatePlaylistState extends State<CreatePlaylist> {
                             'https://firebasestorage.googleapis.com/v0/b/flutter-music-player-9518c.appspot.com/o/images%2FCaptura%20de%20pantalla%202023-08-14%20203624%20(1).png?alt=media&token=49a4d518-aa5e-49ed-ae47-4cd365da11a3',
                         songs: [],
                       );
-
                       await playlistService.create(playlist);
                       songService.getPlaylists();
                       Navigator.of(context).pop();
                     },
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 30,
-                      vertical: 15,
-                    ),
-                    splashColor: transparent,
-                    highlightColor: transparent,
-                    color: lightGreen,
-                    elevation: 0,
-                    shape: const StadiumBorder(
-                      side: BorderSide(color: black, width: .3),
-                    ),
-                    child: const Text(
-                      'Crear',
-                      style: TextStyle(
-                        color: black,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
                   ),
                 ],
               ),
