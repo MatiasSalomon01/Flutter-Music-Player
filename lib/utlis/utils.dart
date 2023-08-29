@@ -7,15 +7,15 @@ import 'package:flutter/material.dart';
 
 Future showPlaylistModal(
   BuildContext context, {
-  Widget header = const SizedBox(height: 10),
-  double height = 500,
-  Widget child = const SizedBox(),
+  Widget? header,
+  double? height,
+  Widget? child,
 }) {
   return showModalBottomSheet(
     context: context,
     backgroundColor: transparent,
     builder: (context) => Container(
-      height: height,
+      height: height ?? 500,
       decoration: const BoxDecoration(
         color: gray,
         borderRadius: BorderRadius.vertical(
@@ -36,11 +36,11 @@ Future showPlaylistModal(
               ),
             ),
           ),
-          header,
+          header ?? const SizedBox(height: 10),
           const Divider(color: white, thickness: .1),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-            child: child,
+            child: child ?? const SizedBox(),
           ),
         ],
       ),

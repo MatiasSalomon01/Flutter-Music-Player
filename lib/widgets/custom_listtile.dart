@@ -5,6 +5,7 @@ import 'package:music_player/models/models.dart';
 import 'package:music_player/providers/providers.dart';
 import 'package:music_player/screens/screens.dart';
 import 'package:music_player/services/song_service.dart';
+import 'package:music_player/utlis/utils.dart';
 import 'package:music_player/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -83,7 +84,7 @@ class _CustomListTileState extends State<CustomListTile> {
             CustomAnimatedIcon(
                 isFavorite: widget.data.isFavorite, id: widget.data.id!),
             IconButton(
-              onPressed: () {},
+              onPressed: () => showPlaylistModal(context),
               icon: Icon(
                 Icons.more_vert,
                 color: Colors.grey.shade600,
