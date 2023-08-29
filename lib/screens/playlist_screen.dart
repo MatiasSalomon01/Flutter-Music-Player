@@ -268,7 +268,7 @@ class _PlaylistScreenState extends State<PlaylistScreen>
             Positioned(
               right: 20,
               top: controller.positions.isNotEmpty
-                  ? topHeight - controller.offset.clamp(0, size.height * .43)
+                  ? topHeight - controller.offset.clamp(0, size.height * .44)
                   : topHeight,
               child: FloatingActionButton(
                 backgroundColor: const Color(0xff1ed760),
