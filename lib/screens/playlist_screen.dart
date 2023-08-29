@@ -47,7 +47,7 @@ class _PlaylistScreenState extends State<PlaylistScreen>
     final size = MediaQuery.of(context).size;
     final audioProvider = Provider.of<AudioProvider>(context);
     final songService = Provider.of<SongService>(context);
-    double topHeight = size.height * .5;
+    double topHeight = size.height * .54;
     return FadeInUpBig(
       duration: const Duration(milliseconds: 300),
       from: 100,
@@ -268,7 +268,7 @@ class _PlaylistScreenState extends State<PlaylistScreen>
             Positioned(
               right: 20,
               top: controller.positions.isNotEmpty
-                  ? topHeight - controller.offset.clamp(0, size.height * .44)
+                  ? topHeight - controller.offset.clamp(0, size.height * .48)
                   : topHeight,
               child: FloatingActionButton(
                 backgroundColor: const Color(0xff1ed760),
