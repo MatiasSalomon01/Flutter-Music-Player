@@ -30,7 +30,7 @@ class StadiumButton extends StatelessWidget {
         vertical: 15,
       ),
       splashColor: transparent,
-      highlightColor: transparent,
+      highlightColor: Colors.black.withOpacity(.3),
       elevation: 0,
       color: buttonColor,
       highlightElevation: 0,
