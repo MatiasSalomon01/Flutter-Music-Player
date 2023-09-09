@@ -2,8 +2,9 @@ import 'package:auto_size_text_field/auto_size_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:music_player/constants/constants.dart';
 import 'package:music_player/models/playlists.dart';
+import 'package:music_player/screens/playlist_screen.dart';
 import 'package:music_player/services/services.dart';
-import 'package:music_player/widgets/stadium_button.dart';
+import 'package:music_player/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 class CreatePlaylist extends StatefulWidget {
@@ -117,7 +118,12 @@ class _CreatePlaylistState extends State<CreatePlaylist> {
                       var id = await playlistService.create(playlist);
                       playlist.id = id;
                       songService.addPlaylist(playlist);
-                      Navigator.of(context).pop();
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              PlaylistScreen(playlist: playlist),
+                        ),
+                      );
                     },
                   ),
                 ],
