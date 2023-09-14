@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:music_player/constants/constants.dart';
 import 'package:music_player/models/models.dart';
 import 'package:music_player/providers/providers.dart';
+import 'package:music_player/screens/screens.dart';
 import 'package:music_player/services/song_service.dart';
 import 'package:music_player/utlis/utils.dart';
 import 'package:music_player/widgets/widgets.dart';
 import 'package:provider/provider.dart';
-
 import '../models/playlists.dart';
 
 class CustomListTile extends StatefulWidget {
@@ -228,6 +228,14 @@ class _CustomListTileState extends State<CustomListTile> {
                   fontSize: 20,
                 ),
               ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const AddToPlaylistScreen(),
+                  ),
+                );
+              },
             ),
             const ListTile(
               contentPadding: EdgeInsets.symmetric(horizontal: 10),
