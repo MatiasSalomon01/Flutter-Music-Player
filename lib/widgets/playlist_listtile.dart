@@ -27,7 +27,7 @@ class PlaylistListTile extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         if (!isAddToPlaylist) {
-          goToPlaylistScreen(context, songService);
+          goToPlaylistScreen(context, songService, index);
         } else {
           addToPlaylist(context, index, playlist);
         }
@@ -101,7 +101,8 @@ class PlaylistListTile extends StatelessWidget {
     );
   }
 
-  void goToPlaylistScreen(BuildContext context, SongService songService) {
+  void goToPlaylistScreen(
+      BuildContext context, SongService songService, int index) {
     songService.currentPlaylist = playlist.songs;
     Navigator.of(context).push(
       MaterialPageRoute(
@@ -109,6 +110,7 @@ class PlaylistListTile extends StatelessWidget {
           playlist: playlist,
           mainColor: Color(int.parse(playlist.mainColor)),
           appBarColor: Color(int.parse(playlist.mainColor) - 30),
+          index: index,
         ),
       ),
     );
@@ -225,6 +227,6 @@ class PlaylistListTile extends StatelessWidget {
     // ignore: use_build_context_synchronously
     Navigator.pop(context);
     // ignore: use_build_context_synchronously
-    goToPlaylistScreen(context, service);
+    goToPlaylistScreen(context, service, index);
   }
 }

@@ -13,12 +13,15 @@ class CustomListTile extends StatefulWidget {
   final SongModel data;
   final int index;
   final int length;
-  const CustomListTile({
-    super.key,
-    required this.data,
-    required this.index,
-    required this.length,
-  });
+  final bool isInPlaylist;
+  final int? playlistIndex;
+  const CustomListTile(
+      {super.key,
+      required this.data,
+      required this.index,
+      required this.length,
+      this.isInPlaylist = false,
+      this.playlistIndex});
 
   @override
   State<CustomListTile> createState() => _CustomListTileState();
@@ -193,50 +196,87 @@ class _CustomListTileState extends State<CustomListTile> {
             ),
             ListTile(
               contentPadding: const EdgeInsets.symmetric(horizontal: 10),
-              leading: SizedBox(
-                width: 40,
-                child: Stack(
-                  children: const [
-                    Padding(
-                      padding: EdgeInsets.only(left: 6),
-                      child: Icon(
-                        Icons.music_note_outlined,
-                        size: 30,
-                        color: Colors.grey,
+              leading: !widget.isInPlaylist
+                  ? SizedBox(
+                      width: 40,
+                      child: Stack(
+                        children: const [
+                          Padding(
+                            padding: EdgeInsets.only(left: 6),
+                            child: Icon(
+                              Icons.music_note_outlined,
+                              size: 30,
+                              color: Colors.grey,
+                            ),
+                          ),
+                          Positioned(
+                            top: -3,
+                            left: -4,
+                            child: Padding(
+                              padding: EdgeInsets.only(left: 3),
+                              child: Icon(
+                                Icons.add,
+                                size: 18,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          )
+                        ],
                       ),
+                    )
+                  : const Icon(
+                      Icons.remove_circle_outline_outlined,
+                      size: 30,
+                      color: Colors.grey,
                     ),
-                    Positioned(
-                      top: -3,
-                      left: -4,
-                      child: Padding(
-                        padding: EdgeInsets.only(left: 3),
-                        child: Icon(
-                          Icons.add,
-                          size: 18,
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              title: const Text(
-                'Agregar a playlist',
-                style: TextStyle(
+              title: Text(
+                !widget.isInPlaylist
+                    ? 'Agregar a playlist'
+                    : 'Eliminar de esta playlist',
+                style: const TextStyle(
                   fontWeight: FontWeight.w500,
                   color: white,
                   fontSize: 20,
                 ),
               ),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        AddToPlaylistScreen(song: widget.data),
-                  ),
-                );
+              onTap: () async {
+                if (!widget.isInPlaylist) {
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          AddToPlaylistScreen(song: widget.data),
+                    ),
+                  );
+                } else {
+                  final songService =
+                      Provider.of<SongService>(context, listen: false);
+
+                  var playlist = songService.playlists[widget.playlistIndex!];
+
+                  List<SongModel> newSongs = [];
+                  bool founded = false;
+                  for (var i = 0; i < playlist.songs.length; i++) {
+                    if (!founded) {
+                      if (playlist.songs[i].id == widget.data.id) {
+                        founded = true;
+                        continue;
+                      } else {
+                        newSongs.add(playlist.songs[i]);
+                        continue;
+                      }
+                    } else {
+                      newSongs.add(playlist.songs[i]);
+                    }
+                  }
+
+                  playlist.songs = newSongs;
+                  await songService.updatePlaylistsSong(
+                      widget.playlistIndex!, playlist);
+                  // ignore: use_build_context_synchronously
+                  Navigator.pop(context);
+                }
               },
             ),
             const ListTile(

@@ -120,8 +120,9 @@ class _CreatePlaylistState extends State<CreatePlaylist> {
                       songService.addPlaylist(playlist);
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
-                          builder: (context) =>
-                              PlaylistScreen(playlist: playlist),
+                          builder: (context) => PlaylistScreen(
+                              playlist: playlist,
+                              index: songService.playlists.length - 1),
                         ),
                       );
                     },
