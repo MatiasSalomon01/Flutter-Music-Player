@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:music_player/constants/constants.dart';
+import 'package:music_player/models/models.dart';
 import 'package:music_player/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import '../colors/colors.dart';
 import '../services/services.dart';
 
 class AddToPlaylistScreen extends StatelessWidget {
-  const AddToPlaylistScreen({super.key});
+  final SongModel song;
+  const AddToPlaylistScreen({super.key, required this.song});
 
   @override
   Widget build(BuildContext context) {
@@ -117,6 +119,7 @@ class AddToPlaylistScreen extends StatelessWidget {
                     playlist: songService.playlists[newIndex],
                     index: newIndex,
                     isAddToPlaylist: true,
+                    songToAdd: song,
                   );
                 },
                 separatorBuilder: (context, index) =>

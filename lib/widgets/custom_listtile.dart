@@ -229,10 +229,12 @@ class _CustomListTileState extends State<CustomListTile> {
                 ),
               ),
               onTap: () {
+                Navigator.pop(context);
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const AddToPlaylistScreen(),
+                    builder: (context) =>
+                        AddToPlaylistScreen(song: widget.data),
                   ),
                 );
               },
