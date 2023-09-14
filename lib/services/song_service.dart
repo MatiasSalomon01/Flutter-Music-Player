@@ -123,10 +123,12 @@ class SongService extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updatePlaylistsSong(Playlist playlist) async {
+  Future updatePlaylistsSong(int index, Playlist playlist) async {
     playlist.totalSongs = playlist.songs.length;
     final url = Uri.https(baseUrl, '/playlists/${playlist.id}.json');
     final response = await http.put(url, body: json.encode(playlist));
+    _playlists[index] = playlist;
+    notifyListeners();
   }
 
   Future updateLikedSong(Playlist playlist) async {

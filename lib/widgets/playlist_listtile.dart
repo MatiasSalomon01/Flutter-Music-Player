@@ -6,23 +6,37 @@ import 'package:music_player/utlis/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
+import '../models/models.dart';
+
 class PlaylistListTile extends StatelessWidget {
   final Playlist playlist;
   final int index;
   final bool isAddToPlaylist;
+  final SongModel? songToAdd;
   const PlaylistListTile({
     super.key,
     required this.playlist,
     required this.index,
     this.isAddToPlaylist = false,
+    this.songToAdd,
   });
 
   @override
   Widget build(BuildContext context) {
     final songService = Provider.of<SongService>(context);
     return GestureDetector(
-      onTap: () => goToPlaylistScreen(context, songService),
-      onLongPress: () => showModal(context, playlist),
+      onTap: () {
+        if (!isAddToPlaylist) {
+          goToPlaylistScreen(context, songService, index);
+        } else {
+          addToPlaylist(context, index, playlist);
+        }
+      },
+      onLongPress: () {
+        if (!isAddToPlaylist) {
+          showModal(context, playlist);
+        }
+      },
       child: Container(
         color: transparent,
         child: Row(
@@ -87,7 +101,8 @@ class PlaylistListTile extends StatelessWidget {
     );
   }
 
-  void goToPlaylistScreen(BuildContext context, SongService songService) {
+  void goToPlaylistScreen(
+      BuildContext context, SongService songService, int index) {
     songService.currentPlaylist = playlist.songs;
     Navigator.of(context).push(
       MaterialPageRoute(
@@ -95,6 +110,7 @@ class PlaylistListTile extends StatelessWidget {
           playlist: playlist,
           mainColor: Color(int.parse(playlist.mainColor)),
           appBarColor: Color(int.parse(playlist.mainColor) - 30),
+          index: index,
         ),
       ),
     );
@@ -203,4 +219,14 @@ class PlaylistListTile extends StatelessWidget {
           ],
         ),
       );
+
+  void addToPlaylist(BuildContext context, int index, Playlist playlist) async {
+    final service = Provider.of<SongService>(context, listen: false);
+    playlist.songs = [...playlist.songs, songToAdd!];
+    await service.updatePlaylistsSong(index, playlist);
+    // ignore: use_build_context_synchronously
+    Navigator.pop(context);
+    // ignore: use_build_context_synchronously
+    goToPlaylistScreen(context, service, index);
+  }
 }

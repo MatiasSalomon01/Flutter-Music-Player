@@ -12,10 +12,12 @@ class PlaylistScreen extends StatefulWidget {
     required this.playlist,
     this.mainColor = const Color(0xff4e4e4e),
     this.appBarColor = const Color.fromARGB(255, 59, 59, 59),
+    required this.index,
   });
   final Playlist playlist;
   final Color mainColor;
   final Color appBarColor;
+  final int index;
   @override
   State<PlaylistScreen> createState() => _PlaylistScreenState();
 }
@@ -254,6 +256,8 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                               data: widget.playlist.songs[index],
                               index: index,
                               length: widget.playlist.songs.length,
+                              isInPlaylist: true,
+                              playlistIndex: widget.index,
                             ),
                             separatorBuilder: (context, index) =>
                                 const Divider(color: transparent),
