@@ -9,11 +9,12 @@ import 'package:flutter/material.dart';
 class PlaylistListTile extends StatelessWidget {
   final Playlist playlist;
   final int index;
-
+  final bool isAddToPlaylist;
   const PlaylistListTile({
     super.key,
     required this.playlist,
     required this.index,
+    this.isAddToPlaylist = false,
   });
 
   @override
@@ -59,7 +60,7 @@ class PlaylistListTile extends StatelessWidget {
                 const SizedBox(height: 5),
                 Row(
                   children: [
-                    if (playlist.isPinned) ...[
+                    if (playlist.isPinned && !isAddToPlaylist) ...[
                       Transform.rotate(
                         angle: .7,
                         child: const Icon(
@@ -71,7 +72,9 @@ class PlaylistListTile extends StatelessWidget {
                       const SizedBox(width: 8),
                     ],
                     Text(
-                      'Playlist • ${playlist.songs.length} canciones',
+                      !isAddToPlaylist
+                          ? 'Playlist • ${playlist.songs.length} canciones'
+                          : '${playlist.songs.length} canciones',
                       style: const TextStyle(color: Colors.grey, fontSize: 16),
                     ),
                   ],

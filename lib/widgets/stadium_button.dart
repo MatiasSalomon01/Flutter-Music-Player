@@ -8,7 +8,8 @@ class StadiumButton extends StatelessWidget {
   final FontWeight fontWeight;
   final Color buttonColor;
   final Color borderColor;
-  final Function onPressed;
+  final VoidCallback onPressed;
+  final EdgeInsetsGeometry padding;
 
   const StadiumButton({
     super.key,
@@ -19,16 +20,14 @@ class StadiumButton extends StatelessWidget {
     this.borderColor = white,
     this.buttonColor = lightGreen,
     required this.onPressed,
+    this.padding = const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
   });
 
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
       onPressed: () => onPressed(),
-      padding: const EdgeInsets.symmetric(
-        horizontal: 30,
-        vertical: 15,
-      ),
+      padding: padding,
       splashColor: transparent,
       highlightColor: Colors.black.withOpacity(.3),
       elevation: 0,
