@@ -3,8 +3,15 @@ import 'package:music_player/colors/colors.dart';
 import 'package:music_player/constants/constants.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final String title;
-  const CustomAppBar({super.key, required this.title});
+  final Widget title;
+  final IconData icon;
+  final bool showAction;
+  const CustomAppBar({
+    super.key,
+    required this.title,
+    this.icon = Icons.keyboard_arrow_down_rounded,
+    this.showAction = true,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -14,25 +21,24 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: GestureDetector(
         onTap: () => Navigator.of(context).pop(),
         child: Icon(
-          Icons.keyboard_arrow_down_rounded,
+          icon,
           color: AppColors.background,
           size: 30,
         ),
       ),
       centerTitle: true,
-      title: Text(
-        title,
-        style: TextStyle(color: AppColors.background),
-      ),
+      title: title,
       actions: [
-        Padding(
-          padding: const EdgeInsets.only(right: 8),
-          child: Icon(
-            Icons.more_vert_rounded,
-            color: AppColors.background,
-            size: 28,
-          ),
-        ),
+        showAction
+            ? Padding(
+                padding: const EdgeInsets.only(right: 8),
+                child: Icon(
+                  Icons.more_vert_rounded,
+                  color: AppColors.background,
+                  size: 28,
+                ),
+              )
+            : Container()
       ],
     );
   }

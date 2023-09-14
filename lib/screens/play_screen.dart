@@ -36,7 +36,12 @@ class _PlayerScreenState extends State<PlayerScreen> {
       builder: (context, service, _) => Scaffold(
         backgroundColor: AppColors.background,
         extendBodyBehindAppBar: true,
-        appBar: CustomAppBar(title: service.currentSong.title),
+        appBar: CustomAppBar(
+          title: Text(
+            service.currentSong.title,
+            style: TextStyle(color: AppColors.background),
+          ),
+        ),
         body: Container(
           padding: const EdgeInsets.only(top: kToolbarHeight),
           decoration: BoxDecoration(
