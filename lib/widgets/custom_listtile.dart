@@ -274,6 +274,7 @@ class _CustomListTileState extends State<CustomListTile> {
                   playlist.songs = newSongs;
                   await songService.updatePlaylistsSong(
                       widget.playlistIndex!, playlist);
+
                   // ignore: use_build_context_synchronously
                   Navigator.pop(context);
                 }
